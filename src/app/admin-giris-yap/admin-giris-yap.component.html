@@ -1,0 +1,36 @@
+<div class="login-wrapper">
+  <!-- Giriş sayfasının genel konteyneri -->
+  <div class="login-container">
+    <!-- Giriş alanı konteyneri -->
+
+    <h1>Admin Kullanıcı Giriş Yap</h1>
+    <!-- Başlık: "Admin Kullanıcı Giriş Yap" -->
+
+    <img src="https://upload.wikimedia.org/wikipedia/tr/7/79/Necmettin_Erbakan_%C3%9Cniversitesi_logosu.png" alt="Necmettin Erbakan Üniversitesi Logosu" class="logo">
+    <!-- Necmettin Erbakan Üniversitesi Logosu -->
+
+    <form>
+      <!-- Giriş yap formu -->
+
+      <!-- E-posta giriş alanı -->
+      <div>
+        <label for="email">E-posta Adresi:</label>
+        <input type="text" id="email"  [(ngModel)]="loginUserData.email" name="email">
+        <!-- Kullanıcıdan e-posta girişi alınıyor -->
+      </div>
+
+      <!-- Şifre giriş alanı -->
+      <div>
+        <label for="password">Şifre:</label>
+        <input type="password" id="password"  [(ngModel)]="loginUserData.password" name="password">
+        <!-- Kullanıcıdan şifre girişi alınıyor -->
+      </div>
+
+    
+
+      <!-- Giriş yap butonu -->
+      <button (click)="loginUser()" type="button">Giriş Yap</button>
+      <!-- Form gönderme butonu -->
+    </form>
+  </div>
+</div>

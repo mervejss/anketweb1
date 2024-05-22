@@ -1,0 +1,66 @@
+body {
+    /* Sayfa arka planı için resim tanımı */
+    background-image: url('https://uzaktanegitim23guz.erbakan.edu.tr/pluginfile.php/1/theme_boost/loginbackgroundimage/1696226604/BG_login.jpg');
+    /* Resmin boyutunu ayarlar */
+    background-size: cover;
+    /* Resmi sayfa ortasına hizalar */
+    background-position: center;
+    /* Sayfa yüksekliği */
+    height: 1200px;
+  }
+  
+  
+  
+  /* Uygulama formunun konteynerı */
+  .app-container {
+    /* Metni ortalar */
+    text-align: center;
+    /* Kenarlığı olan bir kutu */
+    border: 1px solid #ccc;
+    /* Kenarların yumuşatılması */
+    border-radius: 5px;
+    /* Kenar rengi */
+    border-color: aqua;
+    /* Sağdan ve soldan boşluk */
+    margin-right: 40%;
+    margin-left: 40%;
+    /* Alt boşluk */
+    margin-bottom: 1%;
+    /* Üst boşluk */
+    padding-top: 1%;
+    /* Alt boşluk */
+    padding-bottom: 1%;
+  
+  }
+  
+  
+  
+  /* Butonların stil tanımı */
+  button[type="submit"] {
+    /* Buton boyutları */
+    width: 90px;
+    height: 30px;
+    /* İçerik ile kenar arasındaki boşluk */
+    padding: 8px;
+    /* Alt boşluk */
+    margin-bottom: 10px;
+    /* Sol boşluk */
+    margin-left: 10px;
+    /* Sağ boşluk */
+    margin-right: 10px;
+    /* Üst boşluk */
+    margin-top: 10px;
+    /* Arka plan rengi */
+    background-color: #00437c;
+    /* Metin rengi */
+    color: #ffffff;
+    /* Kenarlık yok */
+    border: none;
+    /* Kenar yumuşatma */
+    border-radius: 7px;
+    /* İmleci göster */
+    cursor: pointer;
+    margin-right: 10px; /* Aynı satırda olmaları için boşluk ayarı */
+  
+  }
+  

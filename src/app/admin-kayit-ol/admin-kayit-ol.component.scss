@@ -1,0 +1,56 @@
+/* Kayıt ol formunun genel wrapper'ı */
+.register-wrapper {
+    max-width: 400px; /* Maksimum genişlik */
+    margin: 0 auto; /* Otomatik ortalamak için boşluklar */
+    padding: 20px; /* İçerik ile kenar arasındaki boşluk */
+    border: 1px solid #ccc; /* Kenarlık rengi ve kalınlığı */
+    border-radius: 5px; /* Kenarların yumuşatılması */
+    background-color: #f9f9f9; /* Arka plan rengi */
+  }
+  
+  /* Kayıt ol formunun iç container'ı */
+  .register-container {
+    text-align: center; /* Metni ortala */
+  }
+  
+  /* Form elemanları */
+  form {
+    margin-top: 20px; /* Üst boşluk */
+  }
+  
+  /* Logo */
+  .logo {
+    width: 200px; /* Logo genişliği */
+    height: 200px; /* Logo yüksekliği */
+  }
+  
+  label {
+    display: block; /* Etiketleri blok olarak göster */
+    margin-bottom: 5px; /* Alt boşluk */
+  }
+  
+  /* Input ve Submit button stilleri */
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="tel"],
+  button[type="submit"] {
+    width: 90%; /* Genişlik */
+    padding: 8px; /* İçerik ile kenar arasındaki boşluk */
+    margin-bottom: 10px; /* Alt boşluk */
+    margin-left: 10px; /* Sol boşluk */
+    margin-right: 10px; /* Sağ boşluk */
+    margin-top: 10px; /* Üst boşluk */
+  }
+  
+  /* Kayıt ol butonu stilleri */
+  button[type="submit"] {
+    width: 150px; /* Buton genişliği */
+    height: 50px; /* Buton yüksekliği */
+    background-color: #00437c; /* Arka plan rengi değişikliği */
+    color: #ffffff; /* Metin rengi */
+    border: none; /* Kenarlık yok */
+    border-radius: 7px; /* Kenarların yumuşatılması */
+    cursor: pointer; /* İmleci göster */
+  }
+  

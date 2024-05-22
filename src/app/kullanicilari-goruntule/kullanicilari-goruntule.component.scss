@@ -1,0 +1,27 @@
+/* Stil Tanımları */
+
+/* Kişi bilgilerinin genel konteyneri */
+.user-container {
+    margin-bottom: 20px; /* Kişiler arası boşluk */
+    background-color: #f9f9f9; /* Arka plan rengi */
+    padding: 15px; /* İçeriğin etrafındaki dolgular */
+    border-radius: 8px; /* Köşelerin yuvarlatılması */
+  }
+  
+  /* Kişi adı */
+  .user-name {
+    font-weight: bold; /* Kişi adı kalın */
+  }
+  
+  /* Diğer bilgiler */
+  .user-info {
+    margin-top: 5px; /* Diğer bilgilerin üst boşluğu */
+  }
+  
+  /* İsteğe bağlı olarak marjinal bir stile örnek olarak */
+  .user-container p {
+    margin-bottom: 10px; /* Paragraf alt boşluk */
+    border-bottom: 1px solid #ccc; /* Paragraf alt çizgi */
+    padding-bottom: 5px; /* Paragraf alt boşluk */
+  }
+  

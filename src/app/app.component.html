@@ -1,0 +1,35 @@
+<body>
+  <!-- Ana HTML sayfasının başlangıcı -->
+
+  <div class="main-container content">
+    <!-- Ana bölüm -->
+
+    <div class="user-section">
+      <!-- Normal Kullanıcı Bölümü -->
+
+      <div class="app-container">
+        <!-- Uygulama konteyneri -->
+
+        <h1>Sisteme Giriş</h1>
+        <!-- Başlık: "Normal Kullanıcı" -->
+
+        <button type="submit" (click)="showAnaSayfa()">
+          ANA SAYFA
+        </button>
+        <button type="submit" (click)="showSistemGiris()">
+          SİSTEME GİRİŞ YAP / KAYIT OL
+        </button>
+        <button type="submit" (click)="showSistemCikisYap()">
+          SİSTEMDEN ÇIKIŞ YAP
+        </button>
+
+      </div>
+    </div>
+
+    
+
+    <router-outlet></router-outlet>
+    <!-- Angular yönlendirme çıkış noktası - dinamik bileşenlerin yerleştirildiği alan -->
+  </div>
+  <!-- Ana HTML sayfasının sonu -->
+</body>

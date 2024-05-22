@@ -1,0 +1,19 @@
+<!-- C:\angular\anketweb-main\src\app\admin-anket-ekle-duzenle\admin-anket-ekle-duzenle.component.html -->
+
+<div class="survey-container">
+  <h2>Anketler</h2>
+  <div *ngFor="let survey of surveys" class="survey" (click)="onSurveyClick(survey.id)">
+    <h3>Anket ID  : {{ survey.id }}</h3>
+    <p>Anket Adı : {{ survey.survey_name }}</p>
+    <p>Anketi Oluşturan Yönetici ID : {{ survey.admin_id }}</p>
+    <p>Anketin Oluşturulma Tarihi: {{ survey.created_at }}</p>
+
+    <div class="anket-sorulari-content">
+      <!-- Anket sorularının içeriği burada<app-admin-anketler-page1 *ngIf="aktifSayfa === 'admin-anket-duzenle'"></app-admin-anketler-page1> -->
+      <app-admin-anketler-page1 *ngIf="aktifSayfa === 'admin-anketler-page1' && tiklananAnketId === survey.id" [tiklananAnketId]="tiklananAnketId"></app-admin-anketler-page1>
+      
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  
+</div>

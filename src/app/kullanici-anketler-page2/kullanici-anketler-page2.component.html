@@ -1,0 +1,31 @@
+<div class="main-container">
+    <div class="survey-title">
+      <h2>ANKET ID: {{ ikinciAsamaSecilecekAnketId }}</h2>
+    </div>
+    <div *ngFor="let question of questionData; let i = index" class="question-container">
+      <div class="question-header">
+        <p> Soru ID : {{ question.id }}</p>
+  
+        <p>{{ i + 1 }}. {{ question.question_text }}</p>
+      </div>
+      
+      <div *ngIf="question.question_type === 'Açık Uçlu'" class="textarea-container">
+        <!-- Açık Uçlu soru için TEXTAREA -->
+        <textarea class="textarea" placeholder=" " [(ngModel)]="answers[question.id]" (ngModelChange)="anketCevaplariniKaydet(question.id, answers[question.id])"></textarea>
+        <span class="placeholder">Cevabınızı buraya yazınız</span>
+      </div>
+      
+            
+      <div *ngFor="let item of questionOptionData">
+        <div *ngIf="item.questionId === question.id">
+          <label *ngFor="let option of item.options" class="option-label">
+            <input type="radio" [value]="option.id" name="options" disabled>
+            {{ option.option_text }} (Seçenek ID : {{option.id}})
+          </label>
+        </div>
+      </div>
+    </div>
+     <!-- ANKETİ TAMAMLA butonu -->
+  <button (click)="anketiTamamla()" class="complete-button">ANKETİ GÖNDER</button>
+
+  </div>

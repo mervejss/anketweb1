@@ -1,0 +1,57 @@
+<div class="register-wrapper">
+    <!-- Kayıt sayfasının genel konteyneri -->
+    <div class="register-container">
+      <!-- Kayıt alanı konteyneri -->
+  
+      <h1>Admin Kullanıcı Kayıt Ol</h1>
+      <!-- Başlık: "Normal Kullanıcı Kayıt Ol" -->
+  
+      <img src="https://upload.wikimedia.org/wikipedia/tr/7/79/Necmettin_Erbakan_%C3%9Cniversitesi_logosu.png" alt="Necmettin Erbakan Üniversitesi Logosu" class="logo">
+      <!-- Necmettin Erbakan Üniversitesi Logosu -->
+  
+      <form >
+        <!-- Kayıt ol formu -->
+  
+        <!-- Kullanıcı adı giriş alanı -->
+        <div>
+          <label for="first_name">Adı:</label>
+          <input  [(ngModel)]= "registerUserData.first_name" name="first_name" type="text" required >
+          <!-- Kullanıcıdan kullanıcı adı girişi alınıyor -->
+        </div>
+  
+        <!-- Soyadı giriş alanı -->
+        <div>
+          <label for="last_name">Soyadı:</label>
+          <input  [(ngModel)]= "registerUserData.last_name" name="last_name" type="text" required>
+          <!-- Kullanıcıdan soyadı girişi alınıyor -->
+        </div>
+  
+        <!-- Cep telefonu giriş alanı -->
+        <div>
+          <label for="phone_number">Cep Telefonu:</label>
+          <input  [(ngModel)]= "registerUserData.phone_number" name="phone_number" type="tel" required>
+          <!-- Kullanıcıdan cep telefonu girişi alınıyor -->
+        </div>
+  
+        <!-- E-posta giriş alanı -->
+        <div>
+          <label for="email">E-posta Adresi:</label>
+          <input  [(ngModel)]= "registerUserData.email" name="email" type="text" required>
+
+          <!-- Kullanıcıdan e-posta girişi alınıyor -->
+        </div>
+  
+        <!-- Şifre giriş alanı -->
+        <div>
+          <label for="password">Şifre:</label>
+          <input  [(ngModel)]= "registerUserData.password" name="password" type="password" required>
+          <!-- Kullanıcıdan şifre girişi alınıyor -->
+        </div>
+  
+        <!-- Kayıt ol butonu -->
+        <button (click)="registerUser()" type="button">Kayıt Ol</button>
+        <!-- Form gönderme butonu -->
+      </form>
+    </div>
+  </div>
+  

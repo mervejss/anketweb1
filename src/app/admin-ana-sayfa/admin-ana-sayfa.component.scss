@@ -1,0 +1,69 @@
+.admin-panel {
+    display: flex;
+  
+    width:max-content ;
+    min-height: 1000px; /* Minimum genişlik 1000px */
+
+    height: auto;
+    
+  }
+  .anket-sorulari-content {
+    margin-left: 220px; /* Menü çubuğundan sağa biraz boşluk bırakmak için */
+    /* İstediğiniz diğer stil ayarları */
+  }
+  .menu-bar {
+    width: 500px;
+    height: 450px;
+    background-color: #ffffff;
+    color: #ff0000;
+    padding: 10px;
+  }
+  
+  .admin-logo {
+    width: 100px; /* Resmin genişliğini panele göre ayarlayın */
+    margin-bottom: 20px; /* İstediğiniz boşluğu belirleyin */
+  }
+  
+  .menu-item {
+    cursor: pointer;
+    padding: 8px;
+    border-bottom: 1px solid #555;
+  }
+  
+    /* Butonların stil tanımı */
+    button[type="submit"] {
+      /* Buton boyutları */
+      width: 200px;
+      height: 50px;
+      /* İçerik ile kenar arasındaki boşluk */
+      padding: 10px;
+      /* Alt boşluk */
+      margin-bottom: 10px;
+      /* Sol boşluk */
+      margin-left: 10px;
+      /* Sağ boşluk */
+      margin-right: 10px;
+      /* Üst boşluk */
+      margin-top: 10px;
+      /* Arka plan rengi */
+      background-color: #00437c;
+      /* Metin rengi */
+      color: #ffffff;
+      /* Kenarlık yok */
+      border: none;
+      /* Kenar yumuşatma */
+      border-radius: 7px;
+      /* İmleci göster */
+      cursor: pointer;
+     
+    
+    }
+
+  .content {
+    flex-grow: 1;
+    padding: 20px;
+    min-height: 100vh;
+
+  }
+ 
+  

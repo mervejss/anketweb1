@@ -1,0 +1,37 @@
+/* C:\angular\anketweb-main\src\app\admin-anket-ekle-duzenle\admin-anket-ekle-duzenle.component.css */
+
+.survey-container {
+    margin-top: 20px; /* Üst boşluk */
+  }
+  
+  .survey {
+    background-color: #f9f9f9; /* Arka plan rengi */
+    padding: 15px; /* İçeriğin etrafındaki dolgular */
+    border-radius: 8px; /* Köşelerin yuvarlatılması */
+    margin-bottom: 20px; /* Anketler arası boşluk */
+  }
+  
+  .survey h2 {
+    margin-bottom: 15px; /* Başlık alt boşluk */
+  }
+  
+  .survey h3 {
+    margin-bottom: 10px; /* Alt başlık alt boşluk */
+    font-weight: bold; /* Kalın yazı */
+    font-size: 1.2em; /* Yazı boyutunu artırma */
+  }
+  
+  .survey p {
+    margin-bottom: 5px; /* Paragraf alt boşluk */
+  }
+  
+  /* Hafif ince gri çizgi */
+  .survey p::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin-top: 5px; /* Çizgi ile paragraf arası boşluk */
+  }
+  

@@ -1,0 +1,151 @@
+/* admin-anket-ekle.component.scss */
+
+.container {
+  margin-bottom: 20px; /* Sorular arası boşluk */
+  margin-top: 20px; /* Sorular arası boşluk */
+
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .row {
+    flex-direction: row; /* Yatay olarak sırala */
+    display: flex;
+
+    background-color: #b5dcf3;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+  }
+  .form-group {
+    
+    margin-bottom: 20px;
+
+
+    
+
+  }
+  
+  .btn-primary {
+    background-color: #00437c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px; /* Sorular arası boşluk */
+    margin-top: 20px; /* Sorular arası boşluk */
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+
+  
+  .textarea-container {
+    position: relative;
+    margin-right: 20px;
+
+  }
+  
+  .textarea {
+    width: 100%;
+    min-height: 150px; /* TextArea'nın minimum yüksekliği */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: vertical; /* Yalnızca dikey genişleme */
+
+    
+  }
+  
+  .placeholder {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: rgba(0, 0, 0, 0.5); /* Hafif transparan placeholder rengi */
+  }
+  
+  .textarea:focus + .placeholder {
+    display: none;
+  }
+  
+  /* admin-anket-sec.component.css dosyası */
+
+/* Video container'ı */
+.video-container {
+  max-width: 500px; /* İstenilen maksimum genişlik */
+  margin: 0 auto; /* Ortalama */
+}
+
+/* Video elementi */
+.video-container video {
+  width: 100%; /* Genişlik tam container genişliğine oturtulacak */
+  height: auto; /* Yükseklik orantılı olarak ayarlanacak */
+}
+.video-upload-guide {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 20px auto;
+  font-family: 'Roboto', sans-serif;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  h4 {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin-bottom: 10px;
+  }
+
+  ol {
+    margin-left: 20px;
+    padding-left: 0;
+  }
+
+  ul {
+    margin-left: 20px;
+    padding-left: 0;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+  a {
+    color: #007bff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .example-image {
+    width: 100%;
+    max-width: 1000px;
+    margin: 10px 0;
+  }
+}

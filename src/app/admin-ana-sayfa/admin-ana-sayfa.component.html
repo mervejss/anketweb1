@@ -1,0 +1,36 @@
+<div class="admin-panel">
+  <div class="menu-bar">
+    <img src="/assets/adminIcon-removebg-preview.png" alt="Admin Logo" class="admin-logo" (click)="aktifSayfa = ''">
+    
+      <!-- Admin bilgilerini yazdırma -->
+      
+      <div>
+        <p>ID: {{ adminData.id || " " }}</p>
+        <p>Ad: {{ adminData.first_name || " " }}</p>
+        <p>Soyad: {{ adminData.last_name|| " " }}</p>
+        <p>Telefon: {{ adminData.phone_number   || " " }}</p>
+        <p>E-posta: {{ adminData.email|| " " }}</p>
+      </div>
+
+      <button type="submit" (click)="anketleriGoruntule()">Anketleri Görüntüle</button>
+      <button type="submit"  (click)="anketSorusuEkle()">Anket Oluştur/Düzenle/Sil</button>
+      <button type="submit"  (click)="kullanicilariGoruntule()">Kullanıcıları Görüntüle</button>
+      <button type="submit"  (click)="kullanicilaraAnketSec()">Anket Seç</button>
+      <button type="submit"  (click)="adminRehber()">Admin REHBER</button>
+
+    <router-outlet></router-outlet>
+  </div>
+
+  <div class="anket-sorulari-content">
+    <!-- Anket sorularının içeriği burada<app-admin-anketler-page1 *ngIf="aktifSayfa === 'admin-anket-duzenle'"></app-admin-anketler-page1> -->
+    <app-admin-anket-ekle-duzenle *ngIf="aktifSayfa === 'admin-anket-ekle-duzenle'"></app-admin-anket-ekle-duzenle >
+    <app-admin-anket-ekle *ngIf="aktifSayfa === 'admin-anket-ekle'"></app-admin-anket-ekle>
+    <app-kullanicilari-goruntule *ngIf="aktifSayfa === 'kullanicilari-goruntule'"></app-kullanicilari-goruntule>
+    <app-admin-anket-sec *ngIf="aktifSayfa === 'admin-anket-sec'"></app-admin-anket-sec>
+    <app-admin-rehber *ngIf="aktifSayfa === 'admin-rehber'"></app-admin-rehber>
+
+
+    <router-outlet></router-outlet>
+  </div> 
+
+</div>

@@ -1,0 +1,59 @@
+.question-container {
+    margin-bottom: 20px; /* Sorular arası boşluk */
+    background-color: #f9f9f9; /* Arka plan rengi */
+    padding: 15px; /* İçeriğin etrafındaki dolgular */
+    border-radius: 8px; /* Köşelerin yuvarlatılması */
+    min-width: 600px; /* İçeriğin maksimum genişliği */
+
+    
+  }
+  .main-container {
+    margin-bottom: 20px; /* Sorular arası boşluk */
+    background-color: #b5dcf3; /* Arka plan rengi */
+    padding: 15px; /* İçeriğin etrafındaki dolgular */
+    border-radius: 8px; /* Köşelerin yuvarlatılması */
+    
+  }
+  
+  .option-label {
+    display: block;
+    margin-top: 5px; /* Seçenekler arası boşluk */
+  }
+  
+  /* İsteğe bağlı olarak marjinal bir stile örnek olarak */
+  .question-container p {
+    font-weight: bold; /* Soru metni kalın */
+    margin-bottom: 10px; /* Soru metni alt boşluk */
+    border-bottom: 1px solid #ccc; /* Soru metni alt çizgi */
+    padding-bottom: 5px; /* Soru metni alt boşluk */
+  }
+  
+  .textarea-container {
+    position: relative;
+    margin-right: 20px;
+  }
+  
+  .textarea {
+    width: 100%;
+    min-height: 100px; /* Minimum yükseklik */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: vertical; /* Yalnızca dikey genişleme */
+    
+
+  }
+  
+  .placeholder {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: rgba(0, 0, 0, 0.5); /* Hafif transparan placeholder rengi */
+  }
+  
+  .textarea:focus + .placeholder {
+    display: none;
+  }
+  

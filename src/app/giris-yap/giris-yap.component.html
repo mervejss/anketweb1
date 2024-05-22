@@ -1,0 +1,43 @@
+<div class="login-wrapper">
+  <!-- Giriş sayfasının genel konteyneri -->
+  <div class="login-container">
+    <!-- Giriş alanı konteyneri -->
+
+    <h1>Normal Kullanıcı Giriş Yap</h1>
+    <!-- Başlık: "Normal Kullanıcı Giriş Yap" -->
+
+    <img src="https://upload.wikimedia.org/wikipedia/tr/7/79/Necmettin_Erbakan_%C3%9Cniversitesi_logosu.png" alt="Necmettin Erbakan Üniversitesi Logosu" class="logo">
+    <!-- Necmettin Erbakan Üniversitesi Logosu -->
+
+    <form (ngSubmit)="onSubmit()">
+      <!-- Giriş yap formu -->
+
+      <!-- E-posta giriş alanı -->
+      <div>
+        <label for="email">E-posta Adresi:</label>
+        <input type="text" id="email" required [(ngModel)]="email" name="email">
+        <!-- Kullanıcıdan e-posta girişi alınıyor -->
+      </div>
+
+      <!-- Şifre giriş alanı -->
+      <div>
+        <label for="password">Şifre:</label>
+        <input type="password" id="password" required [(ngModel)]="password" name="password">
+        <!-- Kullanıcıdan şifre girişi alınıyor -->
+      </div>
+
+      <!-- KVKK onay kutusu -->
+      <div>
+        <input type="checkbox" id="sozlesme" name="sozlesme" value="sozlesme" required [(ngModel)]="sozlesmeOnaylandi">
+        <!-- KVKK onayı -->
+        <span>6698 Sayılı Kişisel Verilerin Korunması Kanunu uyarınca hazırlanan
+          <a target="_blank" href="https://www.erbakan.edu.tr/s/kvkk-aydinlatma-metni"> Aydınlatma Metni'ni</a> okudum.</span>
+        <!-- Metin ve link - KVKK aydınlatma metni bağlantısı -->
+      </div>
+
+      <!-- Giriş yap butonu -->
+      <button type="submit">Giriş Yap</button>
+      <!-- Form gönderme butonu -->
+    </form>
+  </div>
+</div>

@@ -1,0 +1,155 @@
+<!-- admin-anket-ekle.component.html -->
+<div class="row">
+    <div class="container">
+    <h2>ANKET OLUŞTUR</h2>
+    <form>
+      <div class="form-group">
+        <label for="anketAdi">Anket Adı:</label>
+        <input type="text" id="anketAdi" name="anketAdi" class="form-control" [(ngModel)]="anketAdi">
+      </div>
+      <button class="btn btn-primary" (click)="anketOlustur()">Anket Oluştur</button>
+    </form>
+  </div>
+  <div class="container">
+    <h2>ANKET SİL</h2>
+    <form>
+      <div class="form-group">
+        <label for="silinecekAnketID">Anket ID:</label>
+        <input type="text" id="silinecekAnketID" name="silinecekAnketID" class="form-control" [(ngModel)]="silinecekAnketID">
+      </div>
+      <button class="btn btn-primary" (click)="anketSil()">Anket Sil</button>
+    </form>
+  </div>
+
+</div>
+
+
+
+
+  <div class="row">
+
+<div class="container">
+    <h2>ANKET SORUSU EKLE</h2>
+    <form>
+      <div class="form-group">
+        <label for="anketId">Anket ID:</label>
+        <input type="text" id="anketId" name="anketId" class="form-control" [(ngModel)]="anketId">
+      </div>
+      <div class="form-group">
+        <label for="soruIcerigi">Soru İçeriği:</label>
+        <input type="text" id="soruIcerigi" name="soruIcerigi" class="form-control" [(ngModel)]="soruIcerigi">
+      </div>
+      <div class="form-group">
+        <label for="soruTipi">Soru Tipi:</label>
+        <input type="text" id="soruTipi" name="soruTipi" class="form-control" [(ngModel)]="soruTipi">
+      </div>
+      <button class="btn btn-primary" (click)="anketSorusuOlustur()">Anket Sorusu Oluştur</button>
+    </form>
+  </div>
+
+  
+  <div class="container">
+    <h2>ANKET SORUSUNU GÜNCELLE</h2>
+    <form>
+      
+      <div class="form-group">
+        <label for="anketId">Anket ID:</label>
+        <input type="text" id="anketId" name="anketId" class="form-control" [(ngModel)]="guncellenecekanketId">
+      </div>
+
+      <div class="form-group">
+        <label for="soruId">Soru ID:</label>
+        <input type="text" id="soruId" name="soruId" class="form-control" [(ngModel)]="guncelleneceksoruId">
+      </div>
+
+      <div class="form-group">
+        <label for="soruIcerigi">Soru YENİ İçeriği:</label>
+        <input type="text" id="soruIcerigi" name="soruIcerigi" class="form-control" [(ngModel)]="guncelleneceksoruIcerigi">
+      </div>
+      <div class="form-group">
+        <label for="soruTipi">Soru YENİ Tipi:</label>
+        <input type="text" id="soruTipi" name="soruTipi" class="form-control" [(ngModel)]="guncelleneceksoruTipi">
+      </div>
+      <button class="btn btn-primary" (click)="anketSorusuGuncelle()">Anket Sorusunu Güncelle</button>
+    </form>
+  </div>
+
+  <div class="container">
+    <h2>ANKET SORUSU SİL</h2>
+    <form>
+      <div class="form-group">
+        <label for="silinecekAnketSorusuID">Anket ID:</label>
+        <input type="text" id="silinecekAnketSorusuID" name="silinecekAnketSorusuID" class="form-control" [(ngModel)]="silinecekAnketSorusuID">
+      </div>
+      <button class="btn btn-primary" (click)="anketSorusuSil()">Anket Sorusu Sil</button>
+    </form>
+  </div>
+
+</div>
+
+
+<div class="row">
+
+  <div class="container">
+    <h2>ANKET SORUSUNA SEÇENEKLERİ EKLE</h2>
+    <form>
+      <div class="form-group">
+        <label for="soruId">Soru ID:</label>
+        <input type="text" id="soruId" name="soruId" class="form-control" [(ngModel)]="soruSeceneksoruId">
+      </div>
+      <div class="form-group">
+        <label for="soruSecenekIcerigi">Soru Seçeneği İçeriği:</label>
+        <input type="text" id="soruSecenekIcerigi" name="soruSecenekIcerigi" class="form-control" [(ngModel)]="soruSecenekIcerigi">
+      </div>
+      <div class="form-group">
+        <label for="soruSecenekSikki">Soru Seçeneği Şıkkı:</label>
+        <input type="text" id="soruSecenekSikki" name="soruSecenekSikki" class="form-control" [(ngModel)]="soruSecenekSikki">
+      </div>
+      <div class="form-group">
+        <label for="soruSecenekDurumu">Soru Seçeneği Durumu:</label>
+        <input type="text" id="soruSecenekDurumu" name="soruSecenekDurumu" class="form-control" [(ngModel)]="soruSecenekDurumu">
+      </div>
+      <button class="btn btn-primary" (click)="soruSecenegiOlustur()">Anket Sorusu Seçeneğini Oluştur</button>
+    </form>
+  </div>
+  <div class="container">
+    <h2>ANKET SORUSUNUN SEÇENEKLERİNİ GÜNCELLE</h2>
+    <form>
+      <div class="form-group">
+        <label for="soruId">Soru ID:</label>
+        <input type="text" id="soruId" name="soruId" class="form-control" [(ngModel)]="guncellenecekseceneksoruId">
+      </div>
+      
+      <div class="form-group">
+        <label for="soruSecenekId">Soru Seçeneği ID:</label>
+        <input type="text" id="soruSecenekId" name="soruSecenekId" class="form-control" [(ngModel)]="guncellenecekseceneksoruSecenekId">
+      </div>
+
+      <div class="form-group">
+        <label for="soruSecenekIcerigi">Soru Seçeneği YENİ İçeriği:</label>
+        <input type="text" id="soruSecenekIcerigi" name="soruSecenekIcerigi" class="form-control" [(ngModel)]="guncellenecekseceneksoruSecenekIcerigi">
+      </div>
+      <div class="form-group">
+        <label for="soruSecenekSikki">Soru Seçeneği YENİ Şıkkı:</label>
+        <input type="text" id="soruSecenekSikki" name="soruSecenekSikki" class="form-control" [(ngModel)]="guncellenecekseceneksoruSecenekSikki">
+      </div>
+      <div class="form-group">
+        <label for="soruSecenekDurumu">Soru Seçeneği YENİ Durumu:</label>
+        <input type="text" id="soruSecenekDurumu" name="soruSecenekDurumu" class="form-control" [(ngModel)]="guncellenecekseceneksoruSecenekDurumu">
+      </div>
+      <button class="btn btn-primary" (click)="soruSecenegiGuncelle()">Anket Sorusunun Seçeneğini Güncelle</button>
+    </form>
+  </div>
+
+  <div class="container">
+    <h2>ANKET SORUSU SEÇENEĞİ SİL</h2>
+    <form>
+      <div class="form-group">
+        <label for="silinecekAnketSorusuSecenegiID">Anket ID:</label>
+        <input type="text" id="silinecekAnketSorusuSecenegiID" name="silinecekAnketSorusuSecenegiID" class="form-control" [(ngModel)]="silinecekAnketSorusuSecenegiID">
+      </div>
+      <button class="btn btn-primary" (click)="anketSorusuSecenegiSil()">Anket Sorusu Seçeneği Sil</button>
+    </form>
+  </div>
+
+</div>

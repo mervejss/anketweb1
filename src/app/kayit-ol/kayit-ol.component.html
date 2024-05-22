@@ -1,0 +1,55 @@
+<div class="register-wrapper">
+  <!-- Kayıt sayfasının genel konteyneri -->
+  <div class="register-container">
+    <!-- Kayıt alanı konteyneri -->
+
+    <h1>Normal Kullanıcı Kayıt Ol</h1>
+    <!-- Başlık: "Normal Kullanıcı Kayıt Ol" -->
+
+    <img src="https://upload.wikimedia.org/wikipedia/tr/7/79/Necmettin_Erbakan_%C3%9Cniversitesi_logosu.png" alt="Necmettin Erbakan Üniversitesi Logosu" class="logo">
+    <!-- Necmettin Erbakan Üniversitesi Logosu -->
+
+    <form (ngSubmit)="onSubmit()">
+      <!-- Kayıt ol formu -->
+
+      <!-- Kullanıcı adı giriş alanı -->
+      <div>
+        <label for="username">Kullanıcı Adı:</label>
+        <input type="text" id="username" required [(ngModel)]="username" name="username">
+        <!-- Kullanıcıdan kullanıcı adı girişi alınıyor -->
+      </div>
+
+      <!-- Soyadı giriş alanı -->
+      <div>
+        <label for="surname">Soyadı:</label>
+        <input type="text" id="surname" required [(ngModel)]="surname" name="surname">
+        <!-- Kullanıcıdan soyadı girişi alınıyor -->
+      </div>
+
+      <!-- Cep telefonu giriş alanı -->
+      <div>
+        <label for="phoneNumber">Cep Telefonu:</label>
+        <input type="tel" id="phoneNumber" required [(ngModel)]="phoneNumber" name="phoneNumber">
+        <!-- Kullanıcıdan cep telefonu girişi alınıyor -->
+      </div>
+
+      <!-- E-posta giriş alanı -->
+      <div>
+        <label for="email">E-posta Adresi:</label>
+        <input type="text" id="email" required [(ngModel)]="email" name="email">
+        <!-- Kullanıcıdan e-posta girişi alınıyor -->
+      </div>
+
+      <!-- Şifre giriş alanı -->
+      <div>
+        <label for="password">Şifre:</label>
+        <input type="password" id="password" required [(ngModel)]="password" name="password">
+        <!-- Kullanıcıdan şifre girişi alınıyor -->
+      </div>
+
+      <!-- Kayıt ol butonu -->
+      <button type="submit">Kayıt Ol</button>
+      <!-- Form gönderme butonu -->
+    </form>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+
+.container {
+    margin-bottom: 20px; /* Sorular arası boşluk */
+    margin-top: 20px; /* Sorular arası boşluk */
+  
+      background-color: #fff;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  
+    .row {
+      flex-direction: row; /* Yatay olarak sırala */
+      display: flex;
+  
+      background-color: #b5dcf3;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      
+    }
+
+.video-upload-guide {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: 'Roboto', sans-serif;
+  
+    h2 {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+  
+    h3 {
+      font-size: 20px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+  
+    h4 {
+      font-size: 18px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+  
+    p {
+      margin-bottom: 10px;
+    }
+  
+    ol {
+      margin-left: 20px;
+      padding-left: 0;
+    }
+  
+    ul {
+      margin-left: 20px;
+      padding-left: 0;
+    }
+  
+    li {
+      margin-bottom: 10px;
+    }
+  
+    a {
+      color: #007bff;
+      text-decoration: none;
+  
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  
+    .example-image {
+      width: 100%;
+      max-width: 1000px;
+      margin: 10px 0;
+    }
+  }
+  

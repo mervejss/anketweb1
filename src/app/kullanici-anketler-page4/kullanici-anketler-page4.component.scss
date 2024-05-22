@@ -1,0 +1,39 @@
+.container {
+    margin-bottom: 20px; /* Sorular arası boşluk */
+    margin-top: 20px; /* Sorular arası boşluk */
+  
+      background-color: #fff;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  
+    .row {
+      flex-direction: row; /* Yatay olarak sırala */
+      display: flex;
+  
+      background-color: #b5dcf3;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      
+    }
+
+
+    .bilgilendirme-metni {
+      background-color: #e8f4f8;
+      border-left: 5px solid #007bff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      font-size: 16px;
+      color: #333;
+    }
+    
+    .bilgilendirme-metni p {
+      margin: 0;
+      white-space: pre-wrap;  // Bu stil metnin paragraflar şeklinde uygun şekilde alt satıra geçmesini sağlar
+
+    }

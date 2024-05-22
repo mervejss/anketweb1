@@ -1,0 +1,130 @@
+<!-- C:\angular\anketweb-main\src\app\admin-anket-sec\admin-anket-sec.component.html -->
+
+<div class="row">
+
+  <div class="container">
+    <h2>Kullanıcılara 1. Aşamada Gösterilecek (Çoktan Seçmeli) Anket</h2>
+    <form>
+      <div class="form-group">
+        <label for="birinciAsamaSecilecekAnketId">Anket ID: </label>
+        <input type="text" id="birinciAsamaSecilecekAnketId" name="birinciAsamaSecilecekAnketId" class="form-control"
+          [(ngModel)]="birinciAsamaSecilecekAnketId">
+      </div>
+
+      <button class="btn btn-primary" (click)="birinciAsamaAnketSorusuSec()">Anket Seçimi Yap</button>
+    </form>
+
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="container">
+    <h2>Kullanıcılara 2. Aşamada Gösterilecek (Açık Uçlu) Anket</h2>
+    <form>
+      <div class="form-group">
+        <label for="ikinciAsamaSecilecekAnketId">Anket ID: </label>
+        <input type="text" id="ikinciAsamaSecilecekAnketId" name="ikinciAsamaSecilecekAnketId" class="form-control"
+          [(ngModel)]="ikinciAsamaSecilecekAnketId">
+      </div>
+
+      <button class="btn btn-primary" (click)="ikinciAsamaAnketSorusuSec()">Anket Seçimi Yap</button>
+    </form>
+
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="container">
+    <h2>Kullanıcılara 3. Aşamada Gösterilecek Bilgilendirme Metni</h2>
+    <form>
+      <div class="form-group">
+        <label for="ucuncuAsamaBilgilendirmeMetni">Bilgilendirme Metni: </label>
+        <div class="textarea-container">
+          <textarea class="textarea" id="ucuncuAsamaBilgilendirmeMetni" name="ucuncuAsamaBilgilendirmeMetni"
+            [(ngModel)]="ucuncuAsamaBilgilendirmeMetni"></textarea>
+          <span class="placeholder">Bilgilendirme Metnini buraya yazınız</span>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="ucuncuAsamaAnketSorusuSec()">Bilgilendirme Metnini Tamamla</button>
+    </form>
+    <div class="row">
+      <div class="container">
+        <h2>Kullanıcılara 3. Aşamada Gösterilecek Video</h2>
+        <div class="form-group">
+          <label for="ucuncuAsamaVideoLink">Video Linki: </label>
+          <input type="text" id="ucuncuAsamaVideoLink" name="ucuncuAsamaVideoLink" [(ngModel)]="ucuncuAsamaVideoLink"
+            placeholder="YouTube veya Google Drive video linkini buraya yapıştırın">
+        </div>
+        <button class="btn btn-primary" (click)="ucuncuAsamaVideoGoster()">Video Göster</button>
+
+        <!-- YÜKLENEN VİDEOYU GÖSTERMEK İÇİN -->
+        <div *ngIf="ucuncuAsamaVideoUrl">
+          <h3>Video</h3>
+          <iframe width="560" height="315" [src]="sanitizer.bypassSecurityTrustResourceUrl(ucuncuAsamaVideoUrl)" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row">
+  <div class="container">
+    <h2>Kullanıcılara 4. Aşamada Gösterilecek Bilgilendirme Metni</h2>
+    <form>
+      <div class="form-group">
+        <label for="dorduncuAsamaBilgilendirmeMetni">Bilgilendirme Metni: </label>
+        <div class="textarea-container">
+          <textarea class="textarea" id="dorduncuAsamaBilgilendirmeMetni" name="dorduncuAsamaBilgilendirmeMetni"
+            [(ngModel)]="dorduncuAsamaBilgilendirmeMetni"></textarea>
+          <span class="placeholder">Bilgilendirme Metnini buraya yazınız</span>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="dorduncuAsamaAnketSorusuSec()">Bilgilendirme Metnini Tamamla</button>
+    </form>
+    <div class="row">
+      <div class="container">
+        <h2>Kullanıcılara 4. Aşamada Gösterilecek Video</h2>
+        <div class="form-group">
+          <label for="dorduncuAsamaVideoLink">Video Linki: </label>
+          <input type="text" id="dorduncuAsamaVideoLink" name="dorduncuAsamaVideoLink" [(ngModel)]="dorduncuAsamaVideoLink"
+            placeholder="YouTube veya Google Drive video linkini buraya yapıştırın">
+        </div>
+        <button class="btn btn-primary" (click)="dorduncuAsamaVideoGoster()">Video Göster</button>
+
+        <!-- YÜKLENEN VİDEOYU GÖSTERMEK İÇİN -->
+        <div *ngIf="dorduncuAsamaVideoUrl">
+          <h3>Video</h3>
+          <iframe width="560" height="315" [src]="sanitizer.bypassSecurityTrustResourceUrl(dorduncuAsamaVideoUrl)" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+
+  <div class="container">
+    <h2>Kullanıcılara 5. Aşamada Gösterilecek (Açık Uçlu) Anket</h2>
+    <form>
+      <div class="form-group">
+        <label for="besinciAsamaSecilecekAnketId">Anket ID: </label>
+        <input type="text" id="besinciAsamaSecilecekAnketId" name="besinciAsamaSecilecekAnketId" class="form-control"
+          [(ngModel)]="besinciAsamaSecilecekAnketId">
+      </div>
+
+      <button class="btn btn-primary" (click)="besinciAsamaAnketSorusuSec()">Anket Seçimi Yap</button>
+    </form>
+
+  </div>
+
+</div>

@@ -1,0 +1,40 @@
+<div class="normal-kullanici-panel">
+    <div class="menu-bar">
+      <img src="/assets/userIcon-removebg-preview.png" alt="Normal Kullanici Logo" class="normal-kullanici-logo" (click)="kullaniciAktifSayfa = ''">
+      
+        <!-- Normal Kullanıcı bilgilerini yazdırma -->
+        
+        <div>
+          <p>ID: {{ normalKullaniciData.id || " " }}</p>
+          <p>Ad: {{ normalKullaniciData.first_name || " " }}</p>
+          <p>Soyad: {{ normalKullaniciData.last_name|| " " }}</p>
+          <p>Telefon: {{ normalKullaniciData.phone_number   || " " }}</p>
+          <p>E-posta: {{ normalKullaniciData.email|| " " }}</p>
+        </div>
+  
+    
+      <router-outlet></router-outlet>
+    </div>
+  
+    <div class="anket-sorulari-content">
+      <!-- Anket sorularının içeriği burada<app-admin-anketler-page1 *ngIf="aktifSayfa === 'admin-anket-duzenle'"></app-admin-anketler-page1> -->
+      <app-kullanici-anketler-page1 *ngIf="kullaniciAktifSayfa === 'kullanici-anketler-page1'"></app-kullanici-anketler-page1>
+      <app-kullanici-anketler-page2 *ngIf="kullaniciAktifSayfa === 'kullanici-anketler-page2'"></app-kullanici-anketler-page2>
+      <app-kullanici-anketler-page3 *ngIf="kullaniciAktifSayfa === 'kullanici-anketler-page3'"></app-kullanici-anketler-page3>
+      <app-kullanici-anketler-page4 *ngIf="kullaniciAktifSayfa === 'kullanici-anketler-page4'"></app-kullanici-anketler-page4>
+      <app-kullanici-anketler-page5 *ngIf="kullaniciAktifSayfa === 'kullanici-anketler-page5'"></app-kullanici-anketler-page5>
+
+  
+      <router-outlet></router-outlet>
+    </div> 
+    <div class="row">
+
+    <button type="submit"  (click)="ilkAsamayiAc()">1. Aşama Anketi Aç</button>
+    <button type="submit"  (click)="birinciAsamayiTamamla()">1. Aşama Anketi Tamamla</button>
+    <button type="submit"  (click)="ikinciAsamayiTamamla()">2. Aşama Anketi Tamamla</button>
+    <button type="submit"  (click)="ucuncuAsamayiTamamla()">3. Aşama Anketi Tamamla</button>
+    <button type="submit"  (click)="dorduncuAsamayiTamamla()">4. Aşama Anketi Tamamla</button>
+  </div>
+
+  </div>
+  

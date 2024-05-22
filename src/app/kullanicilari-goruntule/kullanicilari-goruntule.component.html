@@ -1,0 +1,16 @@
+<!-- kullanicilari-goruntule.component.html -->
+
+<div *ngIf="users">
+    <h2>Kullanıcılar</h2>
+    <div *ngFor="let user of users" class="user-container" (click)="showUserDetails(user)" [style.backgroundImage]="'url(' + user.background_image + ')'">
+      <p class="user-name">ID : {{ user.id }}  </p>
+      <p class="user-name">Kullanıcı Adı Soyadı: {{ user.first_name }} {{ user.last_name }}</p>
+
+      <p class="user-info">Kullanıcı maili : {{ user.email }}</p>
+      <p class="user-info">Kullanıcı telefon numarası :{{ user.phone_number }}</p>
+    </div>
+  </div>
+  <div *ngIf="!users">
+    <p>Kullanıcı bulunamadı.</p>
+  </div>
+  

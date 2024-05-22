@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="container">
+    <div *ngIf="ucuncuAsamaVideoUrl">
+      <h3>3. Aşama Bilgilendirme Metni</h3>
+      <div class="bilgilendirme-metni">
+        <p>{{ ucuncuAsamaBilgilendirmeMetni }}</p>
+      </div>
+      <h3>3. Aşama Video</h3>
+      <iframe width="560" height="315" [src]="sanitizer.bypassSecurityTrustResourceUrl(ucuncuAsamaVideoUrl)" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+</div>

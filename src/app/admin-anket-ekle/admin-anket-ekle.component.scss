@@ -1,0 +1,44 @@
+/* admin-anket-ekle.component.scss */
+
+.container {
+    flex-basis: calc(50% - 20px); /* Yarı genişlikte olacak, kenar boşlukları dahil */
+
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .row {
+    flex-direction: row; /* Yatay olarak sırala */
+    display: flex;
+    
+    background-color: #b5dcf3;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+  }
+
+  .row > * {
+    flex-grow: 1; /* Tüm öğelerin eşit şekilde genişlemesini sağlar */
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .btn-primary {
+    background-color: #00437c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  

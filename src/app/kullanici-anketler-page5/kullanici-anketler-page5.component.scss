@@ -1,0 +1,28 @@
+.question-container {
+    margin-bottom: 20px; /* Sorular arası boşluk */
+    background-color: #f9f9f9; /* Arka plan rengi */
+    padding: 15px; /* İçeriğin etrafındaki dolgular */
+    border-radius: 8px; /* Köşelerin yuvarlatılması */
+    min-width: 600px; /* İçeriğin maksimum genişliği */
+
+  }
+  .main-container {
+    margin-bottom: 20px; /* Sorular arası boşluk */
+    background-color: #b5dcf3; /* Arka plan rengi */
+    padding: 15px; /* İçeriğin etrafındaki dolgular */
+    border-radius: 8px; /* Köşelerin yuvarlatılması */
+  }
+  
+  .option-label {
+    display: block;
+    margin-top: 5px; /* Seçenekler arası boşluk */
+  }
+  
+  /* İsteğe bağlı olarak marjinal bir stile örnek olarak */
+  .question-container p {
+    font-weight: bold; /* Soru metni kalın */
+    margin-bottom: 10px; /* Soru metni alt boşluk */
+    border-bottom: 1px solid #ccc; /* Soru metni alt çizgi */
+    padding-bottom: 5px; /* Soru metni alt boşluk */
+  }
+  
