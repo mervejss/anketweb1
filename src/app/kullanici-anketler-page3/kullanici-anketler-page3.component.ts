@@ -3,8 +3,6 @@ import { SurveyService } from '../services/survey.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NormalKullaniciService } from '../services/normal-kullanici.service';
 
-// Component dosyanızda YouTube Iframe API'sını kullanma
-declare var YT: any;
 @Component({
   selector: 'app-kullanici-anketler-page3',
   templateUrl: './kullanici-anketler-page3.component.html',
@@ -14,7 +12,6 @@ export class KullaniciAnketlerPage3Component implements OnInit {
   constructor(private surveyService: SurveyService, public sanitizer: DomSanitizer, private _normalKullaniciAuth: NormalKullaniciService) { }
 
   normalKullaniciData: any;
-  player: any;
 
   ucuncuAsamaVideoUrl: any;
   ucuncuAsamaBilgilendirmeMetni: any;
@@ -25,29 +22,9 @@ export class KullaniciAnketlerPage3Component implements OnInit {
     this.ucuncuAsamaBilgilendirmeMetni= this.surveyService.getUcuncuAsamaBilgilendirmeMetni();
     this.normalKullaniciData = this._normalKullaniciAuth.getUserData();
     this.logUserActivityPhaseChange(this.normalKullaniciData.id, 3); // örnek olarak stage 1
-    // YouTube player'i oluşturma
-    this.player = new YT.Player('youtube-player', {
-      events: {
-        'onStateChange': this.onPlayerStateChange.bind(this)
-      }
-    });
-  }
-
-// Oynatıcı durumu değiştikçe bu fonksiyon çalışır
-onPlayerStateChange(event: any) {
-  if (event.data == YT.PlayerState.PLAYING) {
-    // Oynatma başladığında yapılacak işlemler
-    console.log("Oynatma başladı");
-  } else if (event.data == YT.PlayerState.PAUSED) {
-    // Duraklatıldığında yapılacak işlemler
-    console.log("Duraklatıldı");
-
-  } else if (event.data == YT.PlayerState.ENDED) {
-    // Video sona erdiğinde yapılacak işlemler
-    console.log("Video sona erdi");
 
   }
-}
+
 
   logUserActivityPhaseChange(id: any, stage: number) {
     const activityLog = {
