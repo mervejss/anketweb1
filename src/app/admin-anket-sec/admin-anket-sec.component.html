@@ -65,13 +65,26 @@
     <button class="btn btn-primary" (click)="ucuncuAsamaVideolariSil()">Tüm Videoları Sil</button>
 
     <!-- YÜKLENEN VİDEOYU GÖSTERMEK İÇİN -->
+
+    <div>
+      <h3>Videolar</h3>
+      <div *ngFor="let videoUrl of ucuncuAsamaVideoUrls; let i = index">
+          <div id="ucuncu-player-{{i}}"></div>
+          <button (click)="ucuncuAsamaVideoKaldir(i)">Bu videoyu Kaldır</button>
+      </div>
+  </div>
+  
+        
+    <!-- YÜKLENEN VİDEOYU GÖSTERMEK İÇİN 
+
     <ul>
       <li *ngFor="let videoUrl of ucuncuAsamaVideoUrls; let i = index">
         <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(videoUrl)" width="560" height="315"></iframe>
         <button (click)="ucuncuAsamaVideoKaldir(i)">Bu videoyu Kaldır</button>
 
       </li>
-    </ul>
+    </ul>-->
+
   </div>
 </div>
 
@@ -105,13 +118,13 @@
 
         <!-- YÜKLENEN VİDEOYU GÖSTERMEK İÇİN -->
        
-        <ul>
-          <li *ngFor="let videoUrl of dorduncuAsamaVideoUrls; let i = index">
-            <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(videoUrl)" width="560" height="315"></iframe>
-            <button (click)="dorduncuAsamaVideoKaldir(i)">Bu videoyu Kaldır</button>
-
-          </li>
-        </ul>
+        <div>
+          <h3>Videolar</h3>
+          <div *ngFor="let videoUrl of dorduncuAsamaVideoUrls; let i = index">
+              <div id="dorduncu-player-{{i}}"></div>
+              <button (click)="dorduncuAsamaVideoKaldir(i)">Bu videoyu Kaldır</button>
+          </div>
+      </div>
       </div>
     </div>
   </div>

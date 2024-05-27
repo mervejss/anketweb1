@@ -12,6 +12,7 @@ declare var YT: any;
   styleUrls: ['./admin-anket-sec.component.scss']
 })
 export class AdminAnketSecComponent implements OnInit, OnDestroy {
+  players: any = {}; // players nesnesini başlatın
 
   constructor(private surveyService: SurveyService, public sanitizer: DomSanitizer) { }
 
@@ -54,40 +55,53 @@ export class AdminAnketSecComponent implements OnInit, OnDestroy {
   ucuncuAsamaVideoYukle() {
     const videoUrl = this.createEmbedUrl(this.ucuncuAsamaVideoLink);
     if (!videoUrl) {
-      alert('Geçerli bir YouTube veya Google Drive video linki giriniz.');
+        alert('Geçerli bir YouTube veya Google Drive video linki giriniz.');
     } else {
-      this.ucuncuAsamaVideoUrls.push(videoUrl);
-      this.surveyService.setUcuncuAsamaVideoUrls(this.ucuncuAsamaVideoUrls);
-      this.initYouTubePlayer(videoUrl);
-    }
-  }
+        const playerId = 'ucuncu-player-' + this.ucuncuAsamaVideoUrls.length; // Benzersiz playerId oluşturuluyor
 
-  dorduncuAsamaVideoYukle() {
+        this.ucuncuAsamaVideoUrls.push(videoUrl);
+        this.surveyService.setUcuncuAsamaVideoUrls(this.ucuncuAsamaVideoUrls);
+        this.initYouTubePlayer(videoUrl, playerId);
+    }
+}
+
+dorduncuAsamaVideoYukle() {
     const videoUrl = this.createEmbedUrl(this.dorduncuAsamaVideoLink);
     if (!videoUrl) {
-      alert('Geçerli bir YouTube veya Google Drive video linki giriniz.');
+        alert('Geçerli bir YouTube veya Google Drive video linki giriniz.');
     } else {
-      this.dorduncuAsamaVideoUrls.push(videoUrl);
-      this.surveyService.setDorduncuAsamaVideoUrls(this.dorduncuAsamaVideoUrls);
-      this.initYouTubePlayer(videoUrl);
-    }
-  }
+        const playerId = 'dorduncu-player-' + this.dorduncuAsamaVideoUrls.length; // Benzersiz playerId oluşturuluyor
 
-  ucuncuAsamaVideolariListele() {
-    if (this.ucuncuAsamaVideoUrls.length === 0) {
-      alert('Önceden yüklenmiş bir video bulunamadı!');
-    } else {
-      this.ucuncuAsamaVideoUrls.forEach(videoUrl => this.initYouTubePlayer(videoUrl));
+        this.dorduncuAsamaVideoUrls.push(videoUrl);
+        this.surveyService.setDorduncuAsamaVideoUrls(this.dorduncuAsamaVideoUrls);
+        this.initYouTubePlayer(videoUrl, playerId);
     }
-  }
+}
 
-  dorduncuAsamaVideolariListele() {
-    if (this.dorduncuAsamaVideoUrls.length === 0) {
+
+ucuncuAsamaVideolariListele() {
+  if (this.ucuncuAsamaVideoUrls.length === 0) {
       alert('Önceden yüklenmiş bir video bulunamadı!');
-    } else {
-      this.dorduncuAsamaVideoUrls.forEach(videoUrl => this.initYouTubePlayer(videoUrl));
-    }
+  } else {
+      this.ucuncuAsamaVideoUrls.forEach((videoUrl, index) => {
+          const playerId = 'ucuncu-player-' + index; // Her video için benzersiz playerId oluşturuluyor
+          this.initYouTubePlayer(videoUrl, playerId);
+      });
   }
+}
+
+dorduncuAsamaVideolariListele() {
+  if (this.dorduncuAsamaVideoUrls.length === 0) {
+      alert('Önceden yüklenmiş bir video bulunamadı!');
+  } else {
+      this.dorduncuAsamaVideoUrls.forEach((videoUrl, index) => {
+          const playerId = 'dorduncu-player-' + index; // Her video için benzersiz playerId oluşturuluyor
+          this.initYouTubePlayer(videoUrl, playerId);
+      });
+  }
+}
+
+
 
   ucuncuAsamaVideolariSil() {
     if (confirm('Tüm 3. aşama videolarını silmek istediğinize emin misiniz?')) {
@@ -110,6 +124,10 @@ export class AdminAnketSecComponent implements OnInit, OnDestroy {
     if (confirm('Bu videoyu silmek istediğinize emin misiniz?')) {
       this.ucuncuAsamaVideoUrls.splice(index, 1);
       this.surveyService.setUcuncuAsamaVideoUrls(this.ucuncuAsamaVideoUrls);
+      const playerId = 'ucuncu-player-' + index;
+
+      this.players[playerId].destroy(); // Videoyu kaldırdığınızda player'ı da yok edin
+
     }
   }
 
@@ -124,15 +142,18 @@ export class AdminAnketSecComponent implements OnInit, OnDestroy {
     if (youtubeId) {
       return `https://www.youtube.com/embed/${youtubeId}`;
     }
-
+  
     const driveId = this.extractDriveId(url);
     if (driveId) {
       return `https://drive.google.com/file/d/${driveId}/preview`;
     }
-
+  
     return null;
   }
+  
 
+ 
+  
   extractYoutubeId(url: string): string | null {
     const regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
     const match = url.match(regExp);
@@ -145,15 +166,11 @@ export class AdminAnketSecComponent implements OnInit, OnDestroy {
     return (match && match[1]) ? match[1] : null;
   }
 
-  initYouTubePlayer(videoUrl: string) {
-    if (this.player) {
-      this.player.destroy();
-    }
-
+  initYouTubePlayer(videoUrl: string, playerId: string) {
     const videoId = this.extractYoutubeId(videoUrl);
     if (!videoId) return;
-
-    this.player = new YT.Player('youtube-player', {
+  
+    this.players[playerId] = new YT.Player(playerId, {
       height: '315',
       width: '560',
       videoId: videoId,
@@ -168,37 +185,40 @@ export class AdminAnketSecComponent implements OnInit, OnDestroy {
         'playsinline': 1
       },
       events: {
-        'onStateChange': this.onPlayerStateChange.bind(this)
+        'onStateChange': (event: any) => this.onPlayerStateChange(event, playerId) // Fonksiyonu değiştir
       }
     });
   }
+  
 
-  onPlayerStateChange(event: any) {
-    if (event.data == YT.PlayerState.PLAYING) {
-      this.startTracking();
-    } else {
-      this.stopTracking();
+  // onPlayerStateChange fonksiyonunda
+onPlayerStateChange(event: any, playerId: string) { // playerId parametresini ekleyin
+  if (event.data == YT.PlayerState.PLAYING) {
+    this.startTracking(playerId); // Fonksiyonu değiştir
+  } else {
+    this.stopTracking(playerId); // Fonksiyonu değiştir
+  }
+}
+
+// startTracking fonksiyonunda
+startTracking(playerId: string) { // playerId parametresini ekleyin
+  this.interval = setInterval(() => {
+    const currentTime = this.players[playerId].getCurrentTime(); // players[playerId] şeklinde güncelleyin
+    const duration = this.players[playerId].getDuration(); // players[playerId] şeklinde güncelleyin
+    console.log('Current Time: ', currentTime);
+    if (Math.abs(currentTime - duration) < 3) {
+      console.log('VİDEO BİTTİ');
+      this.stopTracking(playerId); // Fonksiyonu değiştir
     }
-  }
+  }, 1000);
+}
 
-  startTracking() {
-    this.interval = setInterval(() => {
-      const currentTime = this.player.getCurrentTime();
-      const duration = this.player.getDuration();
-      console.log('Current Time: ', currentTime);
-      if (Math.abs(currentTime - duration) < 3) {
-        console.log('VİDEO BİTTİ');
-        this.stopTracking();
-      }
-    }, 1000);
+// stopTracking fonksiyonunda
+stopTracking(playerId: string) { // playerId parametresini ekleyin
+  if (this.interval) {
+    clearInterval(this.interval);
   }
-
-  stopTracking() {
-    if (this.interval) {
-      clearInterval(this.interval);
-    }
-  }
-
+}
   birinciAsamaAnketSorusuSec() {
     // Seçilen anket ID'sini servise set et
     console.log('SEÇİLEN ANKET ID Sİ : ', this.birinciAsamaSecilecekAnketId);
