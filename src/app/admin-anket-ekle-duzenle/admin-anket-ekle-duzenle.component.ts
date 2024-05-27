@@ -17,6 +17,22 @@ export class AdminAnketEkleDuzenleComponent implements OnInit {
     this.getSurveys();
   }
 
+  deleteSurvey(surveyId: number): void {
+    if (confirm('Bu ankete ait tüm verileri silmek istediğinize emin misiniz?')) {
+      // SurveyService üzerinden ilgili anketi silme işlemi yapılmalı
+      this.surveyService.deleteSurvey(surveyId).subscribe(
+        () => {
+          // Silme işlemi başarılı olduğunda surveys listesinden de ilgili anketi kaldır
+          this.surveys = this.surveys.filter(survey => survey.id !== surveyId);
+          console.log('Anket başarıyla silindi.');
+        },
+        error => {
+          console.error('Anket silinirken hata oluştu:', error);
+        }
+      );
+    }
+  }
+
   getSurveys(): void {
     this.surveyService.getAllSurveys().subscribe(
       surveys => {

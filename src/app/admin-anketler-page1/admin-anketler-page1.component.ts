@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AdminService } from '../services/admin.service';
+import { SurveyService } from '../services/survey.service';
 
 @Component({
   selector: 'app-admin-anketler-page1',
@@ -14,10 +15,39 @@ export class AdminAnketlerPage1Component implements OnInit {
   questionData: any[] = [];
   questionOptionData: any[] = [];
   
-  constructor(private http: HttpClient, private router: Router, private _auth: AdminService) { }
+  constructor(private http: HttpClient, private router: Router, private _auth: AdminService,private surveyService: SurveyService) { }
 
   ngOnInit(): void {
     
+  }
+  deleteOption(optionId: number): void {
+    if (confirm('Bu seçeneği silmek istediğinize emin misiniz?')) {
+      this.surveyService.deleteQuestionOption(optionId).subscribe(
+        () => {
+          // Silme işlemi başarılı olduğunda questionOptionData listesinden de ilgili seçeneği kaldır
+          this.questionOptionData = this.questionOptionData.filter(option => option.id !== optionId);
+          console.log('Seçenek başarıyla silindi.');
+        },
+        error => {
+          console.error('Seçenek silinirken hata oluştu:', error);
+        }
+      );
+    }
+  }
+  
+  deleteQuestion(questionId: number): void {
+    if (confirm('Bu soruyu silmek istediğinize emin misiniz?')) {
+      this.surveyService.deleteQuestion(questionId).subscribe(
+        () => {
+          // Silme işlemi başarılı olduğunda questionData listesinden de ilgili soruyu kaldır
+          this.questionData = this.questionData.filter(question => question.id !== questionId);
+          console.log('Soru başarıyla silindi.');
+        },
+        error => {
+          console.error('Soru silinirken hata oluştu:', error);
+        }
+      );
+    }
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tiklananAnketId'] && changes['tiklananAnketId'].currentValue !== changes['tiklananAnketId'].previousValue) {

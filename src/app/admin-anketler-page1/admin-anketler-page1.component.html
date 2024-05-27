@@ -5,6 +5,7 @@
   <div *ngFor="let question of questionData; let i = index" class="question-container">
     <div class="question-header">
       <p> Soru ID : {{ question.id }}</p>
+      <button class="btn btn-danger" (click)="deleteQuestion(question.id)">SORUYU SİL</button> <!-- SORUYU SİL butonu eklendi -->
 
       <p>{{ i + 1 }}. {{ question.question_text }}</p>
     </div>
@@ -18,7 +19,8 @@
         <label *ngFor="let option of item.options" class="option-label">
           <input type="radio" [value]="option.id" name="options" disabled>
           {{ option.option_text }} (Seçenek ID : {{option.id}})
-          
+          <button class="btn btn-danger" (click)="deleteOption(option.id)">SEÇENEĞİ SİL</button> <!-- SEÇENEĞİ SİL butonu eklendi -->
+
         </label>
       </div>
       

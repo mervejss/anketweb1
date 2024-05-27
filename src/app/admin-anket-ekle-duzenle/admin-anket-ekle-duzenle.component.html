@@ -8,6 +8,10 @@
     <p>Anketi Oluşturan Yönetici ID : {{ survey.admin_id }}</p>
     <p>Anketin Oluşturulma Tarihi: {{ survey.created_at }}</p>
 
+    <!-- ANKETİ SİL butonunu buraya ekle -->
+    <button class="btn btn-danger" (click)="deleteSurvey(survey.id)">ANKETİ SİL</button>
+
+    
     <div class="anket-sorulari-content">
       <!-- Anket sorularının içeriği burada<app-admin-anketler-page1 *ngIf="aktifSayfa === 'admin-anket-duzenle'"></app-admin-anketler-page1> -->
       <app-admin-anketler-page1 *ngIf="aktifSayfa === 'admin-anketler-page1' && tiklananAnketId === survey.id" [tiklananAnketId]="tiklananAnketId"></app-admin-anketler-page1>

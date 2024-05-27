@@ -41,8 +41,7 @@ export class SurveyService {
 
   private saveUserSurveyAnswersapiUrl = 'http://localhost:3000/api/saveUserSurveyAnswers'; // API URL'si
   private saveUserSurveyOpenAnswersapiUrl= 'http://localhost:3000/api/saveUserSurveyOpenAnswers'; // API URL'si
-
-
+  
   getUcuncuAsamaVideoUrls(): string[] {
     return JSON.parse(localStorage.getItem('ucuncuAsamaVideoUrls') || '[]');
   }
