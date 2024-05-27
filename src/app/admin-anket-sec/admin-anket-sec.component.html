@@ -38,18 +38,39 @@
 
 <div class="row">
   <div class="container">
+    <h2>Kullanıcılara 3. Aşamada Gösterilecek Bilgilendirme Metni</h2>
+    <form>
+      <div class="form-group">
+        <label for="ucuncuAsamaBilgilendirmeMetni">Bilgilendirme Metni: </label>
+        <div class="textarea-container">
+          <textarea class="textarea" id="ucuncuAsamaBilgilendirmeMetni" name="ucuncuAsamaBilgilendirmeMetni"
+            [(ngModel)]="ucuncuAsamaBilgilendirmeMetni"></textarea>
+          <span class="placeholder">Bilgilendirme Metnini buraya yazınız</span>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="dorduncuAsamaAnketSorusuSec()">Bilgilendirme Metnini Tamamla</button>
+    </form>
+
+<div class="row">
+  <div class="container">
     <h2>Kullanıcılara 3. Aşamada Gösterilecek Video</h2>
     <div class="form-group">
       <label for="ucuncuAsamaVideoLink">Video Linki: </label>
       <input type="text" id="ucuncuAsamaVideoLink" name="ucuncuAsamaVideoLink" [(ngModel)]="ucuncuAsamaVideoLink"
         placeholder="YouTube veya Google Drive video linkini buraya yapıştırın">
     </div>
-    <button class="btn btn-primary" (click)="ucuncuAsamaVideoGoster()">Video Göster</button>
+    
+    <button class="btn btn-primary" (click)="ucuncuAsamaVideoYukle()">Video Yükle</button>
+
+    <button class="btn btn-primary" (click)="ucuncuAsamaVideolariListele()">Yüklenmiş Videoları Göster</button>
 
     <!-- YÜKLENEN VİDEOYU GÖSTERMEK İÇİN -->
     <div *ngIf="ucuncuAsamaVideoUrl">
       <h3>Video</h3>
-      <div id="youtube-player"></div>
+      <div id="youtube-player">
+
+        
+      </div>
     </div>
   </div>
 </div>
@@ -77,7 +98,8 @@
           <input type="text" id="dorduncuAsamaVideoLink" name="dorduncuAsamaVideoLink" [(ngModel)]="dorduncuAsamaVideoLink"
             placeholder="YouTube veya Google Drive video linkini buraya yapıştırın">
         </div>
-        <button class="btn btn-primary" (click)="dorduncuAsamaVideoGoster()">Video Göster</button>
+        <button class="btn btn-primary" (click)="dorduncuAsamaVideoYukle()">Video Yükle</button>
+        <button class="btn btn-primary" (click)="dorduncuAsamaVideolariListele()">Yüklenmiş Videoları Göster</button>
 
         <!-- YÜKLENEN VİDEOYU GÖSTERMEK İÇİN -->
         <div *ngIf="dorduncuAsamaVideoUrl">

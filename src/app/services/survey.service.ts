@@ -76,20 +76,7 @@ export class SurveyService {
     localStorage.setItem('dorduncuAsamaVideoUrl', url);
   }
   
-  /*
-  private getVideoapiUrl= 'http://localhost:3000/api/videos'; // API URL'si
-  private saveVideoapiUrl = 'http://localhost:3000/api/videos'; // API URL'si
-
-
-  getVideoByStage(stage: number): Observable<any> {
-    return this.http.get(`${this.getVideoapiUrl}/${stage}`);
-  }
-
-
-  saveVideoByStage(stage: number, videoLink: string): Observable<any> {
-    return this.http.post(this.saveVideoapiUrl, { stage, video_link: videoLink });
-  }*/
-  
+ 
   // secilecekAnketId değişkenine erişim için GET metodu
   getBirinciAsamaSecilecekAnketId(): number {
     return this.birinciAsamaSecilenAnketId;

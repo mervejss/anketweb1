@@ -35,8 +35,6 @@ export class AdminAnketSecComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
     // localStorage'dan veriyi çek
-    //this.ucuncuAsamaYuklenenVideo = this.surveyService.getUcuncuAsamaYuklenenVideo();
-    //this.dorduncuAsamaYuklenenVideo = this.surveyService.getDorduncuAsamaYuklenenVideo();
     this.ucuncuAsamaVideoUrl= this.surveyService.getUcuncuAsamaVideoUrl();
     this.dorduncuAsamaVideoUrl=this.surveyService.getDorduncuAsamaVideoUrl();
     console.log('GET ucuncuAsamaVideoUrl : ', this.ucuncuAsamaVideoUrl);
@@ -49,7 +47,17 @@ export class AdminAnketSecComponent implements OnInit, OnDestroy {
       clearInterval(this.interval);
     }
   }
-  ucuncuAsamaVideoGoster() {
+  ucuncuAsamaVideolariListele() {
+    
+    if (!this.ucuncuAsamaVideoUrl) {
+      alert('Geçerli bir YouTube veya Google Drive video linki giriniz. Önceden yüklenmiş bir video bulunamadı !');
+    } else {
+      this.initYouTubePlayer(this.ucuncuAsamaVideoUrl);
+    }
+  }
+
+  ucuncuAsamaVideoYukle() {
+    
     this.ucuncuAsamaVideoUrl = this.createEmbedUrl(this.ucuncuAsamaVideoLink);
     if (!this.ucuncuAsamaVideoUrl) {
       alert('Geçerli bir YouTube veya Google Drive video linki giriniz.');
@@ -59,16 +67,27 @@ export class AdminAnketSecComponent implements OnInit, OnDestroy {
     }
   }
 
-  dorduncuAsamaVideoGoster() {
-    this.dorduncuAsamaVideoUrl = this.createEmbedUrl(this.dorduncuAsamaVideoLink);
-    if (!this.dorduncuAsamaVideoUrl) {
-      alert('Geçerli bir YouTube veya Google Drive video linki giriniz.');
+  dorduncuAsamaVideolariListele() {
+    
+    if (!this.dorduncuAsamaVideoLink) {
+      alert('Geçerli bir YouTube veya Google Drive video linki giriniz. Önceden yüklenmiş bir video bulunamadı !');
     } else {
-      this.surveyService.setDorduncuAsamaVideoUrl(this.dorduncuAsamaVideoUrl);
-      this.initYouTubePlayer(this.dorduncuAsamaVideoUrl);
+      this.initYouTubePlayer(this.dorduncuAsamaVideoLink);
     }
   }
 
+  dorduncuAsamaVideoYukle() {
+    
+    this.dorduncuAsamaVideoLink = this.createEmbedUrl(this.dorduncuAsamaVideoLink);
+    if (!this.dorduncuAsamaVideoLink) {
+      alert('Geçerli bir YouTube veya Google Drive video linki giriniz.');
+    } else {
+      this.surveyService.setDorduncuAsamaVideoUrl(this.dorduncuAsamaVideoLink);
+      this.initYouTubePlayer(this.dorduncuAsamaVideoLink);
+    }
+  }
+
+ 
   createEmbedUrl(url: string): string | null {
     const youtubeId = this.extractYoutubeId(url);
     if (youtubeId) {
@@ -136,12 +155,7 @@ export class AdminAnketSecComponent implements OnInit, OnDestroy {
       const currentTime = this.player.getCurrentTime();
       const duration = this.player.getDuration();
       console.log('Current Time: ', currentTime);
-      //console.log('duration Time: ', duration);
-      //console.log('Math.abs(currentTime - duration)',Math.abs(currentTime - duration) );
-
-      //console.log('Math.abs(currentTime - duration) < 2',Math.abs(currentTime - duration) < 3);
-
-      if (Math.abs(currentTime - duration) < 3) { // Checking if current time is within 1 second of the duration
+           if (Math.abs(currentTime - duration) < 3) { // Checking if current time is within 1 second of the duration
 
         console.log('VİDEO BİTTİ');
         this.stopTracking(); // Stop tracking when video ends
