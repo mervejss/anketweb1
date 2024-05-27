@@ -43,6 +43,22 @@ export class SurveyService {
   private saveUserSurveyOpenAnswersapiUrl= 'http://localhost:3000/api/saveUserSurveyOpenAnswers'; // API URL'si
 
 
+  getUcuncuAsamaVideoUrls(): string[] {
+    return JSON.parse(localStorage.getItem('ucuncuAsamaVideoUrls') || '[]');
+  }
+
+  setUcuncuAsamaVideoUrls(videoUrls: string[]) {
+    localStorage.setItem('ucuncuAsamaVideoUrls', JSON.stringify(videoUrls));
+  }
+
+  getDorduncuAsamaVideoUrls(): string[] {
+    return JSON.parse(localStorage.getItem('dorduncuAsamaVideoUrls') || '[]');
+  }
+
+  setDorduncuAsamaVideoUrls(videoUrls: string[]) {
+    localStorage.setItem('dorduncuAsamaVideoUrls', JSON.stringify(videoUrls));
+  }
+
   getUcuncuAsamaBilgilendirmeMetni(): string {
     return localStorage.getItem('ucuncuAsamaBilgilendirmeMetni') || '';
   }

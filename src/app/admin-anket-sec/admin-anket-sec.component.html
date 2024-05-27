@@ -61,17 +61,17 @@
     </div>
     
     <button class="btn btn-primary" (click)="ucuncuAsamaVideoYukle()">Video Yükle</button>
-
     <button class="btn btn-primary" (click)="ucuncuAsamaVideolariListele()">Yüklenmiş Videoları Göster</button>
+    <button class="btn btn-primary" (click)="ucuncuAsamaVideolariSil()">Tüm Videoları Sil</button>
 
     <!-- YÜKLENEN VİDEOYU GÖSTERMEK İÇİN -->
-    <div *ngIf="ucuncuAsamaVideoUrl">
-      <h3>Video</h3>
-      <div id="youtube-player">
+    <ul>
+      <li *ngFor="let videoUrl of ucuncuAsamaVideoUrls; let i = index">
+        <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(videoUrl)" width="560" height="315"></iframe>
+        <button (click)="ucuncuAsamaVideoKaldir(i)">Bu videoyu Kaldır</button>
 
-        
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </div>
 
@@ -100,14 +100,18 @@
         </div>
         <button class="btn btn-primary" (click)="dorduncuAsamaVideoYukle()">Video Yükle</button>
         <button class="btn btn-primary" (click)="dorduncuAsamaVideolariListele()">Yüklenmiş Videoları Göster</button>
+        <button class="btn btn-primary" (click)="dorduncuAsamaVideolariSil()">Tüm Videoları Sil</button>
+
 
         <!-- YÜKLENEN VİDEOYU GÖSTERMEK İÇİN -->
-        <div *ngIf="dorduncuAsamaVideoUrl">
-          <h3>Video</h3>
-          <iframe width="560" height="315" [src]="sanitizer.bypassSecurityTrustResourceUrl(dorduncuAsamaVideoUrl)" frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
-        </div>
+       
+        <ul>
+          <li *ngFor="let videoUrl of dorduncuAsamaVideoUrls; let i = index">
+            <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(videoUrl)" width="560" height="315"></iframe>
+            <button (click)="dorduncuAsamaVideoKaldir(i)">Bu videoyu Kaldır</button>
+
+          </li>
+        </ul>
       </div>
     </div>
   </div>

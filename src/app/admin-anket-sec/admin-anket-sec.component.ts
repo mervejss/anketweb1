@@ -30,64 +30,95 @@ export class AdminAnketSecComponent implements OnInit, OnDestroy {
   dorduncuAsamaVideoId: any;
   ucuncuAsamaVideoUrl: any;
   dorduncuAsamaVideoUrl: any;
+
+  ucuncuAsamaVideoUrls: string[] = [];
+  dorduncuAsamaVideoUrls: string[] = [];
+
+
   player: any;
   interval: any;
   
   ngOnInit(): void {
-    // localStorage'dan veriyi çek
-    this.ucuncuAsamaVideoUrl= this.surveyService.getUcuncuAsamaVideoUrl();
-    this.dorduncuAsamaVideoUrl=this.surveyService.getDorduncuAsamaVideoUrl();
-    console.log('GET ucuncuAsamaVideoUrl : ', this.ucuncuAsamaVideoUrl);
-    console.log('GET dorduncuAsamaVideoUrl : ', this.dorduncuAsamaVideoUrl);
-    this.ucuncuAsamaBilgilendirmeMetni= this.surveyService.getUcuncuAsamaBilgilendirmeMetni();
-    this.dorduncuAsamaBilgilendirmeMetni= this.surveyService.getDorduncuAsamaBilgilendirmeMetni();
+    this.ucuncuAsamaVideoUrls = this.surveyService.getUcuncuAsamaVideoUrls() || [];
+    this.dorduncuAsamaVideoUrls = this.surveyService.getDorduncuAsamaVideoUrls() || [];
+    this.ucuncuAsamaBilgilendirmeMetni = this.surveyService.getUcuncuAsamaBilgilendirmeMetni();
+    this.dorduncuAsamaBilgilendirmeMetni = this.surveyService.getDorduncuAsamaBilgilendirmeMetni();
   }
+
   ngOnDestroy(): void {
     if (this.interval) {
       clearInterval(this.interval);
     }
   }
-  ucuncuAsamaVideolariListele() {
-    
-    if (!this.ucuncuAsamaVideoUrl) {
-      alert('Geçerli bir YouTube veya Google Drive video linki giriniz. Önceden yüklenmiş bir video bulunamadı !');
-    } else {
-      this.initYouTubePlayer(this.ucuncuAsamaVideoUrl);
-    }
-  }
-
+  
   ucuncuAsamaVideoYukle() {
-    
-    this.ucuncuAsamaVideoUrl = this.createEmbedUrl(this.ucuncuAsamaVideoLink);
-    if (!this.ucuncuAsamaVideoUrl) {
+    const videoUrl = this.createEmbedUrl(this.ucuncuAsamaVideoLink);
+    if (!videoUrl) {
       alert('Geçerli bir YouTube veya Google Drive video linki giriniz.');
     } else {
-      this.surveyService.setUcuncuAsamaVideoUrl(this.ucuncuAsamaVideoUrl);
-      this.initYouTubePlayer(this.ucuncuAsamaVideoUrl);
-    }
-  }
-
-  dorduncuAsamaVideolariListele() {
-    
-    if (!this.dorduncuAsamaVideoLink) {
-      alert('Geçerli bir YouTube veya Google Drive video linki giriniz. Önceden yüklenmiş bir video bulunamadı !');
-    } else {
-      this.initYouTubePlayer(this.dorduncuAsamaVideoLink);
+      this.ucuncuAsamaVideoUrls.push(videoUrl);
+      this.surveyService.setUcuncuAsamaVideoUrls(this.ucuncuAsamaVideoUrls);
+      this.initYouTubePlayer(videoUrl);
     }
   }
 
   dorduncuAsamaVideoYukle() {
-    
-    this.dorduncuAsamaVideoLink = this.createEmbedUrl(this.dorduncuAsamaVideoLink);
-    if (!this.dorduncuAsamaVideoLink) {
+    const videoUrl = this.createEmbedUrl(this.dorduncuAsamaVideoLink);
+    if (!videoUrl) {
       alert('Geçerli bir YouTube veya Google Drive video linki giriniz.');
     } else {
-      this.surveyService.setDorduncuAsamaVideoUrl(this.dorduncuAsamaVideoLink);
-      this.initYouTubePlayer(this.dorduncuAsamaVideoLink);
+      this.dorduncuAsamaVideoUrls.push(videoUrl);
+      this.surveyService.setDorduncuAsamaVideoUrls(this.dorduncuAsamaVideoUrls);
+      this.initYouTubePlayer(videoUrl);
     }
   }
 
- 
+  ucuncuAsamaVideolariListele() {
+    if (this.ucuncuAsamaVideoUrls.length === 0) {
+      alert('Önceden yüklenmiş bir video bulunamadı!');
+    } else {
+      this.ucuncuAsamaVideoUrls.forEach(videoUrl => this.initYouTubePlayer(videoUrl));
+    }
+  }
+
+  dorduncuAsamaVideolariListele() {
+    if (this.dorduncuAsamaVideoUrls.length === 0) {
+      alert('Önceden yüklenmiş bir video bulunamadı!');
+    } else {
+      this.dorduncuAsamaVideoUrls.forEach(videoUrl => this.initYouTubePlayer(videoUrl));
+    }
+  }
+
+  ucuncuAsamaVideolariSil() {
+    if (confirm('Tüm 3. aşama videolarını silmek istediğinize emin misiniz?')) {
+      this.ucuncuAsamaVideoUrls = [];
+      this.surveyService.setUcuncuAsamaVideoUrls(this.ucuncuAsamaVideoUrls);
+      alert('Tüm 3. aşama videoları silindi.');
+    }
+  }
+
+  dorduncuAsamaVideolariSil() {
+    if (confirm('Tüm 4. aşama videolarını silmek istediğinize emin misiniz?')) {
+      this.dorduncuAsamaVideoUrls = [];
+      this.surveyService.setDorduncuAsamaVideoUrls(this.dorduncuAsamaVideoUrls);
+      alert('Tüm 4. aşama videoları silindi.');
+    }
+  }
+
+  
+  ucuncuAsamaVideoKaldir(index: number) {
+    if (confirm('Bu videoyu silmek istediğinize emin misiniz?')) {
+      this.ucuncuAsamaVideoUrls.splice(index, 1);
+      this.surveyService.setUcuncuAsamaVideoUrls(this.ucuncuAsamaVideoUrls);
+    }
+  }
+
+  dorduncuAsamaVideoKaldir(index: number) {
+    if (confirm('Bu videoyu silmek istediğinize emin misiniz?')) {
+      this.dorduncuAsamaVideoUrls.splice(index, 1);
+      this.surveyService.setDorduncuAsamaVideoUrls(this.dorduncuAsamaVideoUrls);
+    }
+  }
   createEmbedUrl(url: string): string | null {
     const youtubeId = this.extractYoutubeId(url);
     if (youtubeId) {
@@ -127,14 +158,14 @@ export class AdminAnketSecComponent implements OnInit, OnDestroy {
       width: '560',
       videoId: videoId,
       playerVars: {
-        'controls': 0, // Kontrolleri gizler
-        'disablekb': 1,// Klavye kontrollerini devre dışı bırakır
-        'fs': 1, // Tam ekran butonunu devre dışı bırakır
-        'modestbranding': 1, // Minimal YouTube marka bilinci oluşturma
-        'rel': 0, // Sonunda ilgili video yok
-        'showinfo': 0, // Video başlığını gizler
-        'iv_load_policy': 3, // Ek açıklamaları gizler
-        'playsinline': 1 // Ek açıklamaları gizler
+        'controls': 0,
+        'disablekb': 1,
+        'fs': 1,
+        'modestbranding': 1,
+        'rel': 0,
+        'showinfo': 0,
+        'iv_load_policy': 3,
+        'playsinline': 1
       },
       events: {
         'onStateChange': this.onPlayerStateChange.bind(this)
@@ -155,14 +186,13 @@ export class AdminAnketSecComponent implements OnInit, OnDestroy {
       const currentTime = this.player.getCurrentTime();
       const duration = this.player.getDuration();
       console.log('Current Time: ', currentTime);
-           if (Math.abs(currentTime - duration) < 3) { // Checking if current time is within 1 second of the duration
-
+      if (Math.abs(currentTime - duration) < 3) {
         console.log('VİDEO BİTTİ');
-        this.stopTracking(); // Stop tracking when video ends
+        this.stopTracking();
       }
-      // You can send this data to your backend here
     }, 1000);
   }
+
   stopTracking() {
     if (this.interval) {
       clearInterval(this.interval);
