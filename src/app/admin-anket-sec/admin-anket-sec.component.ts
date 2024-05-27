@@ -13,6 +13,8 @@ declare var YT: any;
 })
 export class AdminAnketSecComponent implements OnInit, OnDestroy {
   players: any = {}; // players nesnesini başlatın
+  ucuncuAsamaVideoshowVideoButtons: any;
+  dorduncuAsamaVideoshowVideoButtons: any;
 
   constructor(private surveyService: SurveyService, public sanitizer: DomSanitizer) { }
 
@@ -80,6 +82,8 @@ dorduncuAsamaVideoYukle() {
 
 
 ucuncuAsamaVideolariListele() {
+  this.ucuncuAsamaVideoshowVideoButtons = true;
+
   if (this.ucuncuAsamaVideoUrls.length === 0) {
       alert('Önceden yüklenmiş bir video bulunamadı!');
   } else {
@@ -91,6 +95,8 @@ ucuncuAsamaVideolariListele() {
 }
 
 dorduncuAsamaVideolariListele() {
+  this.dorduncuAsamaVideoshowVideoButtons = true;
+
   if (this.dorduncuAsamaVideoUrls.length === 0) {
       alert('Önceden yüklenmiş bir video bulunamadı!');
   } else {

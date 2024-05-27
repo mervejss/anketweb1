@@ -68,12 +68,17 @@
 
     <div>
       <h3>Videolar</h3>
+      
+
       <div *ngFor="let videoUrl of ucuncuAsamaVideoUrls; let i = index">
-          <div id="ucuncu-player-{{i}}"></div>
-          <button (click)="ucuncuAsamaVideoKaldir(i)">Bu videoyu Kaldır</button>
+          <div id="ucuncu-player-{{i}}">
+          </div>
+          <div *ngIf="ucuncuAsamaVideoshowVideoButtons">
+            <button (click)="ucuncuAsamaVideoKaldir(i)">Bu videoyu Kaldır</button> 
+          </div>
       </div>
-  </div>
-  
+    </div>
+ 
         
     <!-- YÜKLENEN VİDEOYU GÖSTERMEK İÇİN 
 
@@ -121,8 +126,11 @@
         <div>
           <h3>Videolar</h3>
           <div *ngFor="let videoUrl of dorduncuAsamaVideoUrls; let i = index">
-              <div id="dorduncu-player-{{i}}"></div>
+              <div id="dorduncu-player-{{i}}">
+              </div>
+              <div *ngIf="dorduncuAsamaVideoshowVideoButtons">
               <button (click)="dorduncuAsamaVideoKaldir(i)">Bu videoyu Kaldır</button>
+            </div>
           </div>
       </div>
       </div>
