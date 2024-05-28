@@ -3,6 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AdminService } from '../services/admin.service';
 import { SurveyService } from '../services/survey.service';
+import { OptionDialogComponent } from '../option-dialog/option-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
+import { UpdateOptionDialogComponent } from '../update-option-dialog/update-option-dialog.component';
 
 @Component({
   selector: 'app-admin-anketler-page1',
@@ -15,11 +19,158 @@ export class AdminAnketlerPage1Component implements OnInit {
   questionData: any[] = [];
   questionOptionData: any[] = [];
   
-  constructor(private http: HttpClient, private router: Router, private _auth: AdminService,private surveyService: SurveyService) { }
+  constructor(private http: HttpClient, private router: Router, private _auth: AdminService,private surveyService: SurveyService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     
   }
+
+  openUpdateOptionDialog(option: any): void {
+    console.log('Güncellenmiş Anket Sorusu Seçeneği option.option_text :', option.option_text);
+    console.log(' Anket Sorusu Seçeneği option.question_id :', option.question_id);
+    console.log(' Anket Sorusu Seçeneği option.content :', option.option_text);
+    console.log(' Anket Sorusu Seçeneği option.letter :', option.option_letter);
+    console.log(' Anket Sorusu Seçeneği option.status :', option.is_correct);
+    console.log('this.tiklananAnketId :', this.tiklananAnketId);
+  
+    const dialogRef = this.dialog.open(UpdateOptionDialogComponent, {
+      data: option
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Güncellenmiş Anket Sorusu Seçeneği:', result);
+        this.updateOption(result);
+      }
+    });
+  }
+  updateOption(updatedOptionData: any): void {
+    console.log('Anket Sorusu Seçeneği Güncelleniyor:', updatedOptionData);
+    this.soruSecenegiGuncelle(
+      updatedOptionData.questionId,
+      updatedOptionData.optionId,
+      updatedOptionData.content,
+      updatedOptionData.letter,
+      updatedOptionData.status
+    );
+  }
+  
+  soruSecenegiGuncelle(questionId: any, optionId: any, content: any, letter: any, status: any) {
+    if(status=="Yanlış")
+      {
+        
+        status=false;
+      }
+      else 
+        {
+          status=true;
+          
+        }
+    this.surveyService.updateQuestionOption(optionId, questionId, content, letter, status)
+      .subscribe(
+        (response) => {
+          console.log('Soru seçeneği güncellendi:', response);
+          alert('Soru seçeneği başarıyla güncellendi!');
+        },
+        (error) => {
+          console.error('Soru seçeneği güncellenirken bir hata oluştu:', error);
+          alert('Soru seçeneği güncellenirken bir hata oluştu.');
+        }
+      );
+  }
+
+  openUpdateDialog(question: any): void {
+    console.log('Güncellenmiş Anket Sorusu:', question.question_text);
+
+    const dialogRef = this.dialog.open(UpdateDialogComponent, {
+      data: question
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Güncellenmiş Anket Sorusu:', result);
+        this.updateQuestion(result);
+      }
+    });
+  }
+  
+  updateQuestion(updatedQuestionData: any): void {
+    console.log('Anket Sorusu Güncelleniyor:', updatedQuestionData);
+    this.anketSorusuGuncelle(updatedQuestionData.questionId,this.tiklananAnketId,updatedQuestionData.content,updatedQuestionData.type)
+  }
+  anketSorusuGuncelle(questionId: any, surveyId: any, content: any, type: any) {
+    this.surveyService.updateQuestion(questionId, surveyId, content, type)
+      .subscribe(
+        (response) => {
+          console.log('Soru güncellendi:', response);
+          // İsteğin başarılı bir şekilde tamamlandığında burada ilgili işlemleri yapabilirsiniz
+          alert('Soru başarıyla güncellendi!');
+        },
+        (error) => {
+          console.error('Soru güncellenirken bir hata oluştu:', error);
+          // Hata durumunda burada ilgili işlemleri yapabilirsiniz
+          alert('Soru güncellenirken bir hata oluştu.');
+        }
+      );
+  }
+
+  openOptionDialog(questionId: number): void {
+    const dialogRef = this.dialog.open(OptionDialogComponent, {
+      data: { questionId }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Anket Sorusu Seçeneği:', result);
+        this.optionEkle(result);
+      }
+    });
+  }
+  
+  optionEkle(optionData: any): void {
+    console.log('Anket Sorusu Seçeneği Ekleniyor:', optionData);
+    console.log('optionData.questionId:', optionData.questionId);
+    console.log('optionData.content:', optionData.content);
+    console.log('optionData.letter:', optionData.letter);
+    console.log('optionData.status:', optionData.status);
+
+
+    this.soruSecenegiOlustur(optionData.questionId, optionData.content, optionData.letter, optionData.status);
+  }
+  
+  soruSecenegiOlustur(questionId: any, soruSecenekIcerigi: any, soruSecenekSikki: any, soruSecenekDurumu: any) {
+    console.log('soruSecenegiOlustur:');
+    
+    console.log('questionId:', questionId);
+    console.log('soruSecenekIcerigi:', soruSecenekIcerigi);
+    console.log('soruSecenekSikki:', soruSecenekSikki);
+    console.log('soruSecenekDurumu:', soruSecenekDurumu);
+    if(soruSecenekDurumu=="Yanlış")
+      {
+        
+        soruSecenekDurumu=false;
+      }
+      else 
+        {
+        soruSecenekDurumu=true;
+          
+        }
+    console.log('soruSecenekDurumu:', soruSecenekDurumu);
+
+    this.surveyService.createQuestionOption(questionId, soruSecenekIcerigi, soruSecenekSikki, soruSecenekDurumu)
+      .subscribe(
+        (response) => {
+          console.log('Soru seçeneği oluşturuldu:', response);
+          alert('Soru seçeneği başarıyla oluşturuldu!');
+          // Refresh question options
+          this.getQuestionOptionsForQuestions();
+        },
+        (error) => {
+          console.error('Soru seçeneği oluşturulurken bir hata oluştu:', error);
+        }
+      );
+  }
+  
   deleteOption(optionId: number): void {
     if (confirm('Bu seçeneği silmek istediğinize emin misiniz?')) {
       this.surveyService.deleteQuestionOption(optionId).subscribe(
@@ -27,6 +178,8 @@ export class AdminAnketlerPage1Component implements OnInit {
           // Silme işlemi başarılı olduğunda questionOptionData listesinden de ilgili seçeneği kaldır
           this.questionOptionData = this.questionOptionData.filter(option => option.id !== optionId);
           console.log('Seçenek başarıyla silindi.');
+          this.getQuestionOptionsForQuestions();
+
         },
         error => {
           console.error('Seçenek silinirken hata oluştu:', error);

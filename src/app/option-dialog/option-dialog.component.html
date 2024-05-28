@@ -1,0 +1,23 @@
+<!--C:\angular\anketweb\src\app\option-dialog\option-dialog.component.html-->
+<h2 mat-dialog-title>ANKET SORUSUNA SEÇENEKLERİ EKLE</h2>
+<mat-dialog-content>
+  <p>Soru ID: {{ data.questionId }}</p>
+  <mat-form-field>
+    <mat-label>Soru Seçeneği İçeriği</mat-label>
+    <input matInput [(ngModel)]="optionContent">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Soru Seçeneği Şıkkı</mat-label>
+    <input matInput [(ngModel)]="optionLetter">
+  </mat-form-field>
+  
+  <mat-radio-group [(ngModel)]="optionStatus">
+    <mat-radio-button value="Doğru">Doğru</mat-radio-button>
+    <mat-radio-button value="Yanlış">Yanlış</mat-radio-button>
+  </mat-radio-group>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Vazgeç</button>
+  <button mat-button (click)="addOption()">Anket Sorusu Seçeneğini Oluştur</button>
+</mat-dialog-actions>

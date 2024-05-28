@@ -13,6 +13,7 @@ import { AdminKayitOlComponent } from './admin-kayit-ol/admin-kayit-ol.component
 import { AdminAnaSayfaComponent } from './admin-ana-sayfa/admin-ana-sayfa.component';
 import { Page1Component } from './page1/page1.component';
 import { AnaSayfaComponent } from './ana-sayfa/ana-sayfa.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { AdminService } from './services/admin.service';
 import { AuthGuard } from './services/auth.guard';
@@ -30,16 +31,26 @@ import { KullaniciAnketlerPage3Component } from './kullanici-anketler-page3/kull
 import { KullaniciAnketlerPage4Component } from './kullanici-anketler-page4/kullanici-anketler-page4.component';
 import { KullaniciAnketlerPage5Component } from './kullanici-anketler-page5/kullanici-anketler-page5.component';
 import { AdminRehberComponent } from './admin-rehber/admin-rehber.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { SurveyDialogComponent } from './survey-dialog/survey-dialog.component';
+import { QuestionDialogComponent } from './question-dialog/question-dialog.component';
+import { OptionDialogComponent } from './option-dialog/option-dialog.component';
+import { UpdateDialogComponent } from './update-dialog/update-dialog.component';
+import { UpdateOptionDialogComponent } from './update-option-dialog/update-option-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     KayitOlComponent, 
-    GirisYapComponent, AdminGirisYapComponent, AdminKayitOlComponent,AdminAnaSayfaComponent, Page1Component, AnaSayfaComponent, AdminAnketlerPage1Component, NormalKullaniciAnaSayfaComponent, KullaniciAnketlerPage1Component, AdminAnketEkleDuzenleComponent, KullanicilariGoruntuleComponent, KullaniciDetaylariComponent, AdminAnketEkleComponent, AdminAnketSecComponent, KullaniciAnketlerPage2Component, KullaniciAnketlerPage3Component, KullaniciAnketlerPage4Component, KullaniciAnketlerPage5Component, AdminRehberComponent,
+    GirisYapComponent, AdminGirisYapComponent, AdminKayitOlComponent,AdminAnaSayfaComponent, Page1Component, AnaSayfaComponent, AdminAnketlerPage1Component, NormalKullaniciAnaSayfaComponent, KullaniciAnketlerPage1Component, AdminAnketEkleDuzenleComponent, KullanicilariGoruntuleComponent, KullaniciDetaylariComponent, AdminAnketEkleComponent, AdminAnketSecComponent, KullaniciAnketlerPage2Component, KullaniciAnketlerPage3Component, KullaniciAnketlerPage4Component, KullaniciAnketlerPage5Component, AdminRehberComponent, SurveyDialogComponent, QuestionDialogComponent, OptionDialogComponent, UpdateDialogComponent, UpdateOptionDialogComponent,
     
   ],
   imports: [
     BrowserModule,
+    MatDialogModule,
+    MatInputModule,
+    MatRadioModule,
     FormsModule,// FormsModule'u burada da ekleyin
     RouterModule, 
     AppRoutingModule, // AppRoutingModule'ı burada da eklemeyi unutmayın

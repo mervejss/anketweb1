@@ -1,12 +1,17 @@
 <!-- C:\angular\anketweb-main\src\app\admin-anket-ekle-duzenle\admin-anket-ekle-duzenle.component.html -->
 
+
 <div class="survey-container">
   <h2>Anketler</h2>
+  <button mat-button (click)="openDialog()">Yeni Anket Oluştur</button>
+
   <div *ngFor="let survey of surveys" class="survey" (click)="onSurveyClick(survey.id)">
     <h3>Anket ID  : {{ survey.id }}</h3>
     <p>Anket Adı : {{ survey.survey_name }}</p>
     <p>Anketi Oluşturan Yönetici ID : {{ survey.admin_id }}</p>
     <p>Anketin Oluşturulma Tarihi: {{ survey.created_at }}</p>
+
+    <button mat-button (click)="openQuestionDialog(survey.id)">Bu Ankete Yeni Bir Anket Sorusu Ekle</button>
 
     <!-- ANKETİ SİL butonunu buraya ekle -->
     <button class="btn btn-danger" (click)="deleteSurvey(survey.id)">ANKETİ SİL</button>

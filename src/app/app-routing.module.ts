@@ -23,6 +23,11 @@ import { KullaniciAnketlerPage4Component } from './kullanici-anketler-page4/kull
 import { KullaniciAnketlerPage5Component } from './kullanici-anketler-page5/kullanici-anketler-page5.component';
 
 import { AdminRehberComponent } from './admin-rehber/admin-rehber.component';
+import { SurveyDialogComponent } from './survey-dialog/survey-dialog.component';
+import { QuestionDialogComponent } from './question-dialog/question-dialog.component';
+import { OptionDialogComponent } from './option-dialog/option-dialog.component';
+import { UpdateDialogComponent } from './update-dialog/update-dialog.component';
+
 
 
 const routes: Routes = [
@@ -47,6 +52,11 @@ const routes: Routes = [
   { path: 'kullanici-anketler-page4', component: KullaniciAnketlerPage4Component },
   { path: 'kullanici-anketler-page5', component: KullaniciAnketlerPage5Component },
   { path: 'admin-rehber', component: AdminRehberComponent },
+  { path: 'survey-dialog', component: SurveyDialogComponent },
+  { path: 'question-dialog', component: QuestionDialogComponent },
+  { path: 'option-dialog', component: OptionDialogComponent },
+  { path: 'update-dialog', component: UpdateDialogComponent },
+
 
   //{ path: 'special',   //canActivate: [AuthGuard], component: AdminAnaSayfaComponent },
 

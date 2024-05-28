@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>ANKET SORUSUNU GÜNCELLE</h2>
+<mat-dialog-content>
+  <p>Anket ID: {{ question.survey_id }}</p>
+  <p>Soru ID: {{ question.id }}</p>
+  <mat-form-field>
+    <mat-label>Yeni Soru İçeriği</mat-label>
+    <div class="textarea-container">
+      <textarea class="textarea" id="updatedQuestionContent" name="updatedQuestionContent"
+        [(ngModel)]="updatedQuestionContent"></textarea>
+      <span class="placeholder">{{ question.question_text }}</span>
+    </div>
+  </mat-form-field>
+    <mat-label>Yeni Soru Tipi</mat-label>
+    <mat-radio-group [(ngModel)]="updatedQuestionType">
+
+      <mat-radio-button value="Açık Uçlu">Açık Uçlu</mat-radio-button>
+      <mat-radio-button value="Çoktan Seçmeli">Çoktan Seçmeli</mat-radio-button>
+    </mat-radio-group>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Vazgeç</button>
+  <button mat-button (click)="updateQuestion()">Anket Sorusunu Güncelle</button>
+</mat-dialog-actions>

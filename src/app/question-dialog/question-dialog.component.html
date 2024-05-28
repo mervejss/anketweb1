@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>ANKET SORUSU EKLE</h2>
+<mat-dialog-content>
+  <p>Anket ID: {{ data.surveyId }}</p>
+  <mat-form-field>
+    <mat-label>Soru İçeriği</mat-label>
+    <input matInput [(ngModel)]="questionContent">
+  </mat-form-field>
+  <mat-radio-group [(ngModel)]="questionType">
+    <mat-radio-button value="Açık Uçlu">Açık Uçlu</mat-radio-button>
+    <mat-radio-button value="Çoktan Seçmeli">Çoktan Seçmeli</mat-radio-button>
+  </mat-radio-group>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Vazgeç</button>
+  <button mat-button (click)="addQuestion()">Anket Sorusu Oluştur</button>
+</mat-dialog-actions>

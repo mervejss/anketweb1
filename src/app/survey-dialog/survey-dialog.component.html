@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>ANKET OLUŞTUR</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Anket Adı</mat-label>
+    <input matInput [(ngModel)]="surveyName">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Vazgeç</button>
+  <button mat-button (click)="createSurvey()">Anket Oluştur</button>
+</mat-dialog-actions>
