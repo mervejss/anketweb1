@@ -508,6 +508,7 @@ app.post('/api/user_activity_logs', async (req, res) => {
 });
 
 
+/*
 // Kullanıcı durumunu değiştirmek için POST endpointi
 app.post('/api/user_asama_degisiklik', async (req, res) => {
   const { user_id, stage, video_1_watched, video_2_watched } = req.body;
@@ -551,8 +552,29 @@ app.post('/api/user_asama_degisiklik', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+*/
 
+app.post('/api/user_asama_degisiklik', async (req, res) => {
+  const { user_id, stage, video_1_watched, video_2_watched } = req.body;
 
+  try {
+    // Yeni kayıt ekle
+    const insertResult = await pool.query(
+      'INSERT INTO user_activity_logs (user_id, action, stage, video_1_watched, video_2_watched) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [
+        user_id,
+        'Phase Change',
+        stage,
+        video_1_watched !== undefined ? video_1_watched : null,
+        video_2_watched !== undefined ? video_2_watched : null
+      ]
+    );
+    res.status(201).json(insertResult.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 
 app.get('/api/user_stage/:user_id', async (req, res) => {
@@ -560,7 +582,7 @@ app.get('/api/user_stage/:user_id', async (req, res) => {
 
   try {
     const result = await pool.query(
-      'SELECT stage FROM user_activity_logs WHERE user_id = $1 AND action = $2',
+      'SELECT * FROM user_activity_logs WHERE user_id = $1 AND action = $2 ORDER BY created_at DESC LIMIT 1',
       [userId, 'Phase Change']
     );
 

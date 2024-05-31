@@ -13,7 +13,7 @@ export class KullaniciDetaylariComponent implements OnChanges {
   userStage: number | null = null;
   video1Watched: boolean | null = null;
   video2Watched: boolean | null = null;
-
+userID: any;
   private _getUserActivityLogsUrl = 'http://localhost:3000/api/user-activity-logs';
 
   constructor(private http: HttpClient) {}
@@ -21,6 +21,7 @@ export class KullaniciDetaylariComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tiklananUserID'] && this.tiklananUserID !== null) {
       this.getActivityLogs(this.tiklananUserID).subscribe(data => {
+        // Tıklanan kullanıcı ID'sine sahip işlemleri filtreleme
         this.activityLogs = data.filter(log => log.user_id === this.tiklananUserID);
         this.userStage = this.getUserStage(this.activityLogs);
         this.video1Watched = this.getVideoWatchedStatus(this.activityLogs, 3);
@@ -47,12 +48,26 @@ export class KullaniciDetaylariComponent implements OnChanges {
   }
 
   getUserStage(logs: any[]): number | null {
-    const phaseChangeLog = logs.find(log => log.action === 'Phase Change');
-    return phaseChangeLog ? phaseChangeLog.stage : null;
+    // En son tarihli 'Phase Change' işlemini bulma
+    const phaseChangeLogs = logs.filter(log => log.action === 'Phase Change');
+    if (phaseChangeLogs.length === 0) {
+      return null;
+    }
+    const latestLog = phaseChangeLogs.reduce((prev, current) => {
+      return (new Date(prev.created_at) > new Date(current.created_at)) ? prev : current;
+    });
+    return latestLog.stage;
   }
 
   getVideoWatchedStatus(logs: any[], stage: number): boolean | null {
-    const watchVideoLog = logs.find(log => log.action === 'watch_video' && log.stage === stage);
-    return stage === 3 ? watchVideoLog?.video_1_watched : watchVideoLog?.video_2_watched;
+    // En son tarihli 'watch_video' işlemini bulma
+    const watchVideoLogs = logs.filter(log => log.action === 'watch_video' && log.stage === stage);
+    if (watchVideoLogs.length === 0) {
+      return null;
+    }
+    const latestLog = watchVideoLogs.reduce((prev, current) => {
+      return (new Date(prev.created_at) > new Date(current.created_at)) ? prev : current;
+    });
+    return stage === 3 ? latestLog.video_1_watched : latestLog.video_2_watched;
   }
 }
