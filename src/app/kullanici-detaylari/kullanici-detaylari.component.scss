@@ -1,0 +1,64 @@
+.main-container {
+  background-color: #e0f7ff; /* Açık mavi arka plan rengi */
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.survey-title h2 {
+  color: #0077b6; /* Koyu mavi yazı rengi */
+}
+
+.activity-table, .stage-table {
+  margin-top: 20px;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 18px;
+  text-align: left;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+  background-color: #0077b6; /* Koyu mavi başlık arka plan rengi */
+  color: #ffffff; /* Beyaz başlık yazı rengi */
+  text-align: left;
+  font-weight: bold;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #0077b6;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #d1ecf1; /* Hover rengi */
+  cursor: pointer;
+}
+
+h3 {
+  color: #0096c7; /* Başlık yazı rengi */
+}
+
+.table-title {
+  margin-bottom: 10px;
+  color: #005f73; /* Başlık yazı rengi */
+  font-weight: bold;
+}
+

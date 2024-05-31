@@ -575,6 +575,16 @@ app.get('/api/user_stage/:user_id', async (req, res) => {
   }
 });
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Tüm kullanıcı aktivite loglarını çekme endpoint'i
+app.get('/api/user-activity-logs', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM user_activity_logs');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching user activity logs:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 

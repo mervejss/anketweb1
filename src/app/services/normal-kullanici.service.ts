@@ -20,6 +20,7 @@ export class NormalKullaniciService {
   private _user_activity_logsUrl = "http://localhost:3000/api/user_activity_logs";
   private _user_asama_degisiklikUrl = 'http://localhost:3000/api/user_asama_degisiklik';
   private _getUserStageUrl = 'http://localhost:3000/api/user_stage';
+  private _getUserActivityLogsUrl = 'http://localhost:3000/api/user-activity-logs';
 
 
   _normalKullaniciData: any;
@@ -27,6 +28,10 @@ export class NormalKullaniciService {
   _questionOptionData: any;
   sozlesmeOnayDurumu: string ; // boolean türünde tanımlıyoruz
 
+
+  getActivityLogs(): Observable<any[]> {
+    return this.http.get<any[]>(this._getUserActivityLogsUrl);
+  }
 
   constructor(private http: HttpClient, private _router: Router) {
     this._normalKullaniciData = JSON.parse(localStorage.getItem('normalKullaniciData') || '{}');

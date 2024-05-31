@@ -1,13 +1,25 @@
 <!-- kullanicilari-goruntule.component.html -->
+<div class="survey-container">
 
 <div *ngIf="users">
     <h2>Kullanıcılar</h2>
-    <div *ngFor="let user of users" class="user-container" (click)="showUserDetails(user)" [style.backgroundImage]="'url(' + user.background_image + ')'">
+    <div *ngFor="let user of users" class="user-container" (click)="onUsersClick(user.id)" [style.backgroundImage]="'url(' + user.background_image + ')'">
       <p class="user-name">ID : {{ user.id }}  </p>
       <p class="user-name">Kullanıcı Adı Soyadı: {{ user.first_name }} {{ user.last_name }}</p>
 
       <p class="user-info">Kullanıcı maili : {{ user.email }}</p>
       <p class="user-info">Kullanıcı telefon numarası :{{ user.phone_number }}</p>
+   
+   
+      <div class="anket-sorulari-content">
+        <!-- Anket sorularının içeriği burada<app-admin-anketler-page1 *ngIf="aktifSayfa === 'admin-anket-duzenle'"></app-admin-anketler-page1> -->
+        <app-kullanici-detaylari *ngIf="adminAktifSayfa === 'kullanici-detaylari' && tiklananUserID === user.id" [tiklananUserID]="tiklananUserID"></app-kullanici-detaylari>
+        
+        <router-outlet></router-outlet>
+      </div>
+   
+   
+   
     </div>
   </div>
   <div *ngIf="!users">

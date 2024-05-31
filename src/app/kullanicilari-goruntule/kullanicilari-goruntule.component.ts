@@ -11,8 +11,18 @@ import { Router } from '@angular/router'; // Router eklendi
 })
 export class KullanicilariGoruntuleComponent implements OnInit {
   users!: any[];
+adminAktifSayfa: any;
+tiklananUserID: number | null = null; // Tıklanan anketin ID'sini saklayacak değişken
 
   constructor(private http: HttpClient, private router: Router) { }
+
+
+  // Tıklanabilir anket containerları
+  onUsersClick(userID: number): void {
+    this.tiklananUserID = userID; // Tıklanan anketin ID'sini sakla
+    console.log(this.tiklananUserID);
+    this.adminAktifSayfa = 'kullanici-detaylari'; // Aktif sayfayı güncelle
+  }
 
   ngOnInit(): void {
     this.http.get<any[]>('http://localhost:3000/usersAll').subscribe(
@@ -25,10 +35,5 @@ export class KullanicilariGoruntuleComponent implements OnInit {
     );
   }
 
-  showUserDetails(user: any): void {
-    //this.router.navigate(['/kullanici-detaylari', user.id]);
-    this.router.navigate(['/kullanici-detaylari']);
-
- 
-  }
+  
 }
