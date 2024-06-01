@@ -1,16 +1,20 @@
 <div class="row">
-
-
   <div class="container">
-    <div *ngIf="dorduncuAsamaVideoUrl">
+    <div *ngIf="dorduncuAsamaBilgilendirmeMetni">
       <h3>4. Aşama Bilgilendirme Metni</h3>
       <div class="bilgilendirme-metni">
         <p>{{ dorduncuAsamaBilgilendirmeMetni }}</p>
       </div>
-      <h3>4. Aşama Video</h3>
-      <iframe width="560" height="315" [src]="sanitizer.bypassSecurityTrustResourceUrl(dorduncuAsamaVideoUrl)" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen></iframe>
+    </div>
+      
+    
+    <div *ngIf="dorduncuAsamaVideoUrls.length > 0">
+      <h3>4. Aşama Videolar</h3>
+      <button class="btn btn-primary" (click)="dorduncuAsamaVideolariListele()">İzlenecek Videoları Göster</button>
+
+      <div *ngFor="let videoUrl of dorduncuAsamaVideoUrls; let i = index">
+        <div id="dorduncu-player-{{ i }}"></div>
+      </div>
     </div>
   </div>
 </div>

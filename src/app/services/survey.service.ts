@@ -42,6 +42,21 @@ export class SurveyService {
   private saveUserSurveyAnswersapiUrl = 'http://localhost:3000/api/saveUserSurveyAnswers'; // API URL'si
   private saveUserSurveyOpenAnswersapiUrl= 'http://localhost:3000/api/saveUserSurveyOpenAnswers'; // API URL'si
   
+  getDorduncuAsamaVideoCurrentTime(videoId: string): number {
+    return Number(localStorage.getItem(`dorduncuAsamaVideoCurrentTime_${videoId}`)) || 0;
+  }
+
+  setDorduncuAsamaVideoCurrentTime(videoId: string, time: number): void {
+    localStorage.setItem(`dorduncuAsamaVideoCurrentTime_${videoId}`, time.toString());
+  }
+  
+  getUcuncuAsamaVideoCurrentTime(videoId: string): number {
+    return Number(localStorage.getItem(`ucuncuAsamaVideoCurrentTime_${videoId}`)) || 0;
+  }
+
+  setUcuncuAsamaVideoCurrentTime(videoId: string, time: number): void {
+    localStorage.setItem(`ucuncuAsamaVideoCurrentTime_${videoId}`, time.toString());
+  }
   getUcuncuAsamaVideoUrls(): string[] {
     return JSON.parse(localStorage.getItem('ucuncuAsamaVideoUrls') || '[]');
   }
