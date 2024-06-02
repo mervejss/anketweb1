@@ -4,6 +4,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-survey-dialog',
   templateUrl: './survey-dialog.component.html',
+  styleUrls: ['./survey-dialog.component.scss']
+
 })
 export class SurveyDialogComponent {
   surveyName: string = '';

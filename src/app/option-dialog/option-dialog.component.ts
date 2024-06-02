@@ -4,6 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-option-dialog',
   templateUrl: './option-dialog.component.html',
+  styleUrls: ['./option-dialog.component.scss']
+
 })
 export class OptionDialogComponent {
   optionContent: string = '';

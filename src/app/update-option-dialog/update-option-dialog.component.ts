@@ -4,6 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-update-option-dialog',
   templateUrl: './update-option-dialog.component.html',
+  styleUrls: ['./update-option-dialog.component.scss']
+
 })
 export class UpdateOptionDialogComponent {
   updatedOptionContent: string = '';
