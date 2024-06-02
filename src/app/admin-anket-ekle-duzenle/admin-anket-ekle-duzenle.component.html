@@ -3,7 +3,8 @@
 
 <div class="survey-container">
   <h2>Anketler</h2>
-  <button mat-button (click)="openDialog()">Yeni Anket Oluştur</button>
+  <button type="submit" mat-button (click)="openDialog()">Yeni Anket Oluştur</button>
+  <button type="submit" mat-button (click)="deleteAllSurveys()">Tüm Anketleri Sil</button>
 
   <div *ngFor="let survey of surveys" class="survey" (click)="onSurveyClick(survey.id)">
     <h3>Anket ID  : {{ survey.id }}</h3>
@@ -11,10 +12,10 @@
     <p>Anketi Oluşturan Yönetici ID : {{ survey.admin_id }}</p>
     <p>Anketin Oluşturulma Tarihi: {{ survey.created_at }}</p>
 
-    <button mat-button (click)="openQuestionDialog(survey.id)">Bu Ankete Yeni Bir Anket Sorusu Ekle</button>
+    <button type="submit"  mat-button (click)="openQuestionDialog(survey.id)">Bu Ankete Yeni Bir Anket Sorusu Ekle</button>
 
     <!-- ANKETİ SİL butonunu buraya ekle -->
-    <button class="btn btn-danger" (click)="deleteSurvey(survey.id)">ANKETİ SİL</button>
+    <button type="submit"  class="btn btn-danger" (click)="deleteSurvey(survey.id)">ANKETİ SİL</button>
 
     
     <div class="anket-sorulari-content">

@@ -1,14 +1,16 @@
 <div class="main-container">
   <div class="survey-title">
-    <h2>ANKET ID: {{ tiklananAnketId }}</h2>
+    <h2>ANKET SORULARI</h2>
+    <button type="submit"  (click)="deleteAllQuestions()">Bu Anketteki Tüm Soruları Sil</button> <!-- SORUYU SİL butonu eklendi -->
+
   </div>
   <div *ngFor="let question of questionData; let i = index" class="question-container">
     <div class="question-header">
       <p> Soru ID : {{ question.id }}</p>
-      <button class="btn btn-danger" (click)="deleteQuestion(question.id)">SORUYU SİL</button> <!-- SORUYU SİL butonu eklendi -->
-      <button mat-button (click)="openUpdateDialog(question)">Bu Anket Sorusunu Güncelle</button>
+      <button type="submit"  class="btn btn-danger" (click)="deleteQuestion(question.id)">SORUYU SİL</button> <!-- SORUYU SİL butonu eklendi -->
+      <button type="submit"  mat-button (click)="openUpdateDialog(question)">Bu Anket Sorusunu Güncelle</button>
 
-      <button mat-button (click)="openOptionDialog(question.id)">Bu Anket Sorusuna Yeni Bir Seçenek Ekle</button>
+      <button type="submit"  mat-button (click)="openOptionDialog(question.id)">Bu Anket Sorusuna Yeni Bir Seçenek Ekle</button>
 
       <p>{{ i + 1 }}. {{ question.question_text }}</p>
     </div>
@@ -22,9 +24,9 @@
         <label *ngFor="let option of item.options" class="option-label">
           <input type="radio" [value]="option.id" name="options" disabled>
           {{option.option_letter}}) {{ option.option_text }} ({{option.is_correct}})
-          <button mat-button (click)="openUpdateOptionDialog(option)">Bu Anket Sorusu Seçeneğini Güncelle</button>
+          <button type="submit"  mat-button (click)="openUpdateOptionDialog(option)">Bu Anket Sorusu Seçeneğini Güncelle</button>
 
-          <button class="btn btn-danger" (click)="deleteOption(option.id)">SEÇENEĞİ SİL</button> <!-- SEÇENEĞİ SİL butonu eklendi -->
+          <button type="submit"  class="btn btn-danger" (click)="deleteOption(option.id)">SEÇENEĞİ SİL</button> <!-- SEÇENEĞİ SİL butonu eklendi -->
 
         </label>
       </div>

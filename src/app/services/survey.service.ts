@@ -41,7 +41,18 @@ export class SurveyService {
 
   private saveUserSurveyAnswersapiUrl = 'http://localhost:3000/api/saveUserSurveyAnswers'; // API URL'si
   private saveUserSurveyOpenAnswersapiUrl= 'http://localhost:3000/api/saveUserSurveyOpenAnswers'; // API URL'si
+  private deleteAllSurveysapiUrl= 'http://localhost:3000/api/deleteAllSurveys'; // API URL'si
+  private deleteAllQuestionsapiUrl= 'http://localhost:3000/api/deleteAllQuestions'; // API URL'si
+
+  deleteAllSurveys(): Observable<string> {
+    return this.http.delete<string>(this.deleteAllSurveysapiUrl);
+  }
   
+  deleteAllQuestions(surveyId: number): Observable<any> {
+    return this.http.delete<any>(`${this.deleteAllQuestionsapiUrl}/${surveyId}`);
+}
+
+
   getDorduncuAsamaVideoCurrentTime(videoId: string): number {
     return Number(localStorage.getItem(`dorduncuAsamaVideoCurrentTime_${videoId}`)) || 0;
   }

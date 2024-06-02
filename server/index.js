@@ -610,3 +610,29 @@ app.get('/api/user-activity-logs', async (req, res) => {
 
 
 
+// Tüm anketleri silen endpoint
+app.delete('/api/deleteAllSurveys', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    await client.query('DELETE FROM surveys');
+    client.release();
+    res.status(200).send('Tüm anketler başarıyla silindi.');
+  } catch (err) {
+    console.error('Hata:', err);
+    res.status(500).send('Bir hata oluştu, anketler silinemedi.');
+  }
+});
+
+// Server tarafında deleteAllQuestions endpoint'i
+app.delete('/api/deleteAllQuestions/:surveyId', async (req, res) => {
+  try {
+    const surveyId = req.params.surveyId;
+    const client = await pool.connect();
+    await client.query('DELETE FROM questions WHERE survey_id = $1', [surveyId]);
+    client.release();
+    res.status(200).send('Anketin tüm soruları başarıyla silindi.');
+  } catch (err) {
+    console.error('Hata:', err);
+    res.status(500).send('Bir hata oluştu, sorular silinemedi.');
+  }
+});

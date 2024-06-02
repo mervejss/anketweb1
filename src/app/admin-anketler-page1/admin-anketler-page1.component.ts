@@ -7,6 +7,7 @@ import { OptionDialogComponent } from '../option-dialog/option-dialog.component'
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
 import { UpdateOptionDialogComponent } from '../update-option-dialog/update-option-dialog.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-anketler-page1',
@@ -22,8 +23,33 @@ export class AdminAnketlerPage1Component implements OnInit {
   constructor(private http: HttpClient, private router: Router, private _auth: AdminService,private surveyService: SurveyService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    
+    this.getQuestions(); // Sayfayı yenilemek yerine mevcut anketleri yeniden getir
+
   }
+  deleteAllQuestions() {
+    if (confirm('Tüm soruları silmek istediğinizden emin misiniz?')) {
+        const surveyId = this.tiklananAnketId as number;
+        this.surveyService.deleteAllQuestions(surveyId).subscribe(
+          (error)  => {
+            console.error('Sorular silinirken bir hata oluştu:', error);
+            this.showErrorAlert('Hata!', 'Sorular silinirken bir hata oluştu. Lütfen tekrar deneyin.');
+          },
+          (response) => {
+            console.log('deleteAllQuestions:', response);
+
+            console.log('ALOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO');
+        
+            this.showSuccessAlert('Başarı!', 'Anketin tüm soruları başarıyla silindi.');
+            this.getQuestions(); // Sayfayı yenilemek yerine mevcut anketleri yeniden getir
+
+          },
+          
+        );
+    }
+}
+
+  
+  
 
   openUpdateOptionDialog(option: any): void {
     console.log('Güncellenmiş Anket Sorusu Seçeneği option.option_text :', option.option_text);
@@ -174,14 +200,14 @@ export class AdminAnketlerPage1Component implements OnInit {
   deleteOption(optionId: number): void {
     if (confirm('Bu seçeneği silmek istediğinize emin misiniz?')) {
       this.surveyService.deleteQuestionOption(optionId).subscribe(
-        () => {
+        (response) => {
           // Silme işlemi başarılı olduğunda questionOptionData listesinden de ilgili seçeneği kaldır
           this.questionOptionData = this.questionOptionData.filter(option => option.id !== optionId);
           console.log('Seçenek başarıyla silindi.');
           this.getQuestionOptionsForQuestions();
 
         },
-        error => {
+        (error) => {
           console.error('Seçenek silinirken hata oluştu:', error);
         }
       );
@@ -195,6 +221,7 @@ export class AdminAnketlerPage1Component implements OnInit {
           // Silme işlemi başarılı olduğunda questionData listesinden de ilgili soruyu kaldır
           this.questionData = this.questionData.filter(question => question.id !== questionId);
           console.log('Soru başarıyla silindi.');
+          this.getQuestions();
         },
         error => {
           console.error('Soru silinirken hata oluştu:', error);
@@ -263,4 +290,23 @@ export class AdminAnketlerPage1Component implements OnInit {
         err => console.log("Seçenek verileri alınamadı", err)
     );
   }  
+
+  showSuccessAlert(title: string, message: string): void {
+    Swal.fire({
+      title: title,
+      text: message,
+      icon: 'success',
+      confirmButtonText: 'Tamam'
+    });
+  }
+
+  showErrorAlert(title: string, message: string): void {
+    Swal.fire({
+      title: title,
+      text: message,
+      icon: 'error',
+      confirmButtonText: 'Tamam'
+    });
+  }
+  
 }

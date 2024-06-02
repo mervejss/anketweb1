@@ -2,7 +2,7 @@
   <div class="menu-bar">
     <img src="/assets/adminIcon-removebg-preview.png" alt="Admin Logo" class="admin-logo" (click)="aktifSayfa = ''">
     
-      <!-- Admin bilgilerini yazdırma -->
+      <!-- Admin bilgilerini yazdırma       <button type="submit"  (click)="anketSorusuEkle()">Anket Oluştur/Düzenle/Sil</button>-->
       
       <div>
         <p>ID: {{ adminData.id || " " }}</p>
@@ -13,7 +13,6 @@
       </div>
 
       <button type="submit" (click)="anketleriGoruntule()">Anketleri Görüntüle</button>
-      <button type="submit"  (click)="anketSorusuEkle()">Anket Oluştur/Düzenle/Sil</button>
       <button type="submit"  (click)="kullanicilariGoruntule()">Kullanıcıları Görüntüle</button>
       <button type="submit"  (click)="kullanicilaraAnketSec()">Anket Seç</button>
       <button type="submit"  (click)="adminRehber()">Admin REHBER</button>

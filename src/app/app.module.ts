@@ -38,6 +38,7 @@ import { QuestionDialogComponent } from './question-dialog/question-dialog.compo
 import { OptionDialogComponent } from './option-dialog/option-dialog.component';
 import { UpdateDialogComponent } from './update-dialog/update-dialog.component';
 import { UpdateOptionDialogComponent } from './update-option-dialog/update-option-dialog.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,9 @@ import { UpdateOptionDialogComponent } from './update-option-dialog/update-optio
     MatRadioModule,
     FormsModule,// FormsModule'u burada da ekleyin
     RouterModule, 
-    AppRoutingModule, // AppRoutingModule'ı burada da eklemeyi unutmayın
+    AppRoutingModule, 
+    SweetAlert2Module.forRoot(), // SweetAlert2 modülünü ekleyin
+    // AppRoutingModule'ı burada da eklemeyi unutmayın
     HttpClientModule, BrowserAnimationsModule,
     
   ],
