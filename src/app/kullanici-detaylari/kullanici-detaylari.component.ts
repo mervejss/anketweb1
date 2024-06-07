@@ -39,7 +39,7 @@ export class KullaniciDetaylariComponent implements OnChanges {
     }
   }
 // Diğer bileşen özelliklerinin üstüne ekleyin
-tablesVisible: boolean[] = [true, true, true]; // Başlangıçta tabloları göster
+tablesVisible: boolean[] = [true, true, true,true]; // Başlangıçta tabloları göster
 
 // Buton tıklamasıyla tablo görünürlüğünü değiştiren fonksiyon
 toggleTableVisibility(index: number): void {
@@ -91,21 +91,26 @@ toggleTableVisibility(index: number): void {
       this.stages.forEach(stage => {
         stage.status = 'BU AŞAMA HENÜZ TAMAMLANMADI';
         stage.icon = 'close';
+        stage.active = false; // Buton pasif
       });
     } else {
       this.stages.forEach(stage => {
         if (stage.id < this.userStage) {
           stage.status = 'BU AŞAMA TAMAMLANDI';
           stage.icon = 'check';
+          stage.active = false; // Buton pasif
         } else if (stage.id === this.userStage) {
           stage.status = 'BU AŞAMA KULLANILIYOR';
           stage.icon = 'sync';
+          stage.active = true; // Buton aktif
         } else {
           stage.status = 'BU AŞAMA HENÜZ TAMAMLANMADI';
           stage.icon = 'close';
+          stage.active = false; // Buton pasif
         }
       });
     }
   }
+  
   
 }

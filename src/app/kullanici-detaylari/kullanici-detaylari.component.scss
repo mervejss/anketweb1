@@ -91,3 +91,39 @@ button[type="submit"] {
  
 
 }
+
+
+button[type="submit2"] {
+  /* Buton boyutları */
+  width: 250px;
+  height: 50px;
+  /* İçerik ile kenar arasındaki boşluk */
+  padding: 10px;
+  margin: 10px;
+
+  /* Alt boşluk */
+  margin-bottom: 10px;
+  /* Sol boşluk */
+  margin-left: 10px;
+  /* Sağ boşluk */
+  margin-right: 10px;
+  /* Üst boşluk */
+  margin-top: 10px;
+  /* Arka plan rengi */
+  background-color: #00437c;
+  /* Metin rengi */
+  color: #ffffff;
+  /* Kenarlık yok */
+  border: none;
+  /* Kenar yumuşatma */
+  border-radius: 7px;
+  /* İmleci göster */
+  cursor: pointer;
+ 
+
+}
+.inactive-button {
+  opacity: 0.5; /* Butonun opaklığını azaltarak soluk bir görünüm elde ediyoruz */
+  pointer-events: none; /* Butonun tıklanabilirliğini devre dışı bırakıyoruz */
+  cursor: not-allowed; /* Farenin üzerine gelince işaretçinin uygun olmayan (yani, tıklanamaz) bir işaretçiye dönüşmesini sağlıyoruz */
+}
