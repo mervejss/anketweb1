@@ -16,6 +16,18 @@ export class UpdateDialogComponent {
     @Inject(MAT_DIALOG_DATA) public question: any
   ) {}
 
+  ngOnInit(): void {
+    // Bu kısım eklendi
+    if (this.question.question_type=='Açık Uçlu') {
+      this.updatedQuestionType = 'Açık Uçlu';
+    } else {
+      this.updatedQuestionType = 'Çoktan Seçmeli';
+    }
+    this.updatedQuestionContent = this.question.question_text;
+
+   
+
+  }
   onNoClick(): void {
     this.dialogRef.close();
   }

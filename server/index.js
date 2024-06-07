@@ -636,3 +636,33 @@ app.delete('/api/deleteAllQuestions/:surveyId', async (req, res) => {
     res.status(500).send('Bir hata oluştu, sorular silinemedi.');
   }
 });
+
+
+// Server tarafında deleteAllQuestions endpoint'i
+app.delete('/api/deleteAllQuestions/:surveyId', async (req, res) => {
+  try {
+    const surveyId = req.params.surveyId;
+    const client = await pool.connect();
+    await client.query('DELETE FROM questions WHERE survey_id = $1', [surveyId]);
+    client.release();
+    res.status(200).send('Anketin tüm soruları başarıyla silindi.');
+  } catch (err) {
+    console.error('Hata:', err);
+    res.status(500).send('Bir hata oluştu, sorular silinemedi.');
+  }
+});
+
+// Server tarafında deleteAllOptions endpoint'i
+app.delete('/api/deleteAllOptions/:questionId', async (req, res) => {
+  try {
+    const questionId = req.params.questionId;
+    const client = await pool.connect();
+    await client.query('DELETE FROM question_options WHERE question_id = $1', [questionId]);
+    client.release();
+    res.status(200).send('Sorunun tüm seçenekleri başarıyla silindi.');
+  } catch (err) {
+    console.error('Hata:', err);
+    res.status(500).send('Bir hata oluştu, seçenekler silinemedi.');
+  }
+});
+

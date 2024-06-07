@@ -1,36 +1,31 @@
 <div class="main-container">
   <div class="survey-title">
     <h2>ANKET SORULARI</h2>
-    <button type="submit"  (click)="deleteAllQuestions()">Bu Anketteki Tüm Soruları Sil</button> <!-- SORUYU SİL butonu eklendi -->
-
+    <button type="submit" (click)="deleteAllQuestions()">Bu Anketteki Tüm Soruları Sil</button>
   </div>
   <div *ngFor="let question of questionData; let i = index" class="question-container">
     <div class="question-header">
-      <p> Soru ID : {{ question.id }}</p>
-      <button type="submit"  class="btn btn-danger" (click)="deleteQuestion(question.id)">SORUYU SİL</button> <!-- SORUYU SİL butonu eklendi -->
-      <button type="submit"  mat-button (click)="openUpdateDialog(question)">Bu Anket Sorusunu Güncelle</button>
-
-      <button type="submit"  mat-button (click)="openOptionDialog(question.id)">Bu Anket Sorusuna Yeni Bir Seçenek Ekle</button>
+      <p>Soru ID: {{ question.id }}</p>
+      <button type="submit" class="btn btn-danger" (click)="deleteQuestion(question.id)">SORUYU SİL</button>
+      <button type="submit" mat-button (click)="openUpdateDialog(question)">Bu Anket Sorusunu Güncelle</button>
+      <button type="submit" mat-button (click)="openOptionDialog(question.id)" *ngIf="question.question_type === 'Çoktan Seçmeli'">Bu Anket Sorusuna Yeni Bir Seçenek Ekle</button>
+      <button type="submit" mat-button (click)="deleteAllOptions(question.id)">Bu Anket Sorusunun Tüm Seçeneklerini Sil</button>
 
       <p>{{ i + 1 }}. {{ question.question_text }}</p>
     </div>
     <div *ngIf="question.question_type === 'Açık Uçlu'">
-      <!-- Açık Uçlu soru için TEXTFIELD -->
       <input type="text" class="text-field" placeholder="" disabled>
     </div>
-    
+
     <div *ngFor="let item of questionOptionData">
       <div *ngIf="item.questionId === question.id">
         <label *ngFor="let option of item.options" class="option-label">
           <input type="radio" [value]="option.id" name="options" disabled>
-          {{option.option_letter}}) {{ option.option_text }} ({{option.is_correct}})
-          <button type="submit"  mat-button (click)="openUpdateOptionDialog(option)">Bu Anket Sorusu Seçeneğini Güncelle</button>
-
-          <button type="submit"  class="btn btn-danger" (click)="deleteOption(option.id)">SEÇENEĞİ SİL</button> <!-- SEÇENEĞİ SİL butonu eklendi -->
-
+          {{ option.option_letter | uppercase }}) {{ option.option_text }} ({{ option.is_correct }})
+          <button type="submit" mat-button (click)="openUpdateOptionDialog(option)">Bu Anket Sorusu Seçeneğini Güncelle</button>
+          <button type="submit" class="btn btn-danger" (click)="deleteOption(option.id)">SEÇENEĞİ SİL</button>
         </label>
       </div>
-      
     </div>
   </div>
 </div>

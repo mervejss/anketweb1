@@ -4,7 +4,8 @@
   <p>Soru ID: {{ data.questionId }}</p>
   <mat-form-field>
     <mat-label>Soru Seçeneği İçeriği</mat-label>
-    <input matInput [(ngModel)]="optionContent">
+    <textarea matInput [(ngModel)]="optionContent"rows="1"></textarea>
+
   </mat-form-field>
   <mat-form-field>
     <mat-label>Soru Seçeneği Şıkkı</mat-label>

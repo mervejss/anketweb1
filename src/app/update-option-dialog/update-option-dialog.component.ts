@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -7,7 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./update-option-dialog.component.scss']
 
 })
-export class UpdateOptionDialogComponent {
+export class UpdateOptionDialogComponent implements OnInit {
   updatedOptionContent: string = '';
   updatedOptionLetter: string = '';
   updatedOptionStatus: string = '';
@@ -18,6 +18,18 @@ export class UpdateOptionDialogComponent {
     public dialogRef: MatDialogRef<UpdateOptionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public option: any
   ) {}
+
+  ngOnInit(): void {
+    // Bu kısım eklendi
+    if (this.option.is_correct) {
+      this.updatedOptionStatus = 'Doğru';
+    } else {
+      this.updatedOptionStatus = 'Yanlış';
+    }
+    this.updatedOptionContent = this.option.option_text;
+    this.updatedOptionLetter = this.option.option_letter;
+
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

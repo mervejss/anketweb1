@@ -1,33 +1,4 @@
 
-.textarea-container {
-    position: relative;
-    margin-right: 20px;
-
-  }
-  
-  .textarea {
-    width: 100%;
-    min-height: 150px; /* TextArea'nın minimum yüksekliği */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    resize: vertical; /* Yalnızca dikey genişleme */
-
-    
-  }
-  
-  .placeholder {
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-    color: rgba(0, 0, 0, 0.5); /* Hafif transparan placeholder rengi */
-  }
-  
-  .textarea:focus + .placeholder {
-    display: none;
-  }
     /* Butonların stil tanımı */
     button[type="submit"] {
       /* Buton boyutları */

@@ -4,32 +4,19 @@
   <p>Soru Seçeneği ID: {{ option.id }}</p>
   <mat-form-field appearance="fill">
     <mat-label>YENİ Soru Seçeneği İçeriği</mat-label>
-    <input matInput [(ngModel)]="updatedOptionContent">
-    <p>{{ option.option_text }}</p>
-    
+    <textarea matInput [(ngModel)]="updatedOptionContent" rows="1"></textarea>
 
-    <!--<div class="textarea-container">
-      <textarea class="textarea" id="updatedOptionContent" name="updatedOptionContent"
-        [(ngModel)]="updatedOptionContent"></textarea>
-      <span class="placeholder">{{ option.option_text }}</span>
-    </div>-->
   </mat-form-field>
   <mat-form-field>
 
     <mat-label>YENİ Soru Seçeneği Şıkkı</mat-label>
     <input matInput [(ngModel)]="updatedOptionLetter" >
-    <p>{{ option.option_letter }}</p>
 
-    <!--<div class="textarea-container">
-      <textarea class="textarea" id="updatedOptionLetter" name="updatedOptionLetter"
-        [(ngModel)]="updatedOptionLetter"></textarea>
-      <span class="placeholder">{{ option.option_letter }}</span>
-    </div>-->
+ 
 
   </mat-form-field>
 
   <mat-radio-group [(ngModel)]="updatedOptionStatus" >
-    <p>{{ option.option_letter }}</p>
 
     <mat-radio-button value="Doğru">Doğru</mat-radio-button>
     <mat-radio-button value="Yanlış">Yanlış</mat-radio-button>
