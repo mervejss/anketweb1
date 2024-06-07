@@ -1,46 +1,81 @@
 <div class="main-container">
-    <div class="survey-title">
-      <h2>USER ID: {{ tiklananUserID }}</h2>
-    </div>
-  
-    <!-- 1. Tablo: İşlem Adı ve İşlem Tarihi -->
-    <div class="activity-table">
-      <h3>Kullanıcı Aktiviteleri</h3>
-      <table class="styled-table">
-        <thead>
-          <tr>
-            <th>İşlem Adı</th>
-            <th>İşlem Tarihi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let log of activityLogs">
-            <td>{{ getActionDescription(log.action, log.stage) }}</td>
-            <td>{{ log.created_at | date: 'short' }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <!-- 2. Tablo: Aşama ve Videoların İzlenme Durumu -->
-    <div class="stage-table">
-      <h3>Kullanıcı Aşamaları ve Video İzlenme Durumu</h3>
-      <table class="styled-table">
-        <thead>
-          <tr>
-            <th>Kullanıcının Bulunduğu Aşama</th>
-            <th>3. Aşama Videoları İzlenme Durumu</th>
-            <th>4. Aşama Videoları İzlenme Durumu</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ userStage }}</td>
-            <td>{{ video1Watched ? 'İzlendi' : 'İzlenmedi' }}</td>
-            <td>{{ video2Watched ? 'İzlendi' : 'İzlenmedi' }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="survey-title">
+    <h2>USER ID: {{ tiklananUserID }}</h2>
   </div>
-  
+
+  <!-- 1. Tablo: İşlem Adı ve İşlem Tarihi -->
+  <div class="activity-table">
+    <h3>Kullanıcı Aktiviteleri</h3>
+    <button type="submit" (click)="toggleTableVisibility(0)">
+      <mat-icon *ngIf="tablesVisible[0]">visibility_off</mat-icon>
+    <mat-icon *ngIf="!tablesVisible[0]">visibility</mat-icon>
+      Göster / Gizle</button>
+    
+    <table class="styled-table" *ngIf="tablesVisible[0]">
+      <thead >
+        <tr>
+          <th>İşlem Adı</th>
+          <th>İşlem Tarihi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let log of activityLogs">
+          <td>{{ getActionDescription(log.action, log.stage) }}</td>
+          <td>{{ log.created_at | date: 'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 2. Tablo: Aşama ve Videoların İzlenme Durumu -->
+  <div class="stage-table">
+    <h3>Kullanıcı Aşamaları ve Video İzlenme Durumu</h3>
+    <button type="submit" (click)="toggleTableVisibility(1)">
+      <mat-icon *ngIf="tablesVisible[1]">visibility_off</mat-icon>
+      <mat-icon *ngIf="!tablesVisible[1]">visibility</mat-icon>
+      Göster / Gizle</button>
+   
+    <table class="styled-table" *ngIf="tablesVisible[1]">
+      <thead>
+        <tr>
+          <th>Kullanıcının Bulunduğu Aşama</th>
+          <th>3. Aşama Videoları İzlenme Durumu</th>
+          <th>4. Aşama Videoları İzlenme Durumu</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ userStage }}</td>
+          <td>{{ video1Watched ? 'İzlendi' : 'İzlenmedi' }}</td>
+          <td>{{ video2Watched ? 'İzlendi' : 'İzlenmedi' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 3. Tablo: Aşama ve Videoların İzlenme Durumu -->
+  <div class="stage-table">
+    <h3>Kullanıcının Bulunduğu Aşama Durumu</h3>
+    <button type="submit" (click)="toggleTableVisibility(2)">
+      <mat-icon *ngIf="tablesVisible[2]">visibility_off</mat-icon>
+      <mat-icon *ngIf="!tablesVisible[2]">visibility</mat-icon>
+      Göster / Gizle</button>
+    
+    <table class="styled-table" *ngIf="tablesVisible[2]">
+      <thead>
+        <tr>
+          <th>Anket Aşamaları</th>
+          <th>Kullanıcının Aşamayı Tamamlama Durumu</th>
+          <th>Admin Müdahele</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stage of stages">
+          <td>{{ stage.name }}</td>
+          <td>{{ stage.status }} <mat-icon>{{ stage.icon }}</mat-icon></td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</div>

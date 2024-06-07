@@ -10,10 +10,18 @@ import { Observable } from 'rxjs';
 export class KullaniciDetaylariComponent implements OnChanges {
   @Input() tiklananUserID: number | null = null; // Tıklanan kullanıcı ID'sini tutacak değişken
   activityLogs: any[] = [];
-  userStage: number | null = null;
+  userStage: any;
   video1Watched: boolean | null = null;
   video2Watched: boolean | null = null;
-userID: any;
+  userID: any;
+  stages: any[] = [
+    { id: 1, name: '1. Aşama | (Çoktan Seçmeli) Anket', status: '', icon: '' },
+    { id: 2, name: '2. Aşama | (Açık Uçlu) Anket', status: '', icon: '' },
+    { id: 3, name: '3. Aşama | (Bilgilendirme Metni ve Videolar) Anket', status: '', icon: '' },
+    { id: 4, name: '4. Aşama | (Bilgilendirme Metni ve Videolar) Anket', status: '', icon: '' },
+    { id: 5, name: '5. Aşama | (Açık Uçlu) Anket', status: '', icon: '' },
+  ];
+
   private _getUserActivityLogsUrl = 'http://localhost:3000/api/user-activity-logs';
 
   constructor(private http: HttpClient) {}
@@ -26,10 +34,17 @@ userID: any;
         this.userStage = this.getUserStage(this.activityLogs);
         this.video1Watched = this.getVideoWatchedStatus(this.activityLogs, 3);
         this.video2Watched = this.getVideoWatchedStatus(this.activityLogs, 4);
+        this.updateStages();
       });
     }
   }
+// Diğer bileşen özelliklerinin üstüne ekleyin
+tablesVisible: boolean[] = [true, true, true]; // Başlangıçta tabloları göster
 
+// Buton tıklamasıyla tablo görünürlüğünü değiştiren fonksiyon
+toggleTableVisibility(index: number): void {
+    this.tablesVisible[index] = !this.tablesVisible[index];
+}
   getActivityLogs(userId: number): Observable<any[]> {
     return this.http.get<any[]>(this._getUserActivityLogsUrl);
   }
@@ -70,4 +85,27 @@ userID: any;
     });
     return stage === 3 ? latestLog.video_1_watched : latestLog.video_2_watched;
   }
+
+  updateStages(): void {
+    if (this.userStage === null) {
+      this.stages.forEach(stage => {
+        stage.status = 'BU AŞAMA HENÜZ TAMAMLANMADI';
+        stage.icon = 'close';
+      });
+    } else {
+      this.stages.forEach(stage => {
+        if (stage.id < this.userStage) {
+          stage.status = 'BU AŞAMA TAMAMLANDI';
+          stage.icon = 'check';
+        } else if (stage.id === this.userStage) {
+          stage.status = 'BU AŞAMA KULLANILIYOR';
+          stage.icon = 'sync';
+        } else {
+          stage.status = 'BU AŞAMA HENÜZ TAMAMLANMADI';
+          stage.icon = 'close';
+        }
+      });
+    }
+  }
+  
 }
