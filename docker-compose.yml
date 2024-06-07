@@ -10,6 +10,8 @@ services:
       DB_PASSWORD: 1234
       DB_PORT: 5432
       DB_USER: postgres
+    ports:
+      - 3000:3000
     depends_on:
       - db
     networks:
