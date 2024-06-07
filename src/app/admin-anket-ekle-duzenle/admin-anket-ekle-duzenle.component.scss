@@ -3,10 +3,12 @@
 .sort-options {
   margin-bottom: 20px; /* Boşluk */
 }
-
+.clickable-header {
+  cursor: pointer; /* İmleci bir el işareti olarak göster */
+}
 button[type="matsubmit"] {
   /* Buton boyutları */
-  width: 200px;
+  width: 400px;
   height: 50px;
   /* İçerik ile kenar arasındaki boşluk */
   padding: 10px;
@@ -69,7 +71,7 @@ button[type="matsubmit"] {
   /* Butonların stil tanımı */
   button[type="submit"] {
     /* Buton boyutları */
-    width: 200px;
+    width: 400px;
     height: 50px;
     /* İçerik ile kenar arasındaki boşluk */
     padding: 10px;

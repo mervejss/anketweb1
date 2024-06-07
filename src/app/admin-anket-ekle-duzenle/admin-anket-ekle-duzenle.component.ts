@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class AdminAnketEkleDuzenleComponent implements OnInit {
 
+
   surveys: any[] = [];
   aktifSayfa: string = ''; // Aktif sayfa bilgisini tutacak değişken
   tiklananAnketId: number | null = null; // Tıklanan anketin ID'sini saklayacak değişken
@@ -34,7 +35,7 @@ export class AdminAnketEkleDuzenleComponent implements OnInit {
     this.surveyService.setSortType(sortType);
   }
 
-
+  
   deleteAllSurveys() {
     if (confirm('Tüm anketleri silmek istediğinizden emin misiniz?')) {
       this.surveyService.deleteAllSurveys().subscribe(

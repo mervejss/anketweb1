@@ -2,9 +2,10 @@
 
 
 <div class="survey-container">
-  <h2>Anketler</h2>
-  <button type="submit" mat-button (click)="openDialog()">Yeni Anket Oluştur</button>
-  <button type="submit" mat-button (click)="deleteAllSurveys()">Tüm Anketleri Sil</button>
+  <h2 >Anketler</h2>
+  <button type="submit" mat-button (click)="openDialog()">  <mat-icon>add_circle</mat-icon>
+    Yeni Anket Oluştur</button>
+  <button type="submit" mat-button (click)="deleteAllSurveys()"><mat-icon>delete_forever</mat-icon>Tüm Anketleri Sil</button>
 
   <div class="sort-options">
     <button type="matsubmit" mat-icon-button (click)="sortSurveys('newToOld')">
@@ -23,10 +24,10 @@
     <p>Anketi Oluşturan Yönetici ID : {{ survey.admin_id }}</p>
     <p>Anketin Oluşturulma Tarihi: {{ survey.created_at }}</p>
 
-    <button type="submit"  mat-button (click)="openQuestionDialog(survey.id)">Bu Ankete Yeni Bir Anket Sorusu Ekle</button>
+    <button type="submit"  mat-button (click)="openQuestionDialog(survey.id)"> <mat-icon>add</mat-icon>Bu Ankete Yeni Bir Anket Sorusu Ekle</button>
 
     <!-- ANKETİ SİL butonunu buraya ekle -->
-    <button type="submit"  class="btn btn-danger" (click)="deleteSurvey(survey.id)">ANKETİ SİL</button>
+    <button type="submit"  class="btn btn-danger" (click)="deleteSurvey(survey.id)"><mat-icon>delete</mat-icon>ANKETİ SİL</button>
 
     
     <div class="anket-sorulari-content">
