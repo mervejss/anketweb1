@@ -10,12 +10,12 @@ import { Router } from '@angular/router';
 })
 export class AdminService {
 
-
-  private _registerUrl = "http://localhost:3000/api/admins";
-  private _loginUrl = "http://localhost:3000/api/adminlogin";
-  private _adminInfoUrl = "http://localhost:3000/api/admininfo";
-  private _anketSorulari1Url = "http://localhost:3000/api/questions";
-  private _anketSecenekleri1Url = "http://localhost:3000/api/questionOptions";
+  _httpurl="http://207.154.196.66";
+private _registerUrl = this._httpurl + "/api/admins";
+private _loginUrl = this._httpurl + "/api/adminlogin";
+private _adminInfoUrl = this._httpurl + "/api/admininfo";
+private _anketSorulari1Url = this._httpurl + "/api/questions";
+private _anketSecenekleri1Url = this._httpurl + "/api/questionOptions";
 
   _adminData: any;
   _questionData: any;

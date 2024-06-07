@@ -9,11 +9,11 @@ app.use(cors()); // CORS başlıklarını ekledik
 app.use(bodyParser.json());
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT ;
 
 const pool = new Pool({
   user: process.env.NODE_ENV=="production"?process.env.DB_USER:"postgres",
-  host: process.env.NODE_ENV=="production"?process.env.DB_HOST:"localhost",
+  host: process.env.NODE_ENV=="production"?process.env.DB_HOST:"207.154.196.66",
   database: process.env.NODE_ENV=="production"?process.env.DB_DATABASE:"anketweb",
   password: process.env.NODE_ENV=="production"?process.env.DB_PASSWORD:"1234",
   port: process.env.NODE_ENV=="production"?process.env.DB_PORT:"5432", // Varsayılan PostgreSQL portu
@@ -674,4 +674,3 @@ app.delete('/api/deleteAllOptions/:questionId', async (req, res) => {
     res.status(500).send('Bir hata oluştu, seçenekler silinemedi.');
   }
 });
-

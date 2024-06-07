@@ -119,6 +119,10 @@ toggleTableVisibility(index: number): void {
                     stage.status = 'BU AŞAMA KULLANILIYOR';
                     stage.icon = 'sync';
                     stage.active = true; // Buton aktif
+                }  else if (stage.id === 6) {
+                  stage.status = 'BU AŞAMA TAMAMLANDI';
+                  stage.icon = 'check';
+                  stage.active = false; // Buton pasif
                 } else {
                     stage.status = 'BU AŞAMA HENÜZ TAMAMLANMADI';
                     stage.icon = 'close';
@@ -149,7 +153,15 @@ toggleTableVisibility(index: number): void {
       );
     });
   }
-  
+  ilkAsamayiAc()
+  {
+    this.logUserActivityPhaseChange(this.normalKullaniciData.id, 1); // örnek olarak stage 1
+
+    //this._auth.setKullaniciAktifSayfa('kullanici-anketler-page1');
+    console.log('1. AŞAMA AÇ ! BUTONU ÇALIŞTIIII aktif sayfa ise : ',this._auth.getKullaniciAktifSayfa() )
+    window.location.reload();
+  }
+
   birinciAsamayiTamamla()
   {
     this.logUserActivityPhaseChange(this.normalKullaniciData.id, 2); // örnek olarak stage 1
@@ -185,9 +197,32 @@ toggleTableVisibility(index: number): void {
   besinciAsamayiTamamla()
   {
     console.log('5. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII ANKETLER BİTTİİİİ !!! ' )
-    this.updateStages()
-  }
+    this.logUserActivityPhaseChange(this.normalKullaniciData.id, 6); // örnek olarak stage 1
 
+  }
+selectedStage:any;
+
+stageChanged(stage: number) {
+  switch (stage) {
+    case 1:
+      this.ilkAsamayiAc();
+      break;
+    case 2:
+      this.birinciAsamayiTamamla();
+      break;
+    case 3:
+      this.ikinciAsamayiTamamla();
+      break;
+    case 4:
+      this.ucuncuAsamayiTamamla();
+      break;
+    case 5:
+      this.dorduncuAsamayiTamamla();
+      break;
+    default:
+      break;
+  }
+}
   tamamla(stageId: number) {
     switch (stageId) {
       case 1:
@@ -206,13 +241,21 @@ toggleTableVisibility(index: number): void {
         this.besinciAsamayiTamamla();
         break;
     }
-
     this.getActivityLogs(this.tiklananUserID!).subscribe(data => {
       this.activityLogs = data.filter(log => log.user_id === this.tiklananUserID);
       this.userStage = this.getUserStage(this.activityLogs);
        this.updateStages()
-      this.showSuccessAlert('Başarılı', 'Aşama başarıyla güncellendi!');
   });
+    if (stageId===5)
+    {
+      this.showSuccessAlert('Başarılı', 'Tüm Anketler Başarıyla Tamamlandı !');
+
+    }
+    else
+    {
+      this.showSuccessAlert('Başarılı', 'Aşama başarıyla güncellendi ! Sayfayı Yenileyin !');
+
+    }
   }
 
   showSuccessAlert(title: string, message: string): void {

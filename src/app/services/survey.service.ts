@@ -31,22 +31,22 @@ export class SurveyService {
   }
   
  
-  private createSurveyapiUrl = 'http://localhost:3000/api/createSurvey'; // API URL'si
-  private createQuestionapiUrl = 'http://localhost:3000/api/createQuestion'; // API URL'si
-  private updateQuestionapiUrl = 'http://localhost:3000/api/updateQuestion'; // API URL'si
-  private createQuestionOptionapiUrl = 'http://localhost:3000/api/createQuestionOption'; // API URL'si
-  private updateQuestionOptionapiUrl = 'http://localhost:3000/api/updateQuestionOption'; // API URL'si
-  private deleteSurveyapiUrl = 'http://localhost:3000/api/deleteSurvey'; // API URL'si
-  private deleteQuestionapiUrl = 'http://localhost:3000/api/deleteQuestion'; // API URL'si
-  private deleteQuestionOptionapiUrl = 'http://localhost:3000/api/deleteQuestionOption'; // API URL'si
+  private _httpUrl = 'http://207.154.196.66/api/';
 
-  private saveUserSurveyAnswersapiUrl = 'http://localhost:3000/api/saveUserSurveyAnswers'; // API URL'si
-  private saveUserSurveyOpenAnswersapiUrl= 'http://localhost:3000/api/saveUserSurveyOpenAnswers'; // API URL'si
-  private deleteAllSurveysapiUrl= 'http://localhost:3000/api/deleteAllSurveys'; // API URL'si
-  private deleteAllQuestionsapiUrl= 'http://localhost:3000/api/deleteAllQuestions'; // API URL'si
-  private deleteAllOptionsapiUrl= 'http://localhost:3000/api/deleteAllOptions'; // API URL'si
+private createSurveyapiUrl = `${this._httpUrl}createSurvey`; // API URL'si
+private createQuestionapiUrl = `${this._httpUrl}createQuestion`; // API URL'si
+private updateQuestionapiUrl = `${this._httpUrl}updateQuestion`; // API URL'si
+private createQuestionOptionapiUrl = `${this._httpUrl}createQuestionOption`; // API URL'si
+private updateQuestionOptionapiUrl = `${this._httpUrl}updateQuestionOption`; // API URL'si
+private deleteSurveyapiUrl = `${this._httpUrl}deleteSurvey`; // API URL'si
+private deleteQuestionapiUrl = `${this._httpUrl}deleteQuestion`; // API URL'si
+private deleteQuestionOptionapiUrl = `${this._httpUrl}deleteQuestionOption`; // API URL'si
+private saveUserSurveyAnswersapiUrl = `${this._httpUrl}saveUserSurveyAnswers`; // API URL'si
+private saveUserSurveyOpenAnswersapiUrl = `${this._httpUrl}saveUserSurveyOpenAnswers`; // API URL'si
+private deleteAllSurveysapiUrl = `${this._httpUrl}deleteAllSurveys`; // API URL'si
+private deleteAllQuestionsapiUrl = `${this._httpUrl}deleteAllQuestions`; // API URL'si
+private deleteAllOptionsapiUrl = `${this._httpUrl}deleteAllOptions`; // API URL'si
 
-  
   getSortType(): string {
     return localStorage.getItem(`surveySortType`) || 'newToOld'; // Varsayılan olarak 'newToOld' kullan
   }

@@ -37,7 +37,7 @@ getUserInfo(): Observable<{ id: number }> {
     const headers = { 'Authorization': "Bearer " + token };
     
 
-    return this.http.post<{ id: 1 }>('http://localhost:3000/api/getUserInfo', { headers }).pipe(
+    return this.http.post<{ id: 1 }>('http://207.154.196.66/api/getUserInfo', { headers }).pipe(
       
     catchError(error => {
         console.error('Sunucu hatası:', error);

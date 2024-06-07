@@ -12,15 +12,16 @@ export class NormalKullaniciService {
 
   private kullaniciAktifSayfa: string ; // Varsayılan değeri atadım
 
-  private _registerUrl = "http://localhost:3000/api/users";
-  private _loginUrl = "http://localhost:3000/api/login";
-  private _normalKullaniciInfoUrl = "http://localhost:3000/api/normalKullaniciInfo";
-  private _anketSorulari1Url = "http://localhost:3000/api/questions";
-  private _anketSecenekleri1Url = "http://localhost:3000/api/questionOptions";
-  private _user_activity_logsUrl = "http://localhost:3000/api/user_activity_logs";
-  private _user_asama_degisiklikUrl = 'http://localhost:3000/api/user_asama_degisiklik';
-  private _getUserStageUrl = 'http://localhost:3000/api/user_stage';
-  private _getUserActivityLogsUrl = 'http://localhost:3000/api/user-activity-logs';
+  private _httpUrl = "http://207.154.196.66";
+private _registerUrl = `${this._httpUrl}/api/users`;
+private _loginUrl = `${this._httpUrl}/api/login`;
+private _normalKullaniciInfoUrl = `${this._httpUrl}/api/normalKullaniciInfo`;
+private _anketSorulari1Url = `${this._httpUrl}/api/questions`;
+private _anketSecenekleri1Url = `${this._httpUrl}/api/questionOptions`;
+private _user_activity_logsUrl = `${this._httpUrl}/api/user_activity_logs`;
+private _user_asama_degisiklikUrl = `${this._httpUrl}/api/user_asama_degisiklik`;
+private _getUserStageUrl = `${this._httpUrl}/api/user_stage`;
+private _getUserActivityLogsUrl = `${this._httpUrl}/api/user-activity-logs`;
 
 
   _normalKullaniciData: any;

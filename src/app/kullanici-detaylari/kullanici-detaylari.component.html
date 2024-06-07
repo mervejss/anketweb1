@@ -41,6 +41,22 @@
     <mat-icon *ngIf="!tablesVisible[2]">visibility</mat-icon>
     Göster / Gizle</button>
 
+      <!-- Checkbox yapıları -->
+<div>
+  <label>Şu Aşamaya Geçiş Yap:</label>
+  <input type="checkbox" id="asama1" name="asama" [(ngModel)]="selectedStage" value="1" (change)="stageChanged(1)">
+  <label for="asama1">1</label>
+  <input type="checkbox" id="asama2" name="asama" [(ngModel)]="selectedStage" value="2" (change)="stageChanged(2)">
+  <label for="asama2">2</label>
+  <input type="checkbox" id="asama3" name="asama" [(ngModel)]="selectedStage" value="3" (change)="stageChanged(3)">
+  <label for="asama3">3</label>
+  <input type="checkbox" id="asama4" name="asama" [(ngModel)]="selectedStage" value="4" (change)="stageChanged(4)">
+  <label for="asama4">4</label>
+  <input type="checkbox" id="asama5" name="asama" [(ngModel)]="selectedStage" value="5" (change)="stageChanged(5)">
+  <label for="asama5">5</label>
+</div>
+
+  
   <table class="styled-table" *ngIf="tablesVisible[2]">
     <thead>
       <tr>
