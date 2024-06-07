@@ -14,6 +14,7 @@ export class SurveyService {
   ucuncuAsamaBilgilendirmeMetni: any;
   dorduncuAsamaBilgilendirmeMetni: any;
 
+  private surveySortType: any;
 
   constructor(private http: HttpClient) { 
     const storedId = localStorage.getItem('birinciAsamaSecilenAnketId');
@@ -44,6 +45,16 @@ export class SurveyService {
   private deleteAllSurveysapiUrl= 'http://localhost:3000/api/deleteAllSurveys'; // API URL'si
   private deleteAllQuestionsapiUrl= 'http://localhost:3000/api/deleteAllQuestions'; // API URL'si
   private deleteAllOptionsapiUrl= 'http://localhost:3000/api/deleteAllOptions'; // API URL'si
+
+  
+  getSortType(): string {
+    return localStorage.getItem(`surveySortType`) || 'newToOld'; // Varsayılan olarak 'newToOld' kullan
+  }
+
+  setSortType(sortType: string): void {
+      localStorage.setItem(`surveySortType`, sortType);
+  }
+
 
   deleteAllOptions(questionId: number): Observable<any> {
     return this.http.delete<any>(`${this.deleteAllOptionsapiUrl}/${questionId}`);
@@ -157,9 +168,10 @@ export class SurveyService {
 
   
   // Tüm anketleri getiren fonksiyon
-  getAllSurveys(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:3000/api/surveys');
+  getAllSurveys(sortType: string): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:3000/api/surveys?sortType=${sortType}`);
   }
+  
 
 
   // Yeni bir anket oluşturmak için API'yi çağıran fonksiyon

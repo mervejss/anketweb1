@@ -6,6 +6,17 @@
   <button type="submit" mat-button (click)="openDialog()">Yeni Anket Oluştur</button>
   <button type="submit" mat-button (click)="deleteAllSurveys()">Tüm Anketleri Sil</button>
 
+  <div class="sort-options">
+    <button type="matsubmit" mat-icon-button (click)="sortSurveys('newToOld')">
+      <mat-icon>arrow_downward</mat-icon>
+      Yeniden Eskiye Sırala
+    </button>
+    <button type="matsubmit" mat-icon-button (click)="sortSurveys('oldToNew')">
+      <mat-icon>arrow_upward</mat-icon>
+      Eskiden Yeniye Sırala
+    </button>
+  </div>
+
   <div *ngFor="let survey of surveys" class="survey" (click)="onSurveyClick(survey.id)">
     <h3>Anket ID  : {{ survey.id }}</h3>
     <p>Anket Adı : {{ survey.survey_name }}</p>

@@ -14,6 +14,7 @@ import { AdminAnaSayfaComponent } from './admin-ana-sayfa/admin-ana-sayfa.compon
 import { Page1Component } from './page1/page1.component';
 import { AnaSayfaComponent } from './ana-sayfa/ana-sayfa.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AdminService } from './services/admin.service';
 import { AuthGuard } from './services/auth.guard';
@@ -58,7 +59,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     SweetAlert2Module.forRoot(), // SweetAlert2 modülünü ekleyin
     // AppRoutingModule'ı burada da eklemeyi unutmayın
     HttpClientModule, BrowserAnimationsModule,
-    
+    MatIconModule,
+
   ],
   providers: [    AdminService, AuthGuard ,
     {

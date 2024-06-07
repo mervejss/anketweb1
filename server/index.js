@@ -294,8 +294,17 @@ app.get('/usersAll', async (req, res) => {
 // Anketleri getiren endpoint
 app.get('/api/surveys', async (req, res) => {
   try {
+    const sortType = req.query.sortType || 'newToOld'; // Varsayılan olarak eskiden yeniye doğru sırala
+    let queryString = 'SELECT * FROM surveys';
+
+    if (sortType === 'newToOld') {
+      queryString += ' ORDER BY created_at DESC'; // Eskiden yeniye doğru sırala
+    } else if (sortType === 'oldToNew') {
+      queryString += ' ORDER BY created_at ASC'; // Yeniden eskiye doğru sırala
+    }
+
     const client = await pool.connect();
-    const result = await client.query('SELECT * FROM surveys');
+    const result = await client.query(queryString);
     const surveys = result.rows;
     res.json(surveys);
     client.release();

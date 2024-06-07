@@ -1,4 +1,36 @@
 /* C:\angular\anketweb-main\src\app\admin-anket-ekle-duzenle\admin-anket-ekle-duzenle.component.css */
+/* Sort Options */
+.sort-options {
+  margin-bottom: 20px; /* Boşluk */
+}
+
+button[type="matsubmit"] {
+  /* Buton boyutları */
+  width: 200px;
+  height: 50px;
+  /* İçerik ile kenar arasındaki boşluk */
+  padding: 10px;
+  /* Alt boşluk */
+  margin-bottom: 10px;
+  /* Sol boşluk */
+  margin-left: 10px;
+  /* Sağ boşluk */
+  margin-right: 10px;
+  /* Üst boşluk */
+  margin-top: 10px;
+  /* Arka plan rengi */
+  background-color: #ffffff;
+  /* Metin rengi */
+  color: #00437c;
+  /* Kenarlık yok */
+  border: none;
+  /* Kenar yumuşatma */
+  border-radius: 7px;
+  /* İmleci göster */
+  cursor: pointer;
+ 
+
+}
 
 .survey-container {
     margin-top: 20px; /* Üst boşluk */

@@ -18,22 +18,29 @@ export class AdminAnketEkleDuzenleComponent implements OnInit {
   tiklananAnketId: number | null = null; // Tıklanan anketin ID'sini saklayacak değişken
   adminData: any;
   adminId: number = 5; // Varsayılan admin ID
+  surveySortType: any;
 
   constructor(private _auth: AdminService,private surveyService: SurveyService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.getSurveys();
+    this.surveySortType=this.surveyService.getSortType();
+    this.sortSurveys(this.surveySortType);
     this.adminData = this._auth.getAdminData();
     this.adminId= this.adminData.id ;
-
   }
+
+  sortSurveys(sortType: string): void {   
+    this.getSurveys(sortType);
+    this.surveyService.setSortType(sortType);
+  }
+
 
   deleteAllSurveys() {
     if (confirm('Tüm anketleri silmek istediğinizden emin misiniz?')) {
       this.surveyService.deleteAllSurveys().subscribe(
         () => {
           console.log('Tüm anketler başarıyla silindi.');
-          this.getSurveys(); // Anketleri yeniden getir
+          this.getSurveys(this.surveySortType); // Anketleri yeniden getir
           this.showSuccessAlert('Başarı!', 'Tüm anketler başarıyla silindi.');
         },
         error => {
@@ -66,18 +73,18 @@ export class AdminAnketEkleDuzenleComponent implements OnInit {
     }
   }
 
-  getSurveys(): void {
-    this.surveyService.getAllSurveys().subscribe(
+  getSurveys(sortType: string): void {
+    this.surveyService.getAllSurveys(sortType).subscribe(
       surveys => {
         this.surveys = surveys;
       },
       error => {
         console.error('Error fetching surveys:', error);
         this.showErrorAlert('Hata!', 'Anketler alınırken bir hata oluştu. Lütfen tekrar deneyin.');
-
       }
     );
   }
+  
 
   // Tıklanabilir anket containerları
   onSurveyClick(surveyId: number): void {
@@ -105,7 +112,7 @@ export class AdminAnketEkleDuzenleComponent implements OnInit {
       (response) => {
         console.log('Anket oluşturuldu:', response);
         this.showSuccessAlert('Anket Başarıyla Oluşturuldu!', `"${anketAdi}" isimli anket ADMIN ID: "${this.adminId}" admin tarafından başarıyla oluşturuldu.`);
-        this.getSurveys(); // Sayfayı yenilemek yerine mevcut anketleri yeniden getir
+        this.getSurveys(this.surveySortType); // Sayfayı yenilemek yerine mevcut anketleri yeniden getir
       },
       (error) => {
         console.error('Anket oluşturulurken bir hata oluştu:', error);
@@ -126,7 +133,7 @@ export class AdminAnketEkleDuzenleComponent implements OnInit {
       }
     });
     //window.location.reload();
-    this.getSurveys();
+    this.getSurveys(this.surveySortType);
 
   }
 
@@ -140,7 +147,7 @@ export class AdminAnketEkleDuzenleComponent implements OnInit {
       response => {
         console.log('Soru oluşturuldu:', response);
         this.showSuccessAlert('Soru Başarıyla Eklendi!', `"${content}" içeriği ile "${type}" tipinde soru anket ID: "${surveyId}" için başarıyla eklendi.`);
-        this.getSurveys(); // Sayfayı yenilemek yerine mevcut anketleri yeniden getir
+        this.getSurveys(this.surveySortType); // Sayfayı yenilemek yerine mevcut anketleri yeniden getir
       },
       error => {
         console.error('Soru oluşturulurken bir hata oluştu:', error);
