@@ -1,19 +1,24 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { NormalKullaniciService } from '../services/normal-kullanici.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-kullanici-detaylari',
   templateUrl: './kullanici-detaylari.component.html',
   styleUrls: ['./kullanici-detaylari.component.scss']
 })
-export class KullaniciDetaylariComponent implements OnChanges {
+export class KullaniciDetaylariComponent implements  OnInit,OnChanges {
   @Input() tiklananUserID: number | null = null; // Tıklanan kullanıcı ID'sini tutacak değişken
   activityLogs: any[] = [];
   userStage: any;
   video1Watched: boolean | null = null;
   video2Watched: boolean | null = null;
   userID: any;
+  normalKullaniciData: any;
+  kullaniciAktifSayfa : any; // Aktif sayfa bilgisini tutacak değişken
+
   stages: any[] = [
     { id: 1, name: '1. Aşama | (Çoktan Seçmeli) Anket', status: '', icon: '' },
     { id: 2, name: '2. Aşama | (Açık Uçlu) Anket', status: '', icon: '' },
@@ -24,8 +29,14 @@ export class KullaniciDetaylariComponent implements OnChanges {
 
   private _getUserActivityLogsUrl = 'http://localhost:3000/api/user-activity-logs';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private _auth: NormalKullaniciService, private cdr: ChangeDetectorRef) {}
 
+  ngOnInit(): void {
+    this.normalKullaniciData = this._auth.getUserData();
+    this.userID = this.normalKullaniciData.id; // Kullanıcı ID'sini al
+    this.getUserStage(this.userID);
+    
+  }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tiklananUserID'] && this.tiklananUserID !== null) {
       this.getActivityLogs(this.tiklananUserID).subscribe(data => {
@@ -35,9 +46,12 @@ export class KullaniciDetaylariComponent implements OnChanges {
         this.video1Watched = this.getVideoWatchedStatus(this.activityLogs, 3);
         this.video2Watched = this.getVideoWatchedStatus(this.activityLogs, 4);
         this.updateStages();
+
+       
       });
     }
-  }
+}
+
 // Diğer bileşen özelliklerinin üstüne ekleyin
 tablesVisible: boolean[] = [true, true, true,true]; // Başlangıçta tabloları göster
 
@@ -74,6 +88,7 @@ toggleTableVisibility(index: number): void {
     return latestLog.stage;
   }
 
+  
   getVideoWatchedStatus(logs: any[], stage: number): boolean | null {
     // En son tarihli 'watch_video' işlemini bulma
     const watchVideoLogs = logs.filter(log => log.action === 'watch_video' && log.stage === stage);
@@ -86,31 +101,135 @@ toggleTableVisibility(index: number): void {
     return stage === 3 ? latestLog.video_1_watched : latestLog.video_2_watched;
   }
 
-  updateStages(): void {
-    if (this.userStage === null) {
-      this.stages.forEach(stage => {
-        stage.status = 'BU AŞAMA HENÜZ TAMAMLANMADI';
-        stage.icon = 'close';
-        stage.active = false; // Buton pasif
-      });
-    } else {
-      this.stages.forEach(stage => {
-        if (stage.id < this.userStage) {
-          stage.status = 'BU AŞAMA TAMAMLANDI';
-          stage.icon = 'check';
-          stage.active = false; // Buton pasif
-        } else if (stage.id === this.userStage) {
-          stage.status = 'BU AŞAMA KULLANILIYOR';
-          stage.icon = 'sync';
-          stage.active = true; // Buton aktif
+  updateStages(): Promise<void> {
+    return new Promise<void>((resolve) => {
+        if (this.userStage === null) {
+            this.stages.forEach(stage => {
+                stage.status = 'BU AŞAMA HENÜZ TAMAMLANMADI';
+                stage.icon = 'close';
+                stage.active = false; // Buton pasif
+            });
         } else {
-          stage.status = 'BU AŞAMA HENÜZ TAMAMLANMADI';
-          stage.icon = 'close';
-          stage.active = false; // Buton pasif
+            this.stages.forEach(stage => {
+                if (stage.id < this.userStage) {
+                    stage.status = 'BU AŞAMA TAMAMLANDI';
+                    stage.icon = 'check';
+                    stage.active = false; // Buton pasif
+                } else if (stage.id === this.userStage) {
+                    stage.status = 'BU AŞAMA KULLANILIYOR';
+                    stage.icon = 'sync';
+                    stage.active = true; // Buton aktif
+                } else {
+                    stage.status = 'BU AŞAMA HENÜZ TAMAMLANMADI';
+                    stage.icon = 'close';
+                    stage.active = false; // Buton pasif
+                }
+            });
         }
-      });
-    }
+        
+    });
+}
+  
+  logUserActivityPhaseChange(id: any, stage: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const activityLog = {
+        user_id: id,
+        stage: stage,
+      };
+  
+      this._auth.changeUserStage(activityLog).subscribe(
+        (res: any) => {
+          console.log('Activity logged or updated:', res);
+          resolve(res); // İşlem başarıyla tamamlandığında 'resolve' çağrılır
+        },
+        error => {
+          console.error('Error logging or updating activity:', error);
+          reject(error); // Hata oluştuğunda 'reject' çağrılır
+        }
+      );
+    });
   }
   
+  birinciAsamayiTamamla()
+  {
+    this.logUserActivityPhaseChange(this.normalKullaniciData.id, 2); // örnek olarak stage 1
+
+    this._auth.setKullaniciAktifSayfa('kullanici-anketler-page2');
+    console.log('1. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII aktif sayfa ise : ',this._auth.getKullaniciAktifSayfa() )
+  }
   
+  ikinciAsamayiTamamla()
+  {
+    this.logUserActivityPhaseChange(this.normalKullaniciData.id, 3); // örnek olarak stage 1
+
+    this._auth.setKullaniciAktifSayfa('kullanici-anketler-page3');
+    console.log('2. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII aktif sayfa ise : ',this._auth.getKullaniciAktifSayfa() )
+  }
+  
+  ucuncuAsamayiTamamla()
+  {
+    this.logUserActivityPhaseChange(this.normalKullaniciData.id, 4); // örnek olarak stage 1
+
+    this._auth.setKullaniciAktifSayfa('kullanici-anketler-page4');
+    console.log('3. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII aktif sayfa ise : ',this._auth.getKullaniciAktifSayfa() )
+  }
+  
+  dorduncuAsamayiTamamla()
+  {
+    this.logUserActivityPhaseChange(this.normalKullaniciData.id, 5); // örnek olarak stage 1
+
+    this._auth.setKullaniciAktifSayfa('kullanici-anketler-page5');
+    console.log('4. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII aktif sayfa ise : ',this._auth.getKullaniciAktifSayfa() )
+  }
+
+  besinciAsamayiTamamla()
+  {
+    console.log('5. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII ANKETLER BİTTİİİİ !!! ' )
+    this.updateStages()
+  }
+
+  tamamla(stageId: number) {
+    switch (stageId) {
+      case 1:
+        this.birinciAsamayiTamamla();
+        break;
+      case 2:
+        this.ikinciAsamayiTamamla();
+        break;
+      case 3:
+        this.ucuncuAsamayiTamamla();
+        break;
+      case 4:
+        this.dorduncuAsamayiTamamla();
+        break;
+      case 5:
+        this.besinciAsamayiTamamla();
+        break;
+    }
+
+    this.getActivityLogs(this.tiklananUserID!).subscribe(data => {
+      this.activityLogs = data.filter(log => log.user_id === this.tiklananUserID);
+      this.userStage = this.getUserStage(this.activityLogs);
+       this.updateStages()
+      this.showSuccessAlert('Başarılı', 'Aşama başarıyla güncellendi!');
+  });
+  }
+
+  showSuccessAlert(title: string, message: string): void {
+    Swal.fire({
+      title: title,
+      text: message,
+      icon: 'success',
+      confirmButtonText: 'Tamam'
+    });
+  }
+
+  showErrorAlert(title: string, message: string): void {
+    Swal.fire({
+      title: title,
+      text: message,
+      icon: 'error',
+      confirmButtonText: 'Tamam'
+    });
+  }
 }

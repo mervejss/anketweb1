@@ -34,49 +34,67 @@
   
 
   <!-- 3. Tablo: Aşama ve Videoların İzlenme Durumu -->
-  <div class="stage-table">
-    <h3>Kullanıcının Bulunduğu Aşama Durumu</h3>
-    <button type="submit" (click)="toggleTableVisibility(2)">
-      <mat-icon *ngIf="tablesVisible[2]">visibility_off</mat-icon>
-      <mat-icon *ngIf="!tablesVisible[2]">visibility</mat-icon>
-      Göster / Gizle</button>
-    
-    <table class="styled-table" *ngIf="tablesVisible[2]">
-      <thead>
-        <tr>
-          <th>Anket Aşamaları</th>
-          <th>Kullanıcının Aşamayı Tamamlama Durumu</th>
-          <th>Admin Müdahele</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let stage of stages">
-          <td>{{ stage.name }}</td>
-          <td>{{ stage.status }} <mat-icon>{{ stage.icon }}</mat-icon></td>
-          <td>
-            <!-- Son satır hariç (5. aşama dışında) -->
-            <span *ngIf="stage.id !== 5">
-              <button type="submit2" *ngIf="userStage === stage.id">SONRAKİ ADIMA GEÇMESİNİ ONAYLA</button>
-            </span>
-            <!-- Son satır (5. aşama) -->
-            <span *ngIf="stage.id === 5">
-              <button type="submit2" *ngIf="userStage === stage.id">ANKETİ TAMAMLAMASINI ONAYLA</button>
-            </span>
-            <span *ngIf="stage.id !== 5">
-              <button type="submit2" class="inactive-button" disabled *ngIf="userStage !== stage.id">SONRAKİ ADIMA GEÇMESİNİ ONAYLA</button>
-            </span>
+<div class="stage-table">
+  <h3>Kullanıcının Bulunduğu Aşama Durumu</h3>
+  <button type="submit" (click)="toggleTableVisibility(2)">
+    <mat-icon *ngIf="tablesVisible[2]">visibility_off</mat-icon>
+    <mat-icon *ngIf="!tablesVisible[2]">visibility</mat-icon>
+    Göster / Gizle</button>
 
-            <span *ngIf="stage.id === 5">
-              <button type="submit2" class="inactive-button" disabled *ngIf="userStage !== stage.id">ANKETİ TAMAMLAMASINI ONAYLA</button>
-            </span>
-          </td>
-
-
-        </tr>
-        
-      </tbody>
-    </table>
-  </div>
+  <table class="styled-table" *ngIf="tablesVisible[2]">
+    <thead>
+      <tr>
+        <th>Anket Aşamaları</th>
+        <th>Kullanıcının Aşamayı Tamamlama Durumu</th>
+        <th>Admin Müdahele</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stage of stages">
+        <td>{{ stage.name }}</td>
+        <td>{{ stage.status }} <mat-icon>{{ stage.icon }}</mat-icon></td>
+        <td>
+          <!-- Son satır hariç (5. aşama dışında) -->
+          <span *ngIf="stage.id !== 5">
+            <button 
+              type="submit2" 
+              *ngIf="userStage === stage.id" 
+              (click)="tamamla(stage.id)">
+              SONRAKİ ADIMA GEÇMESİNİ ONAYLA
+            </button>
+          </span>
+          <!-- Son satır (5. aşama) -->
+          <span *ngIf="stage.id === 5">
+            <button 
+              type="submit2" 
+              *ngIf="userStage === stage.id" 
+              (click)="tamamla(stage.id)">
+              ANKETİ TAMAMLAMASINI ONAYLA
+            </button>
+          </span>
+          <span *ngIf="stage.id !== 5">
+            <button 
+              type="submit2" 
+              class="inactive-button" 
+              disabled 
+              *ngIf="userStage !== stage.id">
+              SONRAKİ ADIMA GEÇMESİNİ ONAYLA
+            </button>
+          </span>
+          <span *ngIf="stage.id === 5">
+            <button 
+              type="submit2" 
+              class="inactive-button" 
+              disabled 
+              *ngIf="userStage !== stage.id">
+              ANKETİ TAMAMLAMASINI ONAYLA
+            </button>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
   <!-- 1. Tablo: İşlem Adı ve İşlem Tarihi -->
   <div class="activity-table">
