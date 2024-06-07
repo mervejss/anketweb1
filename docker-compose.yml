@@ -1,0 +1,37 @@
+name: anketweb
+services:
+  service:
+    build: .
+    container_name: service
+    environment:
+      PORT: 3000
+      DB_HOST: db
+      DB_DATABASE: anketweb
+      DB_PASSWORD: 1234
+      DB_PORT: 5432
+      DB_USER: postgres
+    depends_on:
+      - db
+    networks:
+      - common
+
+  db:
+    image: postgres:16
+    container_name: db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: anketweb
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - common
+
+volumes:
+  db:
+
+networks:
+  common:
+    driver: bridge

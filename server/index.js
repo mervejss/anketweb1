@@ -12,11 +12,11 @@ app.use(bodyParser.json());
 const PORT = process.env.PORT || 3000;
 
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'anketweb',
-  password: '1234',
-  port: 5432, // Varsayılan PostgreSQL portu
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT, // Varsayılan PostgreSQL portu
 });
 
 app.get('/', (req, res) => {
