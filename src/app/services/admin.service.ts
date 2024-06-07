@@ -11,11 +11,11 @@ import { Router } from '@angular/router';
 export class AdminService {
 
   _httpurl="http://207.154.196.66";
-private _registerUrl = this._httpurl + "/api/admins";
-private _loginUrl = this._httpurl + "/api/adminlogin";
-private _adminInfoUrl = this._httpurl + "/api/admininfo";
-private _anketSorulari1Url = this._httpurl + "/api/questions";
-private _anketSecenekleri1Url = this._httpurl + "/api/questionOptions";
+private _registerUrl =  "${this._httpUrl}/api/admins";
+private _loginUrl = "${this._httpUrl}/api/adminlogin";
+private _adminInfoUrl = "${this._httpUrl}/api/admininfo";
+private _anketSorulari1Url = "${this._httpUrl}/api/questions";
+private _anketSecenekleri1Url = "${this._httpUrl}/api/questionOptions";
 
   _adminData: any;
   _questionData: any;
