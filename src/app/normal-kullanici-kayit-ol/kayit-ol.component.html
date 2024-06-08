@@ -29,10 +29,12 @@
         <!-- Cep telefonu giriş alanı -->
         <div>
           <label for="phone_number">Cep Telefonu:</label>
-          <input  [(ngModel)]= "registerUserData.phone_number" name="phone_number" type="tel" required>
+          <div class="phone-input-wrapper">
+          <span  class="phone-prefix">+90</span>
+          <input  [(ngModel)]= "registerUserData.phone_number" name="phone_number" type="tel" pattern="[0-9]*" required>
           <!-- Kullanıcıdan cep telefonu girişi alınıyor -->
         </div>
-  
+      </div>
         <!-- E-posta giriş alanı -->
         <div>
           <label for="email">E-posta Adresi:</label>

@@ -33,17 +33,36 @@ label {
 input[type="text"],
 input[type="password"],
 input[type="email"],
-input[type="tel"],
 button[type="submit"] {
   width: 90%; /* Genişlik */
   padding: 8px; /* İçerik ile kenar arasındaki boşluk */
   margin-bottom: 10px; /* Alt boşluk */
-  margin-left: 10px; /* Sol boşluk */
   margin-right: 10px; /* Sağ boşluk */
   margin-top: 10px; /* Üst boşluk */
 }
 
+input[type="tel"] {
+  width: 350px; 
+  padding: 8px; /* İçerik ile kenar arasındaki boşluk */
+  margin-bottom: 10px; /* Alt boşluk */
+  margin-right: 10px; /* Sağ boşluk */
+  margin-top: 10px; /* Üst boşluk */
+}
 
+.phone-input-wrapper {
+  display: flex;
+  align-items: center;
+  overflow: hidden; /* Taşan içeriği gizle */
+  width: 395px; 
+}
+.phone-prefix {
+  padding: 6px; /* İçerik ile kenar arasındaki boşluk */
+  background-color: #ffffff; /* Arka plan rengi */
+  border: 1px solid #000000; /* Sağ kenarlık */
+  width: 30px; 
+  margin-left: 6px; /* Sağ boşluk */
+
+}
      /* Butonların stil tanımı */
      button[type="submit"] {
       /* Buton boyutları */
