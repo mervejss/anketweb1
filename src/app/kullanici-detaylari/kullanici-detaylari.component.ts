@@ -200,29 +200,38 @@ toggleTableVisibility(index: number): void {
     this.logUserActivityPhaseChange(this.normalKullaniciData.id, 6); // örnek olarak stage 1
 
   }
-selectedStage:any;
+  selectedStage: number | null = null;
 
-stageChanged(stage: number) {
-  switch (stage) {
-    case 1:
-      this.ilkAsamayiAc();
-      break;
-    case 2:
-      this.birinciAsamayiTamamla();
-      break;
-    case 3:
-      this.ikinciAsamayiTamamla();
-      break;
-    case 4:
-      this.ucuncuAsamayiTamamla();
-      break;
-    case 5:
-      this.dorduncuAsamayiTamamla();
-      break;
-    default:
-      break;
+  selectStage(stage: number) {
+    // Sadece bir checkbox seçilebilir, seçileni sakla
+    this.selectedStage = stage;
   }
-}
+  
+  onSelect() {
+    if (this.selectedStage !== null) {
+      switch (this.selectedStage) {
+        case 1:
+          this.ilkAsamayiAc();
+          break;
+        case 2:
+          this.birinciAsamayiTamamla();
+          break;
+        case 3:
+          this.ikinciAsamayiTamamla();
+          break;
+        case 4:
+          this.ucuncuAsamayiTamamla();
+          break;
+        case 5:
+          this.dorduncuAsamayiTamamla();
+          break;
+        default:
+          // Hata durumunu işle
+          break;
+      }
+      this.selectedStage = null; // Seçileni sıfırla
+    }
+  }
   tamamla(stageId: number) {
     switch (stageId) {
       case 1:
