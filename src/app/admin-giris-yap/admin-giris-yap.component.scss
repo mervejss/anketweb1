@@ -44,14 +44,32 @@
     margin-top: 10px; /* Üst boşluk */
   }
   
-  /* Giriş yap butonu stilleri */
-  button[type="submit"] {
-    width: 150px; /* Buton genişliği */
-    height: 50px; /* Buton yüksekliği */
-    background-color: #00437c; /* Arka plan rengi değişikliği */
-    color: #ffffff; /* Metin rengi */
-    border: none; /* Kenarlık yok */
-    border-radius: 7px; /* Kenarların yumuşatılması */
-    cursor: pointer; /* İmleci göster */
-  }
+     /* Butonların stil tanımı */
+     button[type="submit"] {
+      /* Buton boyutları */
+      width: 200px;
+      height: 50px;
+      /* İçerik ile kenar arasındaki boşluk */
+      padding: 10px;
+      /* Alt boşluk */
+      margin-bottom: 10px;
+      /* Sol boşluk */
+      margin-left: 10px;
+      /* Sağ boşluk */
+      margin-right: 10px;
+      /* Üst boşluk */
+      margin-top: 10px;
+      /* Arka plan rengi */
+      background-color: #00437c;
+      /* Metin rengi */
+      color: #ffffff;
+      /* Kenarlık yok */
+      border: none;
+      /* Kenar yumuşatma */
+      border-radius: 7px;
+      /* İmleci göster */
+      cursor: pointer;
+     
+    
+    }
   

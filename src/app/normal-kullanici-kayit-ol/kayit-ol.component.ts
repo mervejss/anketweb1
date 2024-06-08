@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NormalKullaniciService } from '../services/normal-kullanici.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-kayit-ol',
@@ -45,18 +46,39 @@ export class KayitOlComponent implements OnInit{
       }
     );
   }
-  registerUser()
-  {
-    console.log(this.registerUserData)
+  registerUser() {
+    console.log(this.registerUserData);
     this._auth.registerUser(this.registerUserData)
-    .subscribe(
-      res => {
-        console.log("kayıt edildi" + res),
-        localStorage.setItem('token', res.token)
-      },
-      err => console.log(err)
-    )
+      .subscribe(
+        res => {
+          console.log("Kayıt edildi", res);
+          localStorage.setItem('token', res.token);
+          this.showSuccessAlert('Başarılı', 'Kayıt işlemi başarıyla tamamlandı.');
+          this.Router.navigate(['/normal-kullanici-ana-sayfa']);
+
+        },
+        err => {
+          console.log(err);
+          this.showErrorAlert('Hata', 'Kayıt işlemi sırasında bir hata oluştu.');
+        }
+      );
+  }
+  showSuccessAlert(title: string, message: string): void {
+    Swal.fire({
+      title: title,
+      text: message,
+      icon: 'success',
+      confirmButtonText: 'Tamam'
+    });
   }
 
+  showErrorAlert(title: string, message: string): void {
+    Swal.fire({
+      title: title,
+      text: message,
+      icon: 'error',
+      confirmButtonText: 'Tamam'
+    });
+  }
 
 }

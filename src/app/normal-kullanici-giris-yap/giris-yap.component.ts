@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router'; // Router'ı ekledik
 import { NormalKullaniciService } from '../services/normal-kullanici.service';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-giris-yap',
@@ -82,61 +83,62 @@ export class GirisYapComponent implements OnInit{
        
     
 
-    loginUser()
-    {
-      //console.log('LOGINUSER ÇALIŞTI BAK :',this.loginUserData);
-
-      this._auth.loginUser(this.loginUserData)
-              .subscribe(
-                (res: any) => {
-                  console.log("Giriş yapıldı", res);
-                  //console.log('this.normalKullaniciData.id :',this.loginUserData);
-
-                  localStorage.setItem('token', res.token);
-                  this._auth.getUserInfo(this.loginUserData)
-
-                  .subscribe(
-                    (res: any) => {
-                      console.log("Kullanici verileri alındı", res);
-                      localStorage.setItem('token', res.token);
-                      this.userData = res
-                      this._auth.setUserData(res);
-                      console.log('this.normalKullaniciData.id :',res.id);
-                      //this.logUserActivityLogin(res.id); 
-
-                      //Kullanıcı giriş yaptığında user_activity_logs için yeni bir kayıt oluşturmalıyız.  action = 'login', user_id = ?
-
-                      this.router.navigate(['/normal-kullanici-ana-sayfa']);
-                    },
-                    err => console.log("Normal Kullanici verileri alınamadı", err)
-                  );
-        
-                },
-                err => console.log(err)
-              );
-          
-        
-
-    }
-   
-    /*logUserActivityLogin(id: any) {
-      const activityLog = {
-        user_id: id,
-        action: 'login',
-        stage: 1
-        // video_1_watched ve video_2_watched opsiyonel olarak eklenebilir
-      };
+  loginUser() {
+    console.log('LOGINUSER ÇALIŞTI BAK :', this.loginUserData);
   
-      this._auth.addUserActivityLogLogin(activityLog).subscribe(
-        (res: any) =>  {
-          console.log('Activity logged:', res);
+    this._auth.loginUser(this.loginUserData)
+      .subscribe(
+        (res: any) => {
+          console.log("Giriş yapıldı", res);
+          localStorage.setItem('token', res.token);
+          
+          this._auth.getUserInfo(this.loginUserData)
+            .subscribe(
+              (userInfoRes: any) => {
+                console.log("Kullanici verileri alındı", userInfoRes);
+                localStorage.setItem('token', userInfoRes.token);
+                this.userData = userInfoRes;
+                this._auth.setUserData(userInfoRes);
+                console.log('this.normalKullaniciData.id :', userInfoRes.id);
+                
+                // Kullanıcı giriş yaptığında hoş geldiniz mesajını göster
+                this.showSuccessAlert('Giriş Başarılı', `Hoş geldiniz "${userInfoRes.first_name} ${userInfoRes.last_name}" (Normal Kullanıcı), başarıyla giriş yaptınız.`);
+
+                // Kullanıcı giriş yaptığında user_activity_logs için yeni bir kayıt oluşturmalıyız
+                // action = 'login', user_id = ?
+                
+                this.router.navigate(['/normal-kullanici-ana-sayfa']);
+              },
+              err => {
+                console.log("Normal Kullanici verileri alınamadı", err);
+                this.showErrorAlert('Hata', 'Kullanıcı verileri alınamadı.');
+              }
+            );
         },
-        error => {
-          console.error('Error logging activity:', error);
+        err => {
+          console.log(err);
+          //this.showErrorAlert('Hata', 'Giriş işlemi başarısız oldu.');
         }
       );
-    }*/
-
+  }
+   
+    showSuccessAlert(title: string, message: string): void {
+      Swal.fire({
+        title: title,
+        text: message,
+        icon: 'success',
+        confirmButtonText: 'Tamam'
+      });
+    }
+  
+    showErrorAlert(title: string, message: string): void {
+      Swal.fire({
+        title: title,
+        text: message,
+        icon: 'error',
+        confirmButtonText: 'Tamam'
+      });
+    }
     
     
  
