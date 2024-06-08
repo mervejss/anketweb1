@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./kullanici-detaylari.component.scss']
 })
 export class KullaniciDetaylariComponent implements  OnInit,OnChanges {
+
   @Input() tiklananUserID: number | null = null; // Tıklanan kullanıcı ID'sini tutacak değişken
   activityLogs: any[] = [];
   userStage: any;
@@ -37,6 +38,7 @@ export class KullaniciDetaylariComponent implements  OnInit,OnChanges {
     this.getUserStage(this.userID);
     
   }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tiklananUserID'] && this.tiklananUserID !== null) {
       this.getActivityLogs(this.tiklananUserID).subscribe(data => {
@@ -57,8 +59,9 @@ tablesVisible: boolean[] = [true, true, true,true]; // Başlangıçta tabloları
 
 // Buton tıklamasıyla tablo görünürlüğünü değiştiren fonksiyon
 toggleTableVisibility(index: number): void {
-    this.tablesVisible[index] = !this.tablesVisible[index];
+  this.tablesVisible[index] = !this.tablesVisible[index];
 }
+
   getActivityLogs(userId: number): Observable<any[]> {
     return this.http.get<any[]>(this._getUserActivityLogsUrl);
   }
@@ -77,7 +80,6 @@ toggleTableVisibility(index: number): void {
   }
 
   getUserStage(logs: any[]): number | null {
-    // En son tarihli 'Phase Change' işlemini bulma
     const phaseChangeLogs = logs.filter(log => log.action === 'Phase Change');
     if (phaseChangeLogs.length === 0) {
       return null;
@@ -86,11 +88,9 @@ toggleTableVisibility(index: number): void {
       return (new Date(prev.created_at) > new Date(current.created_at)) ? prev : current;
     });
     return latestLog.stage;
-  }
+}
 
-  
-  getVideoWatchedStatus(logs: any[], stage: number): boolean | null {
-    // En son tarihli 'watch_video' işlemini bulma
+getVideoWatchedStatus(logs: any[], stage: number): boolean | null {
     const watchVideoLogs = logs.filter(log => log.action === 'watch_video' && log.stage === stage);
     if (watchVideoLogs.length === 0) {
       return null;
@@ -99,10 +99,11 @@ toggleTableVisibility(index: number): void {
       return (new Date(prev.created_at) > new Date(current.created_at)) ? prev : current;
     });
     return stage === 3 ? latestLog.video_1_watched : latestLog.video_2_watched;
-  }
+}
 
-  updateStages(): Promise<void> {
-    return new Promise<void>((resolve) => {
+
+  updateStages(): void {
+  
         if (this.userStage === null) {
             this.stages.forEach(stage => {
                 stage.status = 'BU AŞAMA HENÜZ TAMAMLANMADI';
@@ -131,7 +132,7 @@ toggleTableVisibility(index: number): void {
             });
         }
         
-    });
+   
 }
   
   logUserActivityPhaseChange(id: any, stage: number): Promise<any> {
@@ -140,7 +141,8 @@ toggleTableVisibility(index: number): void {
         user_id: id,
         stage: stage,
       };
-  
+      this.userStage=stage;
+
       this._auth.changeUserStage(activityLog).subscribe(
         (res: any) => {
           console.log('Activity logged or updated:', res);
@@ -207,61 +209,54 @@ toggleTableVisibility(index: number): void {
     console.log('5. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII ANKETLER BİTTİİİİ !!! ' )
     this.logUserActivityPhaseChange(this.normalKullaniciData.id, 6); // örnek olarak stage 1
     //window.location.reload();
-
-
   }
+  
   selectedStage: number | null = null;
 
   selectStage(stage: number) {
+    // Sadece bir checkbox seçilebilir, seçileni sakla
     this.selectedStage = stage;
   }
+  
 
   onSelect() {
     console.log("this.selectedStage :: ", this.selectedStage)
-    console.log("this.getUserStage(this.userID); :: ", this.getUserStage(this.userID))
 
       switch (this.selectedStage) {
         case 1:
           this.ilkAsamayiAc();
-          this.updateStages()
-
           break;
         case 2:
           this.birinciAsamayiTamamla();
-          this.updateStages()
-
           break;
         case 3:
           this.ikinciAsamayiTamamla();
-          this.updateStages()
-
           break;
         case 4:
           this.ucuncuAsamayiTamamla();
-          this.updateStages()
-
           break;
         case 5:
           this.dorduncuAsamayiTamamla();
-          this.updateStages()
-
           break;
       }
       
 
+    
       if (this.selectedStage===5)
       {
         this.showSuccessAlert('Başarılı', 'Tüm Anketler Başarıyla Tamamlandı !');
-  
+
       }
       else
       {
         this.showSuccessAlert('Başarılı', 'Aşama başarıyla güncellendi ! Sayfayı Yenileyin !');
-  
+
       }
-    
-  }
+
+  }   
   tamamla(stageId: number) {
+    console.log("tamamla stageId :: ", stageId)
+
     switch (stageId) {
       case 1:
         this.birinciAsamayiTamamla();
@@ -279,19 +274,17 @@ toggleTableVisibility(index: number): void {
         this.besinciAsamayiTamamla();
         break;
     }
-    this.updateStages()
-    console.log("this.getUserStage(this.userID); :: ", this.getUserStage(this.userID))
-
     if (stageId===5)
-    {
-      this.showSuccessAlert('Başarılı', 'Tüm Anketler Başarıyla Tamamlandı !');
-
-    }
-    else
-    {
-      this.showSuccessAlert('Başarılı', 'Aşama başarıyla güncellendi ! Sayfayı Yenileyin !');
-
-    }
+      {
+        this.showSuccessAlert('Başarılı', 'Tüm Anketler Başarıyla Tamamlandı !');
+  
+      }
+      else
+      {
+        this.showSuccessAlert('Başarılı', 'Aşama başarıyla güncellendi ! Sayfayı Yenileyin !');
+  
+      }
+    
   }
 
   showSuccessAlert(title: string, message: string): void {
