@@ -12,7 +12,7 @@ export class NormalKullaniciService {
 
   private kullaniciAktifSayfa: string ; // Varsayılan değeri atadım
 
-  private _httpUrl = "http://207.154.196.66";
+  private _httpUrl = "http://localhost:3000";
 private _registerUrl = `${this._httpUrl}/api/users`;
 private _loginUrl = `${this._httpUrl}/api/login`;
 private _normalKullaniciInfoUrl = `${this._httpUrl}/api/normalKullaniciInfo`;

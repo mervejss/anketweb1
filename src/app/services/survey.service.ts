@@ -31,7 +31,7 @@ export class SurveyService {
   }
   
  
-  private _httpUrl = 'http://207.154.196.66/api/';
+  private _httpUrl = 'http://localhost:3000/api/';
 
 private createSurveyapiUrl = `${this._httpUrl}createSurvey`; // API URL'si
 private createQuestionapiUrl = `${this._httpUrl}createQuestion`; // API URL'si
