@@ -11,9 +11,21 @@ declare var YT: any;
   styleUrls: ['./kullanici-anketler-page3.component.scss']
 })
 export class KullaniciAnketlerPage3Component implements OnInit {
-sonrakiAsama() {
-throw new Error('Method not implemented.');
-}
+
+  sonrakiAsama() {
+    this.ucuncuAsamayiTamamla();
+  }
+  
+  ucuncuAsamayiTamamla()
+  {
+    this.logUserActivityPhaseChange(this.normalKullaniciData.id, 4); // örnek olarak stage 1
+
+    this._normalKullaniciAuth.setKullaniciAktifSayfa('kullanici-anketler-page4');
+    console.log('3. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII aktif sayfa ise : ',this._normalKullaniciAuth.getKullaniciAktifSayfa() )
+    window.location.reload();
+  }
+  
+
   normalKullaniciData: any;
   ucuncuAsamaVideoUrls: string[] = [];
   ucuncuAsamaBilgilendirmeMetni: any;

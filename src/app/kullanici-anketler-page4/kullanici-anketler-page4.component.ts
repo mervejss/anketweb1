@@ -12,8 +12,17 @@ declare var YT: any;
 })
 export class KullaniciAnketlerPage4Component implements OnInit{
 sonrakiAsama() {
-throw new Error('Method not implemented.');
+this.dorduncuAsamayiTamamla();
 }
+dorduncuAsamayiTamamla()
+  {
+    this.logUserActivityPhaseChange(this.normalKullaniciData.id, 5); // örnek olarak stage 1
+
+    this._normalKullaniciAuth.setKullaniciAktifSayfa('kullanici-anketler-page5');
+    console.log('4. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII aktif sayfa ise : ',this._normalKullaniciAuth.getKullaniciAktifSayfa() )
+    window.location.reload();
+  }
+
   constructor(private surveyService: SurveyService, public sanitizer: DomSanitizer, private _normalKullaniciAuth: NormalKullaniciService) { }
 
   dorduncuAsamaBilgilendirmeMetni: any;

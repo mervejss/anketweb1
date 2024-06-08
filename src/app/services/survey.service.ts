@@ -42,6 +42,10 @@ private deleteSurveyapiUrl = `${this._httpUrl}deleteSurvey`; // API URL'si
 private deleteQuestionapiUrl = `${this._httpUrl}deleteQuestion`; // API URL'si
 private deleteQuestionOptionapiUrl = `${this._httpUrl}deleteQuestionOption`; // API URL'si
 private saveUserSurveyAnswersapiUrl = `${this._httpUrl}saveUserSurveyAnswers`; // API URL'si
+private getUserSurveyAnswerapiUrl = `${this._httpUrl}getUserSurveyAnswer/`; // API URL'si
+private updateUserSurveyAnswerapiUrl = `${this._httpUrl}updateUserSurveyAnswer/`; // API URL'si
+private getUserSurveyAnswersBeforeapiUrl  = `${this._httpUrl}getUserSurveyAnswersBefore`; // API URL'si
+
 private saveUserSurveyOpenAnswersapiUrl = `${this._httpUrl}saveUserSurveyOpenAnswers`; // API URL'si
 private deleteAllSurveysapiUrl = `${this._httpUrl}deleteAllSurveys`; // API URL'si
 private deleteAllQuestionsapiUrl = `${this._httpUrl}deleteAllQuestions`; // API URL'si
@@ -228,10 +232,34 @@ private deleteAllOptionsapiUrl = `${this._httpUrl}deleteAllOptions`; // API URL'
 
     return this.http.post(this.saveUserSurveyAnswersapiUrl, body);
   }
+
+
+  getUserSurveyAnswer(userId: number, surveyId: number, questionId: number) {
+    const apiUrl = `${this.getUserSurveyAnswerapiUrl}${userId}/${surveyId}/${questionId}`;
+    return this.http.get(apiUrl);
+  }
+  
+  updateUserSurveyAnswer(answerId: number, questionOptionId: number) {
+    const apiUrl = `${this.updateUserSurveyAnswerapiUrl}`;
+    const body = { answerId, questionOptionId };
+    return this.http.put(apiUrl, body);
+  }
+  
+  getUserSurveyAnswersBefore(userId: number, surveyId: number): Observable<any> {
+    return this.http.get(`${this.getUserSurveyAnswersBeforeapiUrl}`, {
+      params: {
+        user_id: userId.toString(),
+        survey_id: surveyId.toString()
+      }
+    });
+  }
  
   saveUserSurveyOpenAnswers(user_id: number, survey_id: number, question_id: number, answer: string) {
     const body = { user_id, survey_id, question_id, answer };
 
     return this.http.post(this.saveUserSurveyOpenAnswersapiUrl, body);
   }
+
+  
+
 }

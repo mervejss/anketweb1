@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AdminService } from '../services/admin.service';
 import { SurveyService } from '../services/survey.service'; // SurveyService eklendi
 import { NormalKullaniciService } from '../services/normal-kullanici.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-kullanici-anketler-page1',
@@ -11,9 +12,6 @@ import { NormalKullaniciService } from '../services/normal-kullanici.service';
   styleUrls: ['./kullanici-anketler-page1.component.scss']
 })
 export class KullaniciAnketlerPage1Component implements OnInit {
-sonrakiAsama() {
-throw new Error('Method not implemented.');
-}
 
   birinciAsamaSecilenAnketId:any;
   normalKullaniciData: any;
@@ -24,14 +22,41 @@ throw new Error('Method not implemented.');
   constructor(private http: HttpClient, private router: Router, private _auth: AdminService, private surveyService: SurveyService, private _normalKullaniciAuth: NormalKullaniciService) { } // SurveyService eklendi
 
   ngOnInit() {
-
-    console.log(" ngOnInit() ÇALIŞTI VE secilenAnketId=>>>> " ,this.birinciAsamaSecilenAnketId )
-    this.birinciAsamaSecilenAnketId= this.surveyService.getBirinciAsamaSecilecekAnketId();
+    console.log(" ngOnInit() ÇALIŞTI VE secilenAnketId=>>>> ", this.birinciAsamaSecilenAnketId)
+    this.birinciAsamaSecilenAnketId = this.surveyService.getBirinciAsamaSecilecekAnketId();
     this.normalKullaniciData = this._normalKullaniciAuth.getUserData();
     this.logUserActivityPhaseChange(this.normalKullaniciData.id, 1); // örnek olarak stage 1
     this.getQuestions();
-  }
+    this.loadSelectedAnswers(); // Load selected answers on init
 
+    console.log("Selected Answers:", this.selectedAnswers);
+  }
+  loadSelectedAnswers() {
+    this.surveyService.getUserSurveyAnswersBefore(this.normalKullaniciData.id, this.birinciAsamaSecilenAnketId)
+      .subscribe(
+        (res: any) => {
+          console.log("User survey answers loaded", res);
+          res.forEach((answer: any) => {
+            this.selectedAnswers[answer.question_id] = answer.question_option_id;
+          });
+        },
+        err => console.error("Error loading user survey answers", err)
+      );
+  }
+  getQuestions() {
+    console.log("getQuestions() ÇALIŞTI VE secilenAnketId=>>>> ", this.birinciAsamaSecilenAnketId)
+    this._auth.getQuestions(this.birinciAsamaSecilenAnketId!)
+      .subscribe(
+        (res: any) => {
+          console.log("Soru verileri alındı", res);
+          this.questionData = res;
+          this.getQuestionOptionsForQuestions();
+        },
+        err => console.log("Soru verileri alınamadı", err)
+      );
+  }
+  
+ 
   logUserActivityPhaseChange(id: any, stage: number) {
     const activityLog = {
       user_id: id,
@@ -63,7 +88,9 @@ throw new Error('Method not implemented.');
     for (const questionId in this.selectedAnswers) {
       if (this.selectedAnswers.hasOwnProperty(questionId)) {
         const optionId = this.selectedAnswers[questionId];
-        this.saveUserSurveyAnswers(Number(questionId), optionId);
+        // Önce varolan bir cevap var mı kontrol edelim
+        this.checkAndUpdateUserSurveyAnswer(Number(questionId), optionId);
+
       }
     }
   }
@@ -73,6 +100,8 @@ throw new Error('Method not implemented.');
     this.surveyService.saveUserSurveyAnswers(this.normalKullaniciData.id, this.birinciAsamaSecilenAnketId,  questionId,  questionOptionId).subscribe(
       (response) => {
         console.log('User survey answers saved successfully:', response);
+        this.showSuccessAlert('Başarılı', 'Anket cevapları başarıyla kaydedildi.');
+
         // Başka bir işlem yapılabilir, örneğin kullanıcıyı başka bir sayfaya yönlendirebilirsiniz
       },
       (error) => {
@@ -82,69 +111,44 @@ throw new Error('Method not implemented.');
     );
   }
 
+  checkAndUpdateUserSurveyAnswer(questionId: number, optionId: number) {
+    // Kullanıcının daha önce bu soruya cevap verip vermediğini kontrol et
+    this.surveyService.getUserSurveyAnswer(this.normalKullaniciData.id, this.birinciAsamaSecilenAnketId, questionId).subscribe(
+      (response: any) => {
+        if (response) {
+          // Eğer cevap varsa, güncelleme yap
+          this.updateUserSurveyAnswer(response.id, optionId);
+        } else {
+          // Eğer cevap yoksa, yeni cevap ekle
+          this.saveUserSurveyAnswers(questionId, optionId);
+        }
+      },
+      (error) => {
+        console.error('Error checking user survey answer:', error);
+      }
+    );
+  }
 
-  getQuestions() {
-    console.log("getQuestions() ÇALIŞTI VE secilenAnketId=>>>> " ,this.birinciAsamaSecilenAnketId )
-    this._auth.getQuestions(this.birinciAsamaSecilenAnketId!)
-        .subscribe(
-          (res: any) => {
-            console.log("Soru verileri alındı", res);
+  updateUserSurveyAnswer(answerId: number, questionOptionId: number) {
+  // Kullanıcının anket cevabını güncellemek için SurveyService'i kullan
+  this.surveyService.updateUserSurveyAnswer(answerId, questionOptionId).subscribe(
+    (response) => {
+      console.log('User survey answer updated successfully:', response);
+      this.showSuccessAlert('Başarılı', 'Anket cevapları başarıyla güncellendi.');
 
-                this.questionData = res;
-                this.getQuestionOptionsForQuestions();
-            },
-            err => console.log("Soru verileri alınamadı", err)
-        );
+      // Başka bir işlem yapılabilir
+    },
+    (error) => {
+      console.error('Error updating user survey answer:', error);
+      // Hata durumunda kullanıcıya uygun bir mesaj gösterilebilir
+    }
+  );
 }
 
 
-/*
-  saveAnswer(questionId: number, optionId: number) {
-    console.log("Question ID:", questionId);
-    console.log("Option ID:", optionId);
   
-    // Eğer daha önce bu soru için cevap verildiyse ve cevap değiştiyse updateUserSurveyAnswers çağrılır
-    if (this.selectedAnswers.hasOwnProperty(questionId) && this.selectedAnswers[questionId] !== optionId) {
-      console.log("Cevap değişti, updateUserSurveyAnswers çağrılıyor");
-      this.updateUserSurveyAnswers(questionId, optionId);
-    } else {
-      console.log("Cevap değişmedi veya daha önce cevaplanmamış, saveUserSurveyAnswers çağrılıyor");
-      this.saveUserSurveyAnswers(questionId, optionId);
-    }
-  
-    // Seçilen cevabı kaydet
-    this.selectedAnswers[questionId] = optionId;
-    console.log("Selected Answers:", this.selectedAnswers);
-  }
-  
-  saveUserSurveyAnswers(questionId: number, questionOptionId: number) {
-    // Kullanıcının anket cevaplarını kaydetmek için SurveyService'i kullan
-    this.surveyService.saveUserSurveyAnswers(this.normalKullaniciData.id, this.birinciAsamaSecilenAnketId,  questionId,  questionOptionId).subscribe(
-      (response) => {
-        console.log('User survey answers saved successfully:', response);
-        // Başka bir işlem yapılabilir, örneğin kullanıcıyı başka bir sayfaya yönlendirebilirsiniz
-      },
-      (error) => {
-        console.error('Error saving user survey answers:', error);
-        // Hata durumunda kullanıcıya uygun bir mesaj gösterilebilir
-      }
-    );
-  }
-  
-  
-  updateUserSurveyAnswers(questionId: number, optionId: number) {
-    // Kullanıcının anket cevaplarını güncellemek için SurveyService'i kullan
-    this.surveyService.updateUserSurveyAnswers(this.normalKullaniciData.id, this.birinciAsamaSecilenAnketId, questionId, optionId).subscribe(
-      (response) => {
-        console.log('User survey answers updated successfully:', response);
-        // Başka bir işlem yapılabilir, örneğin kullanıcıyı başka bir sayfaya yönlendirebilirsiniz
-      },
-      (error) => {
-        console.error('Error updating user survey answers:', error);
-        // Hata durumunda kullanıcıya uygun bir mesaj gösterilebilir
-      }
-    );
-  }*/
+
+
 getQuestionOptionsForQuestions() {
   if (this.questionData && this.questionData.length > 0) {
     for (const question of this.questionData) {
@@ -171,5 +175,34 @@ getQuestionOptions(question: any) {
 } 
  
   
-  
+sonrakiAsama() 
+{
+  this.birinciAsamayiTamamla();
+}
+
+birinciAsamayiTamamla()
+{
+  this.logUserActivityPhaseChange(this.normalKullaniciData.id, 2); // örnek olarak stage 1
+
+  this._normalKullaniciAuth.setKullaniciAktifSayfa('kullanici-anketler-page2');
+  console.log('1. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII aktif sayfa ise : ',this._normalKullaniciAuth.getKullaniciAktifSayfa() )
+  window.location.reload();
+}
+showSuccessAlert(title: string, message: string): void {
+  Swal.fire({
+    title: title,
+    text: message,
+    icon: 'success',
+    confirmButtonText: 'Tamam'
+  });
+}
+
+showErrorAlert(title: string, message: string): void {
+  Swal.fire({
+    title: title,
+    text: message,
+    icon: 'error',
+    confirmButtonText: 'Tamam'
+  });
+}
 }

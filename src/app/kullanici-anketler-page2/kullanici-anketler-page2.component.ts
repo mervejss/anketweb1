@@ -11,9 +11,19 @@ import { NormalKullaniciService } from '../services/normal-kullanici.service';
   styleUrls: ['./kullanici-anketler-page2.component.scss']
 })
 export class KullaniciAnketlerPage2Component {
-sonrakiAsama() {
-throw new Error('Method not implemented.');
-}
+  sonrakiAsama() {
+    this.ikinciAsamayiTamamla();
+  }
+
+  ikinciAsamayiTamamla()
+  {
+      this.logUserActivityPhaseChange(this.normalKullaniciData.id, 3); // örnek olarak stage 1
+
+      this._normalKullaniciAuth.setKullaniciAktifSayfa('kullanici-anketler-page3');
+      console.log('2. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII aktif sayfa ise : ',this._normalKullaniciAuth.getKullaniciAktifSayfa() )
+      window.location.reload();
+   }
+  
 
 
   ikinciAsamaSecilecekAnketId: any;

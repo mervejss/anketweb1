@@ -12,7 +12,15 @@ import { NormalKullaniciService } from '../services/normal-kullanici.service';
 })
 export class KullaniciAnketlerPage5Component {
 sonrakiAsama() {
-throw new Error('Method not implemented.');
+this.besinciAsamayiTamamla();
+
+}
+besinciAsamayiTamamla()
+{
+  console.log('5. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII ANKETLER BİTTİİİİ !!! ' )
+  this.logUserActivityPhaseChange(this.normalKullaniciData.id, 6); // örnek olarak stage 1
+  this._normalKullaniciAuth.setKullaniciAktifSayfa('normal-kullanici-ana-sayfa');
+
 }
 
   besinciAsamaSecilecekAnketId:any;

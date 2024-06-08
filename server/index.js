@@ -470,6 +470,64 @@ app.post('/api/saveUserSurveyAnswers', async (req, res) => {
   }
 });
 
+app.get('/api/getUserSurveyAnswer/:userId/:surveyId/:questionId', async (req, res) => {
+  try {
+    const { userId, surveyId, questionId } = req.params;
+
+    // Kullanıcının belirli bir ankette belirli bir soruya verdiği cevabı getir
+    const queryText = 'SELECT * FROM user_survey_answers WHERE user_id = $1 AND survey_id = $2 AND question_id = $3';
+    const values = [userId, surveyId, questionId];
+    const result = await pool.query(queryText, values);
+
+    if (result.rows.length > 0) {
+      // Eğer cevap varsa cevabı döndür
+      res.status(200).json(result.rows[0]);
+    } else {
+      // Eğer cevap yoksa null döndür
+      res.status(200).json(null);
+    }
+  } catch (err) {
+    console.error('Error getting user survey answer:', err);
+    res.status(500).json({ error: 'An error occurred while getting user survey answer' });
+  }
+});
+
+// Define the API endpoint
+app.get('/api/getUserSurveyAnswersBefore', async (req, res) => {
+  const { user_id, survey_id } = req.query;
+
+  if (!user_id || !survey_id) {
+      return res.status(400).json({ error: 'user_id and survey_id are required' });
+  }
+
+  try {
+      const result = await pool.query(
+          'SELECT * FROM user_survey_answers WHERE user_id = $1 AND survey_id = $2',
+          [user_id, survey_id]
+      );
+
+      res.json(result.rows);
+  } catch (error) {
+      console.error('Error fetching user survey answers:', error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.put('/api/updateUserSurveyAnswer', async (req, res) => {
+  try {
+    const { answerId, questionOptionId } = req.body;
+
+    // Kullanıcının anket cevabını güncellemek için SQL sorgusu
+    const queryText = 'UPDATE user_survey_answers SET question_option_id = $1 WHERE id = $2';
+    const values = [questionOptionId, answerId];
+    await pool.query(queryText, values);
+
+    res.status(200).json({ message: 'User survey answer updated successfully' });
+  } catch (err) {
+    console.error('Error updating user survey answer:', err);
+    res.status(500).json({ error: 'An error occurred while updating user survey answer' });
+  }
+});
 
 
 
