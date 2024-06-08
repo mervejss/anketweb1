@@ -35,7 +35,7 @@ export class KullaniciDetaylariComponent implements  OnInit,OnChanges {
   ngOnInit(): void {
     this.normalKullaniciData = this._auth.getUserData();
     this.userID = this.normalKullaniciData.id; // Kullanıcı ID'sini al
-    this.getUserStage(this.userID);
+    //this.getUserStage(this.userID);
     
   }
 
