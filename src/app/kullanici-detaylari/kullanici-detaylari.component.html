@@ -1,6 +1,6 @@
 <div class="main-container">
   <div class="survey-title">
-    <h2>USER ID: {{ tiklananUserID }}</h2>
+    <h2>KULLANICI AKTİVİTELERİ</h2>
   </div>
 
 
@@ -41,21 +41,21 @@
     <mat-icon *ngIf="!tablesVisible[2]">visibility</mat-icon>
     Göster / Gizle</button>
 
-        <!-- Checkbox yapıları -->
-  <div>
-    <label>Şu Aşamaya Geçiş Yap:</label>
-    <input type="checkbox" id="asama1" (change)="selectStage(1)">
-    <label for="asama1">1</label>
-    <input type="checkbox" id="asama2" (change)="selectStage(2)">
-    <label for="asama2">2</label>
-    <input type="checkbox" id="asama3" (change)="selectStage(3)">
-    <label for="asama3">3</label>
-    <input type="checkbox" id="asama4" (change)="selectStage(4)">
-    <label for="asama4">4</label>
-    <input type="checkbox" id="asama5" (change)="selectStage(5)">
-    <label for="asama5">5</label>
-    <button type="button" (click)="onSelect()">SEÇ</button>
-  </div>
+    <div>
+      <h3>Aşama Seç</h3>
+      <input type="radio" id="asama1" name="asama" (change)="selectStage(1)">
+      <label for="asama1">1</label>
+      <input type="radio" id="asama2" name="asama" (change)="selectStage(2)">
+      <label for="asama2">2</label>
+      <input type="radio" id="asama3" name="asama" (change)="selectStage(3)">
+      <label for="asama3">3</label>
+      <input type="radio" id="asama4" name="asama" (change)="selectStage(4)">
+      <label for="asama4">4</label>
+      <input type="radio" id="asama5" name="asama" (change)="selectStage(5)">
+      <label for="asama5">5</label>
+      <button type="submit3" (click)="onSelect()">SEÇ</button>
+    </div>
+    
   
   <table class="styled-table" *ngIf="tablesVisible[2]">
     <thead>

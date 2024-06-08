@@ -230,6 +230,14 @@ toggleTableVisibility(index: number): void {
           break;
       }
       this.selectedStage = null; // Seçileni sıfırla
+      this.getActivityLogs(this.tiklananUserID!).subscribe(data => {
+        this.activityLogs = data.filter(log => log.user_id === this.tiklananUserID);
+        this.userStage = this.getUserStage(this.activityLogs);
+         this.updateStages()
+         this.showSuccessAlert('Başarılı', 'Anket Aşaması Değiştirildi !');
+
+    });
+     
     }
   }
   tamamla(stageId: number) {
