@@ -174,3 +174,9 @@ button[type="submit3"] {
   pointer-events: none; /* Butonun tıklanabilirliğini devre dışı bırakıyoruz */
   cursor: not-allowed; /* Farenin üzerine gelince işaretçinin uygun olmayan (yani, tıklanamaz) bir işaretçiye dönüşmesini sağlıyoruz */
 }
+/* styles.css veya bileşenize özel CSS dosyasına ekleyin */
+.disabled-component {
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.6; /* İsteğe bağlı: bileşenleri yarı saydam yaparak görsel olarak da fark ettirebilirsiniz */
+}

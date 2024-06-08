@@ -157,9 +157,9 @@ toggleTableVisibility(index: number): void {
   {
     this.logUserActivityPhaseChange(this.normalKullaniciData.id, 1); // örnek olarak stage 1
 
-    //this._auth.setKullaniciAktifSayfa('kullanici-anketler-page1');
+    this._auth.setKullaniciAktifSayfa('kullanici-anketler-page1');
     console.log('1. AŞAMA AÇ ! BUTONU ÇALIŞTIIII aktif sayfa ise : ',this._auth.getKullaniciAktifSayfa() )
-    window.location.reload();
+    //window.location.reload();
   }
 
   birinciAsamayiTamamla()
@@ -168,6 +168,8 @@ toggleTableVisibility(index: number): void {
 
     this._auth.setKullaniciAktifSayfa('kullanici-anketler-page2');
     console.log('1. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII aktif sayfa ise : ',this._auth.getKullaniciAktifSayfa() )
+    //window.location.reload();
+
   }
   
   ikinciAsamayiTamamla()
@@ -176,6 +178,8 @@ toggleTableVisibility(index: number): void {
 
     this._auth.setKullaniciAktifSayfa('kullanici-anketler-page3');
     console.log('2. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII aktif sayfa ise : ',this._auth.getKullaniciAktifSayfa() )
+    //window.location.reload();
+
   }
   
   ucuncuAsamayiTamamla()
@@ -184,6 +188,8 @@ toggleTableVisibility(index: number): void {
 
     this._auth.setKullaniciAktifSayfa('kullanici-anketler-page4');
     console.log('3. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII aktif sayfa ise : ',this._auth.getKullaniciAktifSayfa() )
+    //window.location.reload();
+
   }
   
   dorduncuAsamayiTamamla()
@@ -192,53 +198,68 @@ toggleTableVisibility(index: number): void {
 
     this._auth.setKullaniciAktifSayfa('kullanici-anketler-page5');
     console.log('4. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII aktif sayfa ise : ',this._auth.getKullaniciAktifSayfa() )
+    //window.location.reload();
+
   }
 
   besinciAsamayiTamamla()
   {
     console.log('5. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII ANKETLER BİTTİİİİ !!! ' )
     this.logUserActivityPhaseChange(this.normalKullaniciData.id, 6); // örnek olarak stage 1
+    //window.location.reload();
+
 
   }
   selectedStage: number | null = null;
 
   selectStage(stage: number) {
-    // Sadece bir checkbox seçilebilir, seçileni sakla
     this.selectedStage = stage;
   }
-  
+
   onSelect() {
-    if (this.selectedStage !== null) {
+    console.log("this.selectedStage :: ", this.selectedStage)
+    console.log("this.getUserStage(this.userID); :: ", this.getUserStage(this.userID))
+
       switch (this.selectedStage) {
         case 1:
           this.ilkAsamayiAc();
+          this.updateStages()
+
           break;
         case 2:
           this.birinciAsamayiTamamla();
+          this.updateStages()
+
           break;
         case 3:
           this.ikinciAsamayiTamamla();
+          this.updateStages()
+
           break;
         case 4:
           this.ucuncuAsamayiTamamla();
+          this.updateStages()
+
           break;
         case 5:
           this.dorduncuAsamayiTamamla();
-          break;
-        default:
-          // Hata durumunu işle
+          this.updateStages()
+
           break;
       }
-      this.selectedStage = null; // Seçileni sıfırla
-      this.getActivityLogs(this.tiklananUserID!).subscribe(data => {
-        this.activityLogs = data.filter(log => log.user_id === this.tiklananUserID);
-        this.userStage = this.getUserStage(this.activityLogs);
-         this.updateStages()
-         this.showSuccessAlert('Başarılı', 'Anket Aşaması Değiştirildi !');
+      
 
-    });
-     
-    }
+      if (this.selectedStage===5)
+      {
+        this.showSuccessAlert('Başarılı', 'Tüm Anketler Başarıyla Tamamlandı !');
+  
+      }
+      else
+      {
+        this.showSuccessAlert('Başarılı', 'Aşama başarıyla güncellendi ! Sayfayı Yenileyin !');
+  
+      }
+    
   }
   tamamla(stageId: number) {
     switch (stageId) {
@@ -258,11 +279,9 @@ toggleTableVisibility(index: number): void {
         this.besinciAsamayiTamamla();
         break;
     }
-    this.getActivityLogs(this.tiklananUserID!).subscribe(data => {
-      this.activityLogs = data.filter(log => log.user_id === this.tiklananUserID);
-      this.userStage = this.getUserStage(this.activityLogs);
-       this.updateStages()
-  });
+    this.updateStages()
+    console.log("this.getUserStage(this.userID); :: ", this.getUserStage(this.userID))
+
     if (stageId===5)
     {
       this.showSuccessAlert('Başarılı', 'Tüm Anketler Başarıyla Tamamlandı !');

@@ -53,8 +53,9 @@
       <label for="asama4">4</label>
       <input type="radio" id="asama5" name="asama" (change)="selectStage(5)">
       <label for="asama5">5</label>
-      <button type="submit3" (click)="onSelect()">SEÇ</button>
+      <button type="submit" (click)="onSelect()">SEÇ</button>
     </div>
+    
     
   
   <table class="styled-table" *ngIf="tablesVisible[2]">
@@ -149,10 +150,10 @@
       
       <div class="anket-sorulari-content">
         <!-- Anket sorularının içeriği burada<app-admin-anketler-page1 *ngIf="aktifSayfa === 'admin-anket-duzenle'"></app-admin-anketler-page1> -->
-        <app-kullanici-anketler-page1 ></app-kullanici-anketler-page1>
-        <app-kullanici-anketler-page2 ></app-kullanici-anketler-page2>
-        <app-kullanici-anketler-page5 ></app-kullanici-anketler-page5>
-  
+        <app-kullanici-anketler-page1 class="disabled-component"></app-kullanici-anketler-page1>
+        <app-kullanici-anketler-page2 class="disabled-component"></app-kullanici-anketler-page2>
+        <app-kullanici-anketler-page5 class="disabled-component"></app-kullanici-anketler-page5>
+        
     
         <router-outlet></router-outlet>
       </div> 

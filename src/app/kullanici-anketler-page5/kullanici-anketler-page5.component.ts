@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AdminService } from '../services/admin.service';
 import { SurveyService } from '../services/survey.service'; // SurveyService eklendi
 import { NormalKullaniciService } from '../services/normal-kullanici.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-kullanici-anketler-page5',
@@ -11,17 +12,7 @@ import { NormalKullaniciService } from '../services/normal-kullanici.service';
   styleUrls: ['./kullanici-anketler-page5.component.scss']
 })
 export class KullaniciAnketlerPage5Component {
-sonrakiAsama() {
-this.besinciAsamayiTamamla();
 
-}
-besinciAsamayiTamamla()
-{
-  console.log('5. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII ANKETLER BİTTİİİİ !!! ' )
-  this.logUserActivityPhaseChange(this.normalKullaniciData.id, 6); // örnek olarak stage 1
-  this._normalKullaniciAuth.setKullaniciAktifSayfa('normal-kullanici-ana-sayfa');
-
-}
 
   besinciAsamaSecilecekAnketId:any;
   normalKullaniciData: any;
@@ -37,6 +28,22 @@ besinciAsamayiTamamla()
     this.logUserActivityPhaseChange(this.normalKullaniciData.id, 5); // örnek olarak stage 1
 
     this.getQuestions();
+    this.loadSelectedAnswers(); // Load selected answers on init
+    console.log("Selected Answers:", this.selectedAnswers);
+
+  }
+
+  loadSelectedAnswers() {
+    this.surveyService.getUserSurveyAnswersBefore(this.normalKullaniciData.id, this.besinciAsamaSecilecekAnketId)
+      .subscribe(
+        (res: any) => {
+          console.log("User survey answers loaded", res);
+          res.forEach((answer: any) => {
+            this.selectedAnswers[answer.question_id] = answer.question_option_id;
+          });
+        },
+        err => console.error("Error loading user survey answers", err)
+      );
   }
 
   logUserActivityPhaseChange(id: any, stage: number) {
@@ -79,6 +86,8 @@ besinciAsamayiTamamla()
     this.surveyService.saveUserSurveyAnswers(this.normalKullaniciData.id, this.besinciAsamaSecilecekAnketId,  questionId,  questionOptionId).subscribe(
       (response) => {
         console.log('User survey answers saved successfully:', response);
+        this.showSuccessAlert('Başarılı', 'Anket cevapları başarıyla kaydedildi.');
+
         // Başka bir işlem yapılabilir, örneğin kullanıcıyı başka bir sayfaya yönlendirebilirsiniz
       },
       (error) => {
@@ -88,8 +97,39 @@ besinciAsamayiTamamla()
     );
   }
 
-  
+  checkAndUpdateUserSurveyAnswer(questionId: number, optionId: number) {
+    // Kullanıcının daha önce bu soruya cevap verip vermediğini kontrol et
+    this.surveyService.getUserSurveyAnswer(this.normalKullaniciData.id, this.besinciAsamaSecilecekAnketId, questionId).subscribe(
+      (response: any) => {
+        if (response) {
+          // Eğer cevap varsa, güncelleme yap
+          this.updateUserSurveyAnswer(response.id, optionId);
+        } else {
+          // Eğer cevap yoksa, yeni cevap ekle
+          this.saveUserSurveyAnswers(questionId, optionId);
+        }
+      },
+      (error) => {
+        console.error('Error checking user survey answer:', error);
+      }
+    );
+  }
 
+  updateUserSurveyAnswer(answerId: number, questionOptionId: number) {
+    // Kullanıcının anket cevabını güncellemek için SurveyService'i kullan
+    this.surveyService.updateUserSurveyAnswer(answerId, questionOptionId).subscribe(
+      (response) => {
+        console.log('User survey answer updated successfully:', response);
+        this.showSuccessAlert('Başarılı', 'Anket cevapları başarıyla güncellendi.');
+  
+        // Başka bir işlem yapılabilir
+      },
+      (error) => {
+        console.error('Error updating user survey answer:', error);
+        // Hata durumunda kullanıcıya uygun bir mesaj gösterilebilir
+      }
+    );
+  }
   getQuestions() {
     console.log("getQuestions() ÇALIŞTI VE secilenAnketId=>>>> " ,this.besinciAsamaSecilecekAnketId )
     this._auth.getQuestions(this.besinciAsamaSecilecekAnketId!)
@@ -128,5 +168,34 @@ getQuestionOptions(question: any) {
       err => console.log("Seçenek verileri alınamadı", err)
   );
 } 
- 
+sonrakiAsama() {
+  this.besinciAsamayiTamamla();
+  
+  }
+  besinciAsamayiTamamla()
+  {
+    console.log('5. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII ANKETLER BİTTİİİİ !!! ' )
+    this.logUserActivityPhaseChange(this.normalKullaniciData.id, 6); // örnek olarak stage 1
+    this._normalKullaniciAuth.setKullaniciAktifSayfa('normal-kullanici-ana-sayfa');
+    window.location.reload();
+  }
+
+
+showSuccessAlert(title: string, message: string): void {
+  Swal.fire({
+    title: title,
+    text: message,
+    icon: 'success',
+    confirmButtonText: 'Tamam'
+  });
+}
+
+showErrorAlert(title: string, message: string): void {
+  Swal.fire({
+    title: title,
+    text: message,
+    icon: 'error',
+    confirmButtonText: 'Tamam'
+  });
+}
 }

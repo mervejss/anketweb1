@@ -619,7 +619,7 @@ app.post('/api/user_asama_degisiklik', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-*/
+
 
 app.post('/api/user_asama_degisiklik', async (req, res) => {
   const { user_id, stage, video_1_watched, video_2_watched } = req.body;
@@ -642,7 +642,49 @@ app.post('/api/user_asama_degisiklik', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+*/
+app.post('/api/user_asama_degisiklik', async (req, res) => {
+  const { user_id, stage, video_1_watched, video_2_watched } = req.body;
 
+  try {
+    // Önce mevcut bir kayıt olup olmadığını kontrol et
+    const existingRecord = await pool.query(
+      'SELECT * FROM user_activity_logs WHERE user_id = $1 AND action = $2',
+      [user_id, 'Phase Change']
+    );
+
+    if (existingRecord.rows.length > 0) {
+      // Kayıt varsa güncelle
+      const updateResult = await pool.query(
+        'UPDATE user_activity_logs SET stage = $1, video_1_watched = $2, video_2_watched = $3, created_at = CURRENT_TIMESTAMP WHERE user_id = $4 AND action = $5 RETURNING *',
+        [
+          stage,
+          video_1_watched !== undefined ? video_1_watched : null,
+          video_2_watched !== undefined ? video_2_watched : null,
+          user_id,
+          'Phase Change'
+        ]
+      );
+      res.status(200).json(updateResult.rows[0]);
+    } else {
+      // Kayıt yoksa yeni bir kayıt ekle
+      const insertResult = await pool.query(
+        'INSERT INTO user_activity_logs (user_id, action, stage, video_1_watched, video_2_watched) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+        [
+          user_id,
+          'Phase Change',
+          stage,
+          video_1_watched !== undefined ? video_1_watched : null,
+          video_2_watched !== undefined ? video_2_watched : null
+        ]
+      );
+      res.status(201).json(insertResult.rows[0]);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 app.get('/api/user_stage/:user_id', async (req, res) => {
   const userId = req.params.user_id;
