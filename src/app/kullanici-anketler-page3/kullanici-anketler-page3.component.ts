@@ -11,6 +11,9 @@ declare var YT: any;
   styleUrls: ['./kullanici-anketler-page3.component.scss']
 })
 export class KullaniciAnketlerPage3Component implements OnInit {
+sonrakiAsama() {
+throw new Error('Method not implemented.');
+}
   normalKullaniciData: any;
   ucuncuAsamaVideoUrls: string[] = [];
   ucuncuAsamaBilgilendirmeMetni: any;

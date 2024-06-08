@@ -11,6 +11,9 @@ declare var YT: any;
   styleUrls: ['./kullanici-anketler-page4.component.scss']
 })
 export class KullaniciAnketlerPage4Component implements OnInit{
+sonrakiAsama() {
+throw new Error('Method not implemented.');
+}
   constructor(private surveyService: SurveyService, public sanitizer: DomSanitizer, private _normalKullaniciAuth: NormalKullaniciService) { }
 
   dorduncuAsamaBilgilendirmeMetni: any;

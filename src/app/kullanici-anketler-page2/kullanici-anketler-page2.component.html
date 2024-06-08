@@ -1,10 +1,9 @@
 <div class="main-container">
     <div class="survey-title">
-      <h2>ANKET ID: {{ ikinciAsamaSecilecekAnketId }}</h2>
+      <h2>2. AŞAMA</h2>
     </div>
     <div *ngFor="let question of questionData; let i = index" class="question-container">
       <div class="question-header">
-        <p> Soru ID : {{ question.id }}</p>
   
         <p>{{ i + 1 }}. {{ question.question_text }}</p>
       </div>
@@ -26,6 +25,6 @@
       </div>
     </div>
      <!-- ANKETİ TAMAMLA butonu -->
-  <button (click)="anketiTamamla()" class="complete-button">ANKETİ GÖNDER</button>
-
+  <button type="submit"  (click)="anketiTamamla()" class="complete-button">  <mat-icon>mail</mat-icon>    ANKETİ GÖNDER</button>
+  <button type="submit"  (click)="sonrakiAsama()" class="complete-button"><mat-icon>arrow_forward</mat-icon>SONRAKİ AŞAMA</button>
   </div>

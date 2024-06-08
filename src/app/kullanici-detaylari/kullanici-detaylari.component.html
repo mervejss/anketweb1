@@ -137,7 +137,7 @@
   </div>
 
 
-  <!-- 1. Tablo: Kullanıcı Cevapları -->
+  <!-- 4. Tablo: Kullanıcı Cevapları -->
   <div class="activity-table">
     <h3>Kullanıcı Anket Cevapları</h3>
     <button type="submit" (click)="toggleTableVisibility(3)">
@@ -147,7 +147,15 @@
     
     <table class="styled-table" *ngIf="tablesVisible[3]">
       
-
+      <div class="anket-sorulari-content">
+        <!-- Anket sorularının içeriği burada<app-admin-anketler-page1 *ngIf="aktifSayfa === 'admin-anket-duzenle'"></app-admin-anketler-page1> -->
+        <app-kullanici-anketler-page1 ></app-kullanici-anketler-page1>
+        <app-kullanici-anketler-page2 ></app-kullanici-anketler-page2>
+        <app-kullanici-anketler-page5 ></app-kullanici-anketler-page5>
+  
+    
+        <router-outlet></router-outlet>
+      </div> 
 
     </table>
   </div>

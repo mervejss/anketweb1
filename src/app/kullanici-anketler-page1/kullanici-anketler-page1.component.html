@@ -1,22 +1,26 @@
 <div class="main-container">
   <div class="survey-title">    
-    <h2>ANKET ID: {{ birinciAsamaSecilenAnketId }}</h2>
+    <h2>1. AŞAMA</h2>
   </div>
   <div *ngFor="let question of questionData; let i = index" class="question-container">
     <div class="question-header">
-      <p> Soru ID : {{ question.id }}</p>
       <p>{{ i + 1 }}. {{ question.question_text }}</p>
     </div>
     <div *ngFor="let item of questionOptionData">
       <div *ngIf="item.questionId === question.id">
         <label *ngFor="let option of item.options" class="option-label">
           <input type="radio" [value]="option.id" [name]="'question_' + question.id" (click)="saveAnswer(question.id, option.id)">
-          {{ option.option_text }} (Seçenek ID : {{ option.id }})
+          {{ option.option_text }} 
         </label>
       </div>
     </div>
   </div>
   <!-- ANKETİ TAMAMLA butonu -->
-  <button (click)="anketiTamamla()" class="complete-button">ANKETİ GÖNDER</button>
+  <button type="submit"  (click)="anketiTamamla()" class="complete-button">  <mat-icon>mail</mat-icon>    ANKETİ GÖNDER</button>
+  <button type="submit"  (click)="sonrakiAsama()" class="complete-button"><mat-icon>arrow_forward</mat-icon>SONRAKİ AŞAMA</button>
+
+
+
+  
 
 </div>

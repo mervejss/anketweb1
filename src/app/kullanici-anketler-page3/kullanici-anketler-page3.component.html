@@ -1,4 +1,8 @@
-<div class="row">
+<div class="main-container">
+  <div class="survey-title">
+    <h2>3. AŞAMA</h2>
+
+  
   <div class="container">
     <div *ngIf="ucuncuAsamaBilgilendirmeMetni">
       <h3>3. Aşama Bilgilendirme Metni</h3>
@@ -9,17 +13,14 @@
 
     <div *ngIf="ucuncuAsamaVideoUrls.length > 0">
       <h3>3. Aşama Videolar</h3>
-      <button class="btn btn-primary" (click)="ucuncuAsamaVideolariListele()">İzlenecek Videoları Göster</button>
+      <button type="submit"   class="btn btn-primary" (click)="ucuncuAsamaVideolariListele()">İzlenecek Videoları Göster</button>
 
       <div *ngFor="let videoUrl of ucuncuAsamaVideoUrls; let i = index">
         <div id="ucuncu-player-{{ i }}"></div>
       </div>
     </div>
-  </div>
 </div>
-
-
-
-<!-- <iframe width="560" height="315" [src]="sanitizer.bypassSecurityTrustResourceUrl(videoUrl)" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>--> 
+</div>
+<!-- ANKETİ TAMAMLA butonu -->
+<button type="submit"  (click)="sonrakiAsama()" class="complete-button"><mat-icon>arrow_forward</mat-icon>SONRAKİ AŞAMA</button>
+</div>

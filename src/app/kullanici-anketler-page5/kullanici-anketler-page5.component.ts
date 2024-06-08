@@ -11,6 +11,9 @@ import { NormalKullaniciService } from '../services/normal-kullanici.service';
   styleUrls: ['./kullanici-anketler-page5.component.scss']
 })
 export class KullaniciAnketlerPage5Component {
+sonrakiAsama() {
+throw new Error('Method not implemented.');
+}
 
   besinciAsamaSecilecekAnketId:any;
   normalKullaniciData: any;

@@ -21,7 +21,13 @@
       
     }
 
-
+    .main-container {
+      margin-bottom: 20px; /* Sorular arası boşluk */
+      background-color: #b5dcf3; /* Arka plan rengi */
+      padding: 15px; /* İçeriğin etrafındaki dolgular */
+      border-radius: 8px; /* Köşelerin yuvarlatılması */
+      
+    }
 
     .bilgilendirme-metni {
       background-color: #e8f4f8;
@@ -38,3 +44,32 @@
       white-space: pre-wrap;  // Bu stil metnin paragraflar şeklinde uygun şekilde alt satıra geçmesini sağlar
 
     }
+
+     /* Butonların stil tanımı */
+   button[type="submit"] {
+    /* Buton boyutları */
+    width: 200px;
+    height: 50px;
+    /* İçerik ile kenar arasındaki boşluk */
+    padding: 10px;
+    /* Alt boşluk */
+    margin-bottom: 10px;
+    /* Sol boşluk */
+    margin-left: 10px;
+    /* Sağ boşluk */
+    margin-right: 10px;
+    /* Üst boşluk */
+    margin-top: 10px;
+    /* Arka plan rengi */
+    background-color: #00437c;
+    /* Metin rengi */
+    color: #ffffff;
+    /* Kenarlık yok */
+    border: none;
+    /* Kenar yumuşatma */
+    border-radius: 7px;
+    /* İmleci göster */
+    cursor: pointer;
+   
+  
+  }
