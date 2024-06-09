@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AdminService } from '../services/admin.service';
 import { SurveyService } from '../services/survey.service'; // SurveyService eklendi
 import { NormalKullaniciService } from '../services/normal-kullanici.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-kullanici-anketler-page2',
@@ -43,6 +44,10 @@ export class KullaniciAnketlerPage2Component {
 
 
     this.getQuestions();
+    this.getUserSurveyOpenAnswers(); // Kullanıcı cevaplarını çek
+
+
+
   }
   logUserActivityPhaseChange(id: any, stage: number) {
     const activityLog = {
@@ -82,6 +87,8 @@ export class KullaniciAnketlerPage2Component {
     this.surveyService.saveUserSurveyOpenAnswers(this.normalKullaniciData.id, this.ikinciAsamaSecilecekAnketId,  questionId,  answer).subscribe(
       (response) => {
         console.log('User survey open answers saved successfully:', response);
+        this.showSuccessAlert('Başarılı', 'Anket cevapları başarıyla güncellendi.');
+
         // Başka bir işlem yapılabilir, örneğin kullanıcıyı başka bir sayfaya yönlendirebilirsiniz
       },
       (error) => {
@@ -91,42 +98,72 @@ export class KullaniciAnketlerPage2Component {
     );
   }
   getQuestions() {
-    console.log("getQuestions() ÇALIŞTI VE secilenAnketId=>>>> " ,this.ikinciAsamaSecilecekAnketId )
-    this._auth.getQuestions(this.ikinciAsamaSecilecekAnketId!)
-        .subscribe(
-          (res: any) => {
-            console.log("Soru verileri alındı", res);
-
-                this.questionData = res;
-                this.getQuestionOptionsForQuestions();
-            },
-            err => console.log("Soru verileri alınamadı", err)
-        );
-}
-
-getQuestionOptionsForQuestions() {
-  if (this.questionData && this.questionData.length > 0) {
-    for (const question of this.questionData) {
-      this.getQuestionOptions(question);
-    }
-  } else {
-    console.log("Soru verileri bulunamadı veya boş.");
-  }
-}
-
-
-getQuestionOptions(question: any) {
-  this._auth.getQuestionOptions(question.id)
-  .subscribe(
+    this._auth.getQuestions(this.ikinciAsamaSecilecekAnketId!).subscribe(
       (res: any) => {
-        console.log("Seçenek verileri alındı", res);
-        console.log("SURVEYYYYYYYYYYYYYYY IDDDDDDD :::: ", this.ikinciAsamaSecilecekAnketId);
+        this.questionData = res;
+        this.getQuestionOptionsForQuestions();
+      },
+      err => console.log('Soru verileri alınamadı', err)
+    );
+  }
 
-        // Her bir sorunun seçeneklerini ilgili diziye ekleyin
+  getQuestionOptionsForQuestions() {
+    if (this.questionData && this.questionData.length > 0) {
+      for (const question of this.questionData) {
+        this.getQuestionOptions(question);
+      }
+    } else {
+      console.log('Soru verileri bulunamadı veya boş.');
+    }
+  }
+
+  getQuestionOptions(question: any) {
+    this._auth.getQuestionOptions(question.id).subscribe(
+      (res: any) => {
         this.questionOptionData.push({ questionId: question.id, options: res });
       },
-      err => console.log("Seçenek verileri alınamadı", err)
-  );
-} 
- 
+      err => console.log('Seçenek verileri alınamadı', err)
+    );
+  }
+
+  getUserSurveyOpenAnswers() {
+    const userId = this.normalKullaniciData.id; // Kullanıcı kimliği
+    const surveyId = this.ikinciAsamaSecilecekAnketId; // Anket kimliği
+    
+    this.surveyService.getUserSurveyOpenAnswers(userId, surveyId).subscribe(
+      (response) => {
+        console.log('Kullanıcı cevapları:', response);
+        response.forEach((answer: any) => {
+          // Cevabın hangi soruya ait olduğunu bul
+          const question = this.questionData.find(q => q.id === answer.question_id);
+          if (question && question.question_type === 'Açık Uçlu') {
+            // Soru varsa ve açık uçlu ise, cevabı ilgili textarea alanına yerleştir
+            this.answers[answer.question_id] = answer.answer;
+          }
+        });
+      },
+      (error) => {
+        console.error('Kullanıcı cevapları alınamadı', error);
+      }
+    );
+  }
+  
+  
+showSuccessAlert(title: string, message: string): void {
+  Swal.fire({
+    title: title,
+    text: message,
+    icon: 'success',
+    confirmButtonText: 'Tamam'
+  });
+}
+
+showErrorAlert(title: string, message: string): void {
+  Swal.fire({
+    title: title,
+    text: message,
+    icon: 'error',
+    confirmButtonText: 'Tamam'
+  });
+}
 }

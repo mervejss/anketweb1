@@ -10,7 +10,9 @@
       
       <div *ngIf="question.question_type === 'Açık Uçlu'" class="textarea-container">
         <!-- Açık Uçlu soru için TEXTAREA -->
-        <textarea class="textarea" placeholder=" " [(ngModel)]="answers[question.id]" (ngModelChange)="anketCevaplariniKaydet(question.id, answers[question.id])"></textarea>
+        <textarea class="textarea" [(ngModel)]="answers[question.id]" 
+        ></textarea>
+        
         <span class="placeholder">Cevabınızı buraya yazınız</span>
       </div>
       

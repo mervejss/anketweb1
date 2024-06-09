@@ -50,7 +50,16 @@ private saveUserSurveyOpenAnswersapiUrl = `${this._httpUrl}saveUserSurveyOpenAns
 private deleteAllSurveysapiUrl = `${this._httpUrl}deleteAllSurveys`; // API URL'si
 private deleteAllQuestionsapiUrl = `${this._httpUrl}deleteAllQuestions`; // API URL'si
 private deleteAllOptionsapiUrl = `${this._httpUrl}deleteAllOptions`; // API URL'si
+private getUserSurveyOpenAnswersapiUrl = `${this._httpUrl}getUserSurveyOpenAnswers`; // API URL'si
 
+getUserSurveyOpenAnswers(userId: number, surveyId: number): Observable<any> {
+  const params = {
+    user_id: userId.toString(),
+    survey_id: surveyId.toString()
+  };
+
+  return this.http.get(this.getUserSurveyOpenAnswersapiUrl, { params });
+}
   getSortType(): string {
     return localStorage.getItem(`surveySortType`) || 'newToOld'; // Varsayılan olarak 'newToOld' kullan
   }

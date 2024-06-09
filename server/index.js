@@ -537,20 +537,47 @@ app.post('/api/saveUserSurveyOpenAnswers', async (req, res) => {
   try {
     const { user_id, survey_id, question_id, answer } = req.body;
 
-    // Veritabanına kullanıcı anket cevaplarını eklemek için SQL sorgusu
-    const queryText = 'INSERT INTO user_open_answers (user_id, survey_id, question_id, answer) VALUES ($1, $2, $3, $4)'
+    const checkQuery = 'SELECT * FROM user_open_answers WHERE user_id = $1 AND survey_id = $2 AND question_id = $3';
+    const checkValues = [user_id, survey_id, question_id];
+    const checkResult = await pool.query(checkQuery, checkValues);
 
-    const values = [user_id, survey_id, question_id, answer];
+    let queryText, values;
 
-    // Veritabanına sorguyu gönder
-    const result = await pool.query(queryText, values);
+    if (checkResult.rows.length > 0) {
+      // Update existing record
+      queryText = 'UPDATE user_open_answers SET answer = $4, answered_at = CURRENT_TIMESTAMP WHERE user_id = $1 AND survey_id = $2 AND question_id = $3';
+      values = [user_id, survey_id, question_id, answer];
+    } else {
+      // Insert new record
+      queryText = 'INSERT INTO user_open_answers (user_id, survey_id, question_id, answer) VALUES ($1, $2, $3, $4)';
+      values = [user_id, survey_id, question_id, answer];
+    }
 
-    res.status(201).json(result.rows[0]); // Yeni eklenen kaydı yanıt olarak döndür
+    await pool.query(queryText, values);
+    res.status(200).json({ message: 'Operation successful' });
   } catch (err) {
     console.error('Error saving user survey answers:', err);
     res.status(500).json({ error: 'An error occurred while saving user survey answers' });
   }
 });
+
+app.get('/api/getUserSurveyOpenAnswers', async (req, res) => {
+  try {
+    const { user_id, survey_id } = req.query;
+
+    const queryText = 'SELECT question_id, answer FROM user_open_answers WHERE user_id = $1 AND survey_id = $2';
+    const values = [user_id, survey_id];
+
+    const result = await pool.query(queryText, values);
+
+    res.status(200).json(result.rows); // Cevapları yanıt olarak döndür
+  } catch (err) {
+    console.error('Error retrieving user survey answers:', err);
+    res.status(500).json({ error: 'An error occurred while retrieving user survey answers' });
+  }
+});
+
+
 
 // Yeni bir kullanıcı aktivite kaydı eklemek için POST endpointi
 app.post('/api/user_activity_logs', async (req, res) => {
