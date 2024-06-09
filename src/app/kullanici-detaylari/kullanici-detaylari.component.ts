@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { NormalKullaniciService } from '../services/normal-kullanici.service';
 import Swal from 'sweetalert2';
+import { SurveyService } from '../services/survey.service';
 
 @Component({
   selector: 'app-kullanici-detaylari',
@@ -14,8 +15,8 @@ export class KullaniciDetaylariComponent implements  OnInit,OnChanges {
   @Input() tiklananUserID: number | null = null; // Tıklanan kullanıcı ID'sini tutacak değişken
   activityLogs: any[] = [];
   userStage: any;
-  video1Watched: boolean | null = null;
-  video2Watched: boolean | null = null;
+  video1Watched:any;
+  video2Watched:any;
   userID: any;
   normalKullaniciData: any;
   kullaniciAktifSayfa : any; // Aktif sayfa bilgisini tutacak değişken
@@ -30,13 +31,18 @@ export class KullaniciDetaylariComponent implements  OnInit,OnChanges {
 
   private _getUserActivityLogsUrl = 'http://localhost:3000/api/user-activity-logs';
 
-  constructor(private http: HttpClient, private _auth: NormalKullaniciService, private cdr: ChangeDetectorRef) {}
+  constructor(private http: HttpClient, private _auth: NormalKullaniciService, private cdr: ChangeDetectorRef, private surveyService:SurveyService) {}
 
   ngOnInit(): void {
     this.normalKullaniciData = this._auth.getUserData();
     this.userID = this.normalKullaniciData.id; // Kullanıcı ID'sini al
     //this.getUserStage(this.userID);
-    
+    //this.getWatchStatus('watch_video1');
+    //this.getWatchStatus('watch_video2');
+
+    console.log("this.video1Watched :: ", this.video1Watched)
+    console.log("this.video2Watched :: ", this.video2Watched)
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -45,8 +51,8 @@ export class KullaniciDetaylariComponent implements  OnInit,OnChanges {
         // Tıklanan kullanıcı ID'sine sahip işlemleri filtreleme
         this.activityLogs = data.filter(log => log.user_id === this.tiklananUserID);
         this.userStage = this.getUserStage(this.activityLogs);
-        this.video1Watched = this.getVideoWatchedStatus(this.activityLogs, 3);
-        this.video2Watched = this.getVideoWatchedStatus(this.activityLogs, 4);
+        this.video1Watched =  this.getWatchStatus('watch_video1');
+        this.video2Watched = this.getWatchStatus('watch_video2');
         this.updateStages();
 
        
@@ -101,7 +107,26 @@ getVideoWatchedStatus(logs: any[], stage: number): boolean | null {
     return stage === 3 ? latestLog.video_1_watched : latestLog.video_2_watched;
 }
 
+  getWatchStatus(action: string) {
+    const user_id = this.normalKullaniciData.id;
 
+    this.surveyService.getWatchStatus(user_id, action).subscribe(
+      response => {
+        if (action === 'watch_video1') {
+          console.log('response:', response);
+
+          this.video1Watched = response[0].watched;
+          console.log('Video 1 Watched:', this.video1Watched);
+        } else if (action === 'watch_video2') {
+          this.video2Watched = response.watched;
+          console.log('Video 2 Watched:', this.video2Watched);
+        }
+      },
+      error => {
+        console.error('Hata:', error);
+      }
+    );
+  }
   updateStages(): void {
   
         if (this.userStage === null) {

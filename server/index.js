@@ -31,20 +31,20 @@ app.listen(PORT, () => {
 app.post('/api/users', (req, res) => {
   let userData = req.body;
   let user = new User(userData);
-  console.log(req.body)
+  //console.log(req.body)
   const { first_name, last_name, phone_number, email, password } = user;
   pool.query('INSERT INTO users (first_name, last_name, phone_number, email, password) VALUES ($1, $2, $3, $4, $5)',
     [first_name, last_name, phone_number, email, password],
     (error, results) => {
       if (error) {
-        console.error('Veritabanına kayıt eklenirken hata oluştu: ', error);
+         //console.error('Veritabanına kayıt eklenirken hata oluştu: ', error);
         return res.status(500).json({ status: 500, message: 'Veritabanına kayıt eklenirken hata oluştu' });
       }
       let payload = {subject: results.id}
       let token = jwt.sign(payload, 'secretKey')
       res.status(200).send({token})
-      console.log('Normal Kullanici başarıyla kaydedildi');
-      console.log(token);
+      // console.log('Normal Kullanici başarıyla kaydedildi');
+       //console.log(token);
       
 
       //return res.status(201).json({ status: 201, message: 'Kullanıcı başarıyla eklenmiştir', user });
@@ -58,19 +58,19 @@ app.post('/api/login', (req, res) => {
   // Veritabanında kullanıcının varlığını ve şifresini kontrol et
   pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [userData.email, userData.password], (error, user) => {
     if (error) {
-      console.error('Veritabanı hatası: ', error);
+       //console.error('Veritabanı hatası: ', error);
       return res.status(500).json({ status: 500, message: 'Bir hata oluştu' });
     }
 
     if (user.rows.length > 0) {
       // Kullanıcı var, giriş başarılı
-      console.log('Normal Kullanici Giriş başarılı, Hoş geldiniz' + user.rows[0].id, user.rows[0].phone_number);
+       //console.log('Normal Kullanici Giriş başarılı, Hoş geldiniz' + user.rows[0].id, user.rows[0].phone_number);
       let payload = {subject: user.id}
       let token = jwt.sign(payload, 'secretKey')
       res.status(200).send({token})
 
     } else {
-      console.error('Hatalı giriş bilgileri !! Bilgilerinizi kontrol ediniz !');
+       //console.error('Hatalı giriş bilgileri !! Bilgilerinizi kontrol ediniz !');
 
       // Kullanıcı yok veya şifre yanlış
       return res.status(401).json({ status: 401, message: 'E-posta veya şifre hatalı' });
@@ -84,19 +84,19 @@ app.post('/api/login', (req, res) => {
     // Veritabanında kullanıcının varlığını ve şifresini kontrol et
     pool.query('SELECT * FROM admins WHERE email = $1 AND password = $2', [userData.email, userData.password], (error, user) => {
       if (error) {
-        console.error('Veritabanı hatası: ', error);
+         //console.error('Veritabanı hatası: ', error);
         return res.status(500).json({ status: 500, message: 'Bir hata oluştu' });
       }
   
       if (user.rows.length > 0) {
         // Kullanıcı var, giriş başarılı
-        console.log('Giriş başarılı, Hoş geldiniz' + user.rows[0].id, user.rows[0].phone_number);
+         //console.log('Giriş başarılı, Hoş geldiniz' + user.rows[0].id, user.rows[0].phone_number);
         let payload = {subject: user.id}
         let token = jwt.sign(payload, 'secretKey')
         res.status(200).send({token})
 
       } else {
-        console.error('Hatalı giriş bilgileri !! Bilgilerinizi kontrol ediniz !');
+         //console.error('Hatalı giriş bilgileri !! Bilgilerinizi kontrol ediniz !');
         // Kullanıcı yok veya şifre yanlış
         return res.status(401).json({ status: 401, message: 'E-posta veya şifre hatalı' });
       }
@@ -108,20 +108,20 @@ app.post('/api/normalKullaniciInfo',(req, res) => {
      // Veritabanında kullanıcının varlığını ve şifresini kontrol et
   pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [userData.email, userData.password], (error, user) => {
     if (error) {
-      console.error('Veritabanı hatası: ', error);
+       //console.error('Veritabanı hatası: ', error);
       return res.status(500).json({ status: 500, message: 'Bir hata oluştu' });
     }
 
     if (user.rows.length > 0) {
       // Kullanıcı var, giriş başarılı
-      console.log('Bilgiler bulundu ve getirildi : ' + user.rows[0].id,user.rows[0].first_name,user.rows[0].last_name,user.rows[0].phone_number,user.rows[0].email,user.rows[0].password);
+       //console.log('Bilgiler bulundu ve getirildi : ' + user.rows[0].id,user.rows[0].first_name,user.rows[0].last_name,user.rows[0].phone_number,user.rows[0].email,user.rows[0].password);
       const userInfo = user.rows[0];
 
           // Değişkeni response olarak gönder
           res.status(200).send(userInfo);
 
     } else {
-      console.error(error);
+       //console.error(error);
       // Kullanıcı yok veya şifre yanlış
       return res.status(401).json({ status: 401, message: error });
     }
@@ -149,7 +149,7 @@ function verifyToken(req, res, next) {
 app.post('/api/admins', (req, res) => {
   let userData = req.body;
   let user = new User(userData);
-  console.log(req.body)
+   //console.log(req.body)
   // Kullanıcının özelliklerine erişerek ilgili alanları al
   const { first_name, last_name, phone_number, email, password } = user;
   // Veritabanına admini kaydet
@@ -157,14 +157,14 @@ app.post('/api/admins', (req, res) => {
     [first_name, last_name, phone_number, email, password],
     (error, results) => {
       if (error) {
-        console.error('Veritabanı hatası: ', error);
+         //console.error('Veritabanı hatası: ', error);
         return res.status(500).json({ status: 500, message: 'Bir hata oluştu' });
       }
       let payload = {subject: results.id}
       let token = jwt.sign(payload, 'secretKey')
       res.status(200).send({token})
-      console.log('Admin başarıyla kaydedildi');
-      console.log(token);
+       //console.log('Admin başarıyla kaydedildi');
+       //console.log(token);
       //return res.status(200).json({ status: 200, message: 'Admin başarıyla kaydedildi' });
     });
   })
@@ -176,19 +176,19 @@ app.post('/api/admins', (req, res) => {
     // Veritabanında kullanıcının varlığını ve şifresini kontrol et
     pool.query('SELECT * FROM admins WHERE email = $1 AND password = $2', [userData.email, userData.password], (error, user) => {
       if (error) {
-        console.error('Veritabanı hatası: ', error);
+         //.error('Veritabanı hatası: ', error);
         return res.status(500).json({ status: 500, message: 'Bir hata oluştu' });
       }
   
       if (user.rows.length > 0) {
         // Kullanıcı var, giriş başarılı
-        console.log('Giriş başarılı, Hoş geldiniz' + user.rows[0].id, user.rows[0].phone_number);
+         //console.log('Giriş başarılı, Hoş geldiniz' + user.rows[0].id, user.rows[0].phone_number);
         let payload = {subject: user.id}
         let token = jwt.sign(payload, 'secretKey')
         res.status(200).send({token})
 
       } else {
-        console.error('Hatalı giriş bilgileri !! Bilgilerinizi kontrol ediniz !');
+         //console.error('Hatalı giriş bilgileri !! Bilgilerinizi kontrol ediniz !');
         // Kullanıcı yok veya şifre yanlış
         return res.status(401).json({ status: 401, message: 'E-posta veya şifre hatalı' });
       }
@@ -201,20 +201,20 @@ app.post('/api/admins', (req, res) => {
        // Veritabanında kullanıcının varlığını ve şifresini kontrol et
     pool.query('SELECT * FROM admins WHERE email = $1 AND password = $2', [userData.email, userData.password], (error, user) => {
       if (error) {
-        console.error('Veritabanı hatası: ', error);
+         //console.error('Veritabanı hatası: ', error);
         return res.status(500).json({ status: 500, message: 'Bir hata oluştu' });
       }
   
       if (user.rows.length > 0) {
         // Kullanıcı var, giriş başarılı
-        console.log('Bilgiler bulundu ve getirildi : ' + user.rows[0].id,user.rows[0].first_name,user.rows[0].last_name,user.rows[0].phone_number,user.rows[0].email,user.rows[0].password);
+         //console.log('Bilgiler bulundu ve getirildi : ' + user.rows[0].id,user.rows[0].first_name,user.rows[0].last_name,user.rows[0].phone_number,user.rows[0].email,user.rows[0].password);
         const userInfo = user.rows[0];
 
             // Değişkeni response olarak gönder
             res.status(200).send(userInfo);
 
       } else {
-        console.error(error);
+         //console.error(error);
         // Kullanıcı yok veya şifre yanlış
         return res.status(401).json({ status: 401, message: error });
       }
@@ -227,17 +227,17 @@ app.post('/api/admins', (req, res) => {
 
     pool.query('SELECT * FROM questions WHERE survey_id = $1', [tiklananAnketId], (error, queryResult) => {
         if (error) {
-            console.error(error);
+            //console.error(error);
             return res.status(500).json({ status: 500, message: 'Bir hata oluştu' });
         }
 
         if (queryResult.rows.length > 0) {
             // Sorular bulundu, başarılı olarak döndür
             const questions = queryResult.rows;
-            console.log('Bilgiler bulundu ve getirildi : ' + questions);
+             //console.log('Bilgiler bulundu ve getirildi : ' + questions);
             res.status(200).json(questions);
         } else {
-            console.error(error);
+            // console.error(error);
             // Hiçbir soru bulunamadı
             return res.status(404).json({ status: 404, message: 'Soru bulunamadı' });
         }
@@ -256,14 +256,14 @@ app.post('/api/questionOptions', (req, res) => {
 
   pool.query('SELECT * FROM question_options WHERE question_id = $1', [questionId], (error, queryResult) => {
       if (error) {
-          console.error(error);
+           //console.error(error);
           return res.status(500).json({ status: 500, message: 'Bir hata oluştu' });
       }
 
       if (queryResult.rows.length > 0) {
           // Seçenekler bulundu, başarılı olarak döndür
           const options = queryResult.rows;
-          console.log('OPTIONS : ' ,options);
+           //console.log('OPTIONS : ' ,options);
 
           res.status(200).json(options);
       } else {
@@ -283,7 +283,7 @@ app.get('/usersAll', async (req, res) => {
     res.json(users);
     client.release();
   } catch (err) {
-    console.error('Error executing query', err);
+     //console.error('Error executing query', err);
     res.status(500).send('Error fetching users from database');
   }
 });
@@ -309,7 +309,7 @@ app.get('/api/surveys', async (req, res) => {
     res.json(surveys);
     client.release();
   } catch (err) {
-    console.error('Error executing query', err);
+     //console.error('Error executing query', err);
     res.status(500).send('Internal Server Error');
   }
 });
@@ -324,7 +324,7 @@ app.post('/api/createSurvey', async (req, res) => {
     const result = await pool.query(queryText, values);
     res.status(201).json(result.rows[0]);
   } catch (error) {
-    console.error('Error executing query', error);
+     //console.error('Error executing query', error);
     res.status(500).send('Error creating survey');
   }
 });
@@ -337,7 +337,7 @@ app.post('/api/createQuestion', async (req, res) => {
     const result = await pool.query(queryText, values);
     res.status(201).json(result.rows[0]);
   } catch (error) {
-    console.error('Error executing query', error);
+     //console.error('Error executing query', error);
     res.status(500).send('Error creating question');
   }
 });
@@ -352,7 +352,7 @@ app.put('/api/updateQuestion/:id', async (req, res) => {
     const result = await pool.query(queryText, values);
     res.status(200).json(result.rows[0]);
   } catch (error) {
-    console.error('Error executing query', error);
+     //console.error('Error executing query', error);
     res.status(500).send('Error updating question');
   }
 });
@@ -367,7 +367,7 @@ app.post('/api/createQuestionOption', async (req, res) => {
     const result = await pool.query(queryText, values);
     res.status(201).json(result.rows[0]);
   } catch (error) {
-    console.error('Error executing query', error);
+     //console.error('Error executing query', error);
     res.status(500).send('Error creating question option');
   }
 });
@@ -382,7 +382,7 @@ app.put('/api/updateQuestionOption/:id', async (req, res) => {
     const result = await pool.query(queryText, values);
     res.status(200).json(result.rows[0]);
   } catch (error) {
-    console.error('Error executing query', error);
+     //console.error('Error executing query', error);
     res.status(500).send('Error updating question option');
   }
 });
@@ -402,7 +402,7 @@ app.delete('/api/deleteSurvey/:id', async (req, res) => {
       res.status(404).send('Belirtilen ID ile anket bulunamadı.');
     }
   } catch (error) {
-    console.error('Anket silinirken bir hata oluştu:', error);
+     //console.error('Anket silinirken bir hata oluştu:', error);
     res.status(500).send('Anket silinirken bir hata oluştu.');
   }
 });
@@ -422,7 +422,7 @@ app.delete('/api/deleteQuestion/:id', async (req, res) => {
       res.status(404).send('Belirtilen ID ile soru bulunamadı.');
     }
   } catch (error) {
-    console.error('Soru silinirken bir hata oluştu:', error);
+     //console.error('Soru silinirken bir hata oluştu:', error);
     res.status(500).send('Soru silinirken bir hata oluştu.');
   }
 });
@@ -443,7 +443,7 @@ app.delete('/api/deleteQuestionOption/:id', async (req, res) => {
       res.status(404).send('Belirtilen ID ile seçenek bulunamadı.');
     }
   } catch (error) {
-    console.error('Seçenek silinirken bir hata oluştu:', error);
+     //console.error('Seçenek silinirken bir hata oluştu:', error);
     res.status(500).send('Seçenek silinirken bir hata oluştu.');
   }
 });
@@ -465,7 +465,7 @@ app.post('/api/saveUserSurveyAnswers', async (req, res) => {
 
     res.status(201).json(result.rows[0]); // Yeni eklenen kaydı yanıt olarak döndür
   } catch (err) {
-    console.error('Error saving user survey answers:', err);
+     //console.error('Error saving user survey answers:', err);
     res.status(500).json({ error: 'An error occurred while saving user survey answers' });
   }
 });
@@ -487,7 +487,7 @@ app.get('/api/getUserSurveyAnswer/:userId/:surveyId/:questionId', async (req, re
       res.status(200).json(null);
     }
   } catch (err) {
-    console.error('Error getting user survey answer:', err);
+     //console.error('Error getting user survey answer:', err);
     res.status(500).json({ error: 'An error occurred while getting user survey answer' });
   }
 });
@@ -508,7 +508,7 @@ app.get('/api/getUserSurveyAnswersBefore', async (req, res) => {
 
       res.json(result.rows);
   } catch (error) {
-      console.error('Error fetching user survey answers:', error);
+       //console.error('Error fetching user survey answers:', error);
       res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -524,7 +524,7 @@ app.put('/api/updateUserSurveyAnswer', async (req, res) => {
 
     res.status(200).json({ message: 'User survey answer updated successfully' });
   } catch (err) {
-    console.error('Error updating user survey answer:', err);
+     //console.error('Error updating user survey answer:', err);
     res.status(500).json({ error: 'An error occurred while updating user survey answer' });
   }
 });
@@ -556,7 +556,7 @@ app.post('/api/saveUserSurveyOpenAnswers', async (req, res) => {
     await pool.query(queryText, values);
     res.status(200).json({ message: 'Operation successful' });
   } catch (err) {
-    console.error('Error saving user survey answers:', err);
+     //console.error('Error saving user survey answers:', err);
     res.status(500).json({ error: 'An error occurred while saving user survey answers' });
   }
 });
@@ -572,7 +572,7 @@ app.get('/api/getUserSurveyOpenAnswers', async (req, res) => {
 
     res.status(200).json(result.rows); // Cevapları yanıt olarak döndür
   } catch (err) {
-    console.error('Error retrieving user survey answers:', err);
+     //console.error('Error retrieving user survey answers:', err);
     res.status(500).json({ error: 'An error occurred while retrieving user survey answers' });
   }
 });
@@ -596,80 +596,12 @@ app.post('/api/user_activity_logs', async (req, res) => {
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 
-/*
-// Kullanıcı durumunu değiştirmek için POST endpointi
-app.post('/api/user_asama_degisiklik', async (req, res) => {
-  const { user_id, stage, video_1_watched, video_2_watched } = req.body;
-
-  try {
-    // Aynı user_id ile action 'Phase Change' olan bir kayıt var mı kontrol et
-    const checkResult = await pool.query(
-      'SELECT * FROM user_activity_logs WHERE user_id = $1 AND action = $2',
-      [user_id, 'Phase Change']
-    );
-
-    if (checkResult.rows.length > 0) {
-      // Kayıt varsa, sadece stage ve video_watched bilgilerini güncelle
-      const updateResult = await pool.query(
-        'UPDATE user_activity_logs SET stage = $1, video_1_watched = $2, video_2_watched = $3 WHERE user_id = $4 AND action = $5 RETURNING *',
-        [
-          stage,
-          video_1_watched !== undefined ? video_1_watched : checkResult.rows[0].video_1_watched,
-          video_2_watched !== undefined ? video_2_watched : checkResult.rows[0].video_2_watched,
-          user_id,
-          'Phase Change'
-        ]
-      );
-      res.status(200).json(updateResult.rows[0]);
-    } else {
-      // Kayıt yoksa, yeni kayıt ekle
-      const insertResult = await pool.query(
-        'INSERT INTO user_activity_logs (user_id, action, stage, video_1_watched, video_2_watched) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-        [
-          user_id,
-          'Phase Change',
-          stage,
-          video_1_watched !== undefined ? video_1_watched : null,
-          video_2_watched !== undefined ? video_2_watched : null
-        ]
-      );
-      res.status(201).json(insertResult.rows[0]);
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-
-app.post('/api/user_asama_degisiklik', async (req, res) => {
-  const { user_id, stage, video_1_watched, video_2_watched } = req.body;
-
-  try {
-    // Yeni kayıt ekle
-    const insertResult = await pool.query(
-      'INSERT INTO user_activity_logs (user_id, action, stage, video_1_watched, video_2_watched) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [
-        user_id,
-        'Phase Change',
-        stage,
-        video_1_watched !== undefined ? video_1_watched : null,
-        video_2_watched !== undefined ? video_2_watched : null
-      ]
-    );
-    res.status(201).json(insertResult.rows[0]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-*/
 app.post('/api/user_asama_degisiklik', async (req, res) => {
   const { user_id, stage, video_1_watched, video_2_watched } = req.body;
 
@@ -708,7 +640,7 @@ app.post('/api/user_asama_degisiklik', async (req, res) => {
       res.status(201).json(insertResult.rows[0]);
     }
   } catch (err) {
-    console.error(err);
+     //console.error(err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -728,7 +660,7 @@ app.get('/api/user_stage/:user_id', async (req, res) => {
       res.status(404).json({ message: 'No stage found for this user with action "Phase Change"' });
     }
   } catch (err) {
-    console.error(err);
+     //console.error(err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -739,7 +671,7 @@ app.get('/api/user-activity-logs', async (req, res) => {
     const result = await pool.query('SELECT * FROM user_activity_logs');
     res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching user activity logs:', error);
+     //console.error('Error fetching user activity logs:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
@@ -754,7 +686,7 @@ app.delete('/api/deleteAllSurveys', async (req, res) => {
     client.release();
     res.status(200).send('Tüm anketler başarıyla silindi.');
   } catch (err) {
-    console.error('Hata:', err);
+     //console.error('Hata:', err);
     res.status(500).send('Bir hata oluştu, anketler silinemedi.');
   }
 });
@@ -768,7 +700,7 @@ app.delete('/api/deleteAllQuestions/:surveyId', async (req, res) => {
     client.release();
     res.status(200).send('Anketin tüm soruları başarıyla silindi.');
   } catch (err) {
-    console.error('Hata:', err);
+     //console.error('Hata:', err);
     res.status(500).send('Bir hata oluştu, sorular silinemedi.');
   }
 });
@@ -783,7 +715,7 @@ app.delete('/api/deleteAllQuestions/:surveyId', async (req, res) => {
     client.release();
     res.status(200).send('Anketin tüm soruları başarıyla silindi.');
   } catch (err) {
-    console.error('Hata:', err);
+    //console.error('Hata:', err);
     res.status(500).send('Bir hata oluştu, sorular silinemedi.');
   }
 });
@@ -829,5 +761,33 @@ app.post('/api/watchVideo', async (req, res) => {
   } catch (error) {
     console.error('Hata:', error.message);
     res.status(500).json({ message: 'Bir hata oluştu' });
+  }
+});
+
+
+// /api/getWatchStatus endpoint'i
+app.get('/api/getWatchStatus', async (req, res) => {
+  const { user_id, action } = req.query;
+
+  try {
+    let updateField;
+    if (action === 'watch_video1') {
+      updateField = 'video_1_watched';
+    } else if (action === 'watch_video2') {
+      updateField = 'video_2_watched';
+    } else {
+      throw new Error('Invalid action');
+    }
+
+    const query = "SELECT ${updateField} FROM user_activity_logs WHERE user_id = user_id AND action = '${action}' ";
+    const result = await pool.query(query, [user_id, action]);
+
+    if (result.rows.length === 0) {
+      throw new Error('No matching record found');
+    }
+
+    res.json({ [updateField]: result.rows[0][updateField] });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 });
