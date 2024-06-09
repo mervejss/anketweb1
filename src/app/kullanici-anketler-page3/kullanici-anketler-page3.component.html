@@ -16,7 +16,12 @@
         <button type="submit" class="btn btn-primary" (click)="basaAlucuncuAsamaVideolariListele()">İzlenecek Videoları
           Başa Al</button>
 
-        <div *ngFor="let videoUrl of ucuncuAsamaVideoUrls; let i = index">
+          <!-- TÜM VİDEOLARI İZLEDİNİZ mesajı -->
+        <div *ngIf="videolarIzlendi" class="izleme-bildirim">
+          TÜM VİDEOLARI İZLEDİNİZ !
+        </div>
+
+          <div *ngFor="let videoUrl of ucuncuAsamaVideoUrls; let i = index">
           <div id="ucuncu-player-{{ i }}"></div>
         </div>
       </div>

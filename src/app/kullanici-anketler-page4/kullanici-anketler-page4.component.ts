@@ -32,6 +32,7 @@ dorduncuAsamayiTamamla()
   dorduncuAsamaVideoCurrentTime: any; // currentTime değişkeni
   totalVideos: number = 0;
   videosFinishedCount: number = 0; 
+  videolarIzlendi: boolean = false; // Boolean olarak tanımlandı
 
   constructor(
     private surveyService: SurveyService,
@@ -137,6 +138,8 @@ dorduncuAsamayiTamamla()
         this.videosFinishedCount++;
         if (this.videosFinishedCount === this.totalVideos) {
           console.log('YÜKLENEN TÜM VİDEOLAR İZLENMİŞTİR');
+          this.videolarIzlendi=true;
+
           this.watchVideo2();
           // İstenilen mesajı yazdırabilir veya işlem yapabilirsiniz.
         }

@@ -35,6 +35,7 @@ export class KullaniciAnketlerPage3Component implements OnInit {
   ucuncuAsamaVideoCurrentTime: any; // currentTime değişkeni
   totalVideos: number = 0;
   videosFinishedCount: number = 0;
+  videolarIzlendi: boolean = false; // Boolean olarak tanımlandı
 
   constructor(
     private surveyService: SurveyService,
@@ -135,6 +136,7 @@ export class KullaniciAnketlerPage3Component implements OnInit {
         this.videosFinishedCount++;
         if (this.videosFinishedCount === this.totalVideos) {
           console.log('YÜKLENEN TÜM VİDEOLAR İZLENMİŞTİR');
+          this.videolarIzlendi=true;
           this.watchVideo1();
           // İstenilen mesajı yazdırabilir veya işlem yapabilirsiniz.
         }

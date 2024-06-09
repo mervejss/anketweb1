@@ -1,74 +1,86 @@
 .container {
-    margin-bottom: 20px; /* Sorular arası boşluk */
-    margin-top: 20px; /* Sorular arası boşluk */
-  
-      background-color: #fff;
-      padding: 20px;
-      margin: 20px;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-  
-    .row {
-      flex-direction: row; /* Yatay olarak sırala */
-      display: flex;
-  
-      background-color: #b5dcf3;
-      padding: 20px;
-      margin: 20px;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      
-    }
+  margin-bottom: 20px; /* Sorular arası boşluk */
+  margin-top: 20px; /* Sorular arası boşluk */
 
-    .main-container {
-      margin-bottom: 20px; /* Sorular arası boşluk */
-      background-color: #b5dcf3; /* Arka plan rengi */
-      padding: 15px; /* İçeriğin etrafındaki dolgular */
-      border-radius: 8px; /* Köşelerin yuvarlatılması */
-      
-    }
-    .bilgilendirme-metni {
-      background-color: #e8f4f8;
-      border-left: 5px solid #007bff;
-      padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 4px;
-      font-size: 16px;
-      color: #333;
-    }
-    
-    .bilgilendirme-metni p {
-      margin: 0;
-      white-space: pre-wrap;  // Bu stil metnin paragraflar şeklinde uygun şekilde alt satıra geçmesini sağlar
-
-    }
-
-     /* Butonların stil tanımı */
-   button[type="submit"] {
-    /* Buton boyutları */
-    width: 200px;
-    height: 50px;
-    /* İçerik ile kenar arasındaki boşluk */
-    padding: 10px;
-    /* Alt boşluk */
-    margin-bottom: 10px;
-    /* Sol boşluk */
-    margin-left: 10px;
-    /* Sağ boşluk */
-    margin-right: 10px;
-    /* Üst boşluk */
-    margin-top: 10px;
-    /* Arka plan rengi */
-    background-color: #00437c;
-    /* Metin rengi */
-    color: #ffffff;
-    /* Kenarlık yok */
-    border: none;
-    /* Kenar yumuşatma */
-    border-radius: 7px;
-    /* İmleci göster */
-    cursor: pointer;
-   
-  
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+
+  .row {
+    flex-direction: row; /* Yatay olarak sırala */
+    display: flex;
+
+    background-color: #b5dcf3;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+  }
+
+  .main-container {
+    margin-bottom: 20px; /* Sorular arası boşluk */
+    background-color: #b5dcf3; /* Arka plan rengi */
+    padding: 15px; /* İçeriğin etrafındaki dolgular */
+    border-radius: 8px; /* Köşelerin yuvarlatılması */
+    
+  }
+
+  .bilgilendirme-metni {
+    background-color: #e8f4f8;
+    border-left: 5px solid #007bff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .bilgilendirme-metni p {
+    margin: 0;
+    white-space: pre-wrap;  // Bu stil metnin paragraflar şeklinde uygun şekilde alt satıra geçmesini sağlar
+
+  }
+
+   /* Butonların stil tanımı */
+ button[type="submit"] {
+  /* Buton boyutları */
+  width: 200px;
+  height: 50px;
+  /* İçerik ile kenar arasındaki boşluk */
+  padding: 10px;
+  /* Alt boşluk */
+  margin-bottom: 10px;
+  /* Sol boşluk */
+  margin-left: 10px;
+  /* Sağ boşluk */
+  margin-right: 10px;
+  /* Üst boşluk */
+  margin-top: 10px;
+  /* Arka plan rengi */
+  background-color: #00437c;
+  /* Metin rengi */
+  color: #ffffff;
+  /* Kenarlık yok */
+  border: none;
+  /* Kenar yumuşatma */
+  border-radius: 7px;
+  /* İmleci göster */
+  cursor: pointer;
+ 
+
+}
+
+.izleme-bildirim {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #b5dcf3;
+  color: #00437c;
+  border: 1px solid #b5dcf3;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
