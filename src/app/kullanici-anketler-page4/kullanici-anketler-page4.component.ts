@@ -23,20 +23,22 @@ dorduncuAsamayiTamamla()
     console.log('4. AŞAMA TAMAMLA ! BUTONU ÇALIŞTIIII aktif sayfa ise : ',this._normalKullaniciAuth.getKullaniciAktifSayfa() )
     window.location.reload();
   }
-
-  constructor(private surveyService: SurveyService, public sanitizer: DomSanitizer, private _normalKullaniciAuth: NormalKullaniciService) { }
-
-  dorduncuAsamaBilgilendirmeMetni: any;
   normalKullaniciData: any;
   dorduncuAsamaVideoUrls: string[] = [];
-
+  dorduncuAsamaBilgilendirmeMetni: any;
   players: any = {}; // players nesnesini başlatın
   interval: any;
-
-  dorduncuAsamaVideoCurrentTime: any; // currentTime değişkeni
   videoCount: any;
+  dorduncuAsamaVideoCurrentTime: any; // currentTime değişkeni
   totalVideos: number = 0;
-  videosFinishedCount: number = 0;
+  videosFinishedCount: number = 0; 
+
+  constructor(
+    private surveyService: SurveyService,
+    public sanitizer: DomSanitizer,
+    private _normalKullaniciAuth: NormalKullaniciService
+  ) {}
+
 
   ngOnInit(): void {
     // localStorage'dan veriyi çek
@@ -70,7 +72,6 @@ dorduncuAsamayiTamamla()
           this.videoCount = index + 1;
 
             const playerId = 'dorduncu-player-' + index; // Her video için benzersiz playerId oluşturuluyor
-            //this.initYouTubePlayer(videoUrl, playerId, this.ucuncuAsamaVideoCurrentTime);
             const videoId = this.extractYoutubeId(videoUrl);
             if (videoId) {
               const startTime = Math.floor(this.surveyService.getDorduncuAsamaVideoCurrentTime(videoId, this.normalKullaniciData.id));  // her video için ayrı startTime
@@ -88,8 +89,6 @@ dorduncuAsamayiTamamla()
   }
 
   initYouTubePlayer(videoUrl: string, playerId: string, startTime: number) {
-    //const videoId = this.extractYoutubeId(videoUrl);
-    //if (!videoId) return;
     const videoId = this.extractYoutubeId(videoUrl);
     if (!videoId) return;
 
@@ -127,14 +126,14 @@ dorduncuAsamayiTamamla()
     this.interval = setInterval(() => {
       const currentTime = this.players[playerId].getCurrentTime(); // players[playerId] şeklinde güncelleyin
       const duration = this.players[playerId].getDuration(); // players[playerId] şeklinde güncelleyin
-      //console.log('Current Time: ', currentTime);
+      
       this.surveyService.setDorduncuAsamaVideoCurrentTime(videoId, this.normalKullaniciData.id, currentTime);  // videoId parametresini ekleyin
 
       if (Math.abs(currentTime - duration) < 3) {
         console.log('VİDEO BİTTİ');
         this.stopTracking(playerId); // Fonksiyonu değiştir
-        // Tüm videoların bitip bitmediğini kontrol et
 
+        // Tüm videoların bitip bitmediğini kontrol et
         this.videosFinishedCount++;
         if (this.videosFinishedCount === this.totalVideos) {
           console.log('YÜKLENEN TÜM VİDEOLAR İZLENMİŞTİR');
@@ -148,7 +147,7 @@ dorduncuAsamayiTamamla()
   watchVideo2() {
     // Örnek kullanıcı kimliği ve eylem
     const user_id = this.normalKullaniciData.id;
-        const action = 'watch_video2';
+    const action = 'watch_video2';
 
     // Servisi kullanarak video izleme aktivitesini tetikle
     this.surveyService.watchVideo(user_id, action).subscribe(

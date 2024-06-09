@@ -63,8 +63,7 @@ export class KullaniciAnketlerPage3Component implements OnInit {
     }
   }
   ucuncuAsamaVideolariListele() {
-    console.log('ucuncuAsamaVideolariListele() ÇAĞRILDIIII !');
-
+    //console.log('ucuncuAsamaVideolariListele() ÇAĞRILDIIII !');
     if (this.ucuncuAsamaVideoUrls.length === 0) {
       alert('Önceden yüklenmiş bir video bulunamadı!');
     } else {
@@ -88,8 +87,6 @@ export class KullaniciAnketlerPage3Component implements OnInit {
   }
 
   initYouTubePlayer(videoUrl: string, playerId: string,startTime: number) {
-    //console.log('initYouTubePlayer startTime :::: ', startTime);
-
     const videoId = this.extractYoutubeId(videoUrl);
     if (!videoId) return;
 
@@ -127,11 +124,7 @@ export class KullaniciAnketlerPage3Component implements OnInit {
     this.interval = setInterval(() => {
       const currentTime = this.players[playerId].getCurrentTime(); 
       const duration = this.players[playerId].getDuration(); 
-      //console.log('playerId:  ',playerId, 'Current Time: ', currentTime);
-      //console.log('this.videoCount indexxx:  ',this.videoCount);
-
-      //this.surveyService.setUcuncuAsamaVideoCurrentTime(currentTime); // currentTime değerini kaydet
-
+      
       this.surveyService.setUcuncuAsamaVideoCurrentTime(videoId, this.normalKullaniciData.id, currentTime); // videoId parametresini ve userID'yi ekleyin
 
       if (Math.abs(currentTime - duration) < 3) {

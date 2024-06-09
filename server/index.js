@@ -819,11 +819,11 @@ app.post('/api/watchVideo', async (req, res) => {
 
     if (result.rows.length > 0) {
       // Eğer kullanıcı aktivitesi bulunduysa, güncelleme yap
-      await pool.query('UPDATE user_activity_logs SET ${updateField} = true, created_at = CURRENT_TIMESTAMP WHERE user_id = $1 AND action = $2', [user_id, action]);
+      await pool.query(`UPDATE user_activity_logs SET ${updateField} = true, created_at = CURRENT_TIMESTAMP WHERE user_id = $1 AND action = $2`, [user_id, action]);
       res.status(200).json({ message: 'Aktivite güncellendi' });
     } else {
       // Kullanıcı aktivitesi bulunamadı, yeni kayıt ekle
-      await pool.query('INSERT INTO user_activity_logs (user_id, action, created_at, $3) VALUES ($1, $2, CURRENT_TIMESTAMP, true)', [user_id, action, updateField]);
+      await pool.query(`INSERT INTO user_activity_logs (user_id, action, created_at, ${updateField}) VALUES ($1, $2, CURRENT_TIMESTAMP, true)`, [user_id, action]);
       res.status(201).json({ message: 'Yeni aktivite eklendi' });
     }
   } catch (error) {
