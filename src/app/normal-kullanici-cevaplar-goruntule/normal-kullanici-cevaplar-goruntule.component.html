@@ -1,0 +1,26 @@
+<!-- 4. Tablo: Kullanıcı Cevapları -->
+<div class="main-container">
+    <div class="survey-title">
+        <h2>KULLANICI ANKET CEVAPLARI</h2>
+
+
+        <div class="activity-table">
+            <h3>Anket Cevaplarım</h3>
+
+
+            <table class="styled-table">
+
+                <div class="anket-sorulari-content">
+                    <!-- Anket sorularının içeriği burada<app-admin-anketler-page1 *ngIf="aktifSayfa === 'admin-anket-duzenle'"></app-admin-anketler-page1> -->
+                    <app-kullanici-anketler-page1 class="disabled-component"></app-kullanici-anketler-page1>
+                    <app-kullanici-anketler-page2 class="disabled-component"></app-kullanici-anketler-page2>
+                    <app-kullanici-anketler-page5 class="disabled-component"></app-kullanici-anketler-page5>
+
+
+                    <router-outlet></router-outlet>
+                </div>
+
+            </table>
+        </div>
+    </div>
+</div>

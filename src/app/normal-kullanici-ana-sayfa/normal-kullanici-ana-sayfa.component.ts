@@ -25,6 +25,11 @@ export class NormalKullaniciAnaSayfaComponent implements OnInit {
     this.getUserStage(this.userId);
   }
 
+  cevaplariGoruntule(): void {
+    this.kullaniciAktifSayfa = 'normal-kullanici-cevaplar-goruntule'; // Başında / olmadan rotayı belirtin
+
+}
+
   getUserStage(userId: number) {
     this._auth.getUserStage(userId).subscribe(
       (res: any) => {

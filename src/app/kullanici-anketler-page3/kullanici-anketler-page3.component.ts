@@ -127,6 +127,7 @@ export class KullaniciAnketlerPage3Component implements OnInit {
 
       if (Math.abs(currentTime - duration) < 3) {
         console.log('VİDEO BİTTİ');
+        
         this.stopTracking(playerId); // Fonksiyonu değiştir
       }
     }, 1000);

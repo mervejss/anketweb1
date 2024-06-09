@@ -28,6 +28,8 @@ import { QuestionDialogComponent } from './question-dialog/question-dialog.compo
 import { OptionDialogComponent } from './option-dialog/option-dialog.component';
 import { UpdateDialogComponent } from './update-dialog/update-dialog.component';
 
+import { NormalKullaniciCevaplarGoruntuleComponent } from './normal-kullanici-cevaplar-goruntule/normal-kullanici-cevaplar-goruntule.component';
+
 
 
 const routes: Routes = [
@@ -56,7 +58,7 @@ const routes: Routes = [
   { path: 'question-dialog', component: QuestionDialogComponent },
   { path: 'option-dialog', component: OptionDialogComponent },
   { path: 'update-dialog', component: UpdateDialogComponent },
-
+  { path: 'normal-kullanici-cevaplar-goruntule', component: NormalKullaniciCevaplarGoruntuleComponent },
 
   //{ path: 'special',   //canActivate: [AuthGuard], component: AdminAnaSayfaComponent },
 

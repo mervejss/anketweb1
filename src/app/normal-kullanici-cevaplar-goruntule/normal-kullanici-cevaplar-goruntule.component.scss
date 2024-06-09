@@ -1,0 +1,183 @@
+.main-container {
+    background-color: #e0f7ff; /* Açık mavi arka plan rengi */
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .survey-title h2 {
+    color: #0077b6; /* Koyu mavi yazı rengi */
+  }
+  
+  .activity-table, .stage-table {
+    margin-top: 20px;
+  }
+  
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 18px;
+    text-align: left;
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .styled-table thead tr {
+    background-color: #0077b6; /* Koyu mavi başlık arka plan rengi */
+    color: #ffffff; /* Beyaz başlık yazı rengi */
+    text-align: left;
+    font-weight: bold;
+  }
+  
+  .styled-table th,
+  .styled-table td {
+    padding: 12px 15px;
+  }
+  
+  .styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+  
+  .styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+  
+  .styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #0077b6;
+  }
+  
+  .styled-table tbody tr:hover {
+    background-color: #d1ecf1; /* Hover rengi */
+    cursor: pointer;
+  }
+  
+  h3 {
+    color: #0096c7; /* Başlık yazı rengi */
+    margin: 10px;
+  
+  }
+  
+  .table-title {
+    margin-bottom: 10px;
+    color: #005f73; /* Başlık yazı rengi */
+    font-weight: bold;
+  }
+  
+  button[type="submit"] {
+    /* Buton boyutları */
+    width: 150px;
+    height: 50px;
+    /* İçerik ile kenar arasındaki boşluk */
+    padding: 10px;
+    margin: 10px;
+  
+    /* Alt boşluk */
+    margin-bottom: 10px;
+    /* Sol boşluk */
+    margin-left: 10px;
+    /* Sağ boşluk */
+    margin-right: 10px;
+    /* Üst boşluk */
+    margin-top: 10px;
+    /* Arka plan rengi */
+    background-color: #00437c;
+    /* Metin rengi */
+    color: #ffffff;
+    /* Kenarlık yok */
+    border: none;
+    /* Kenar yumuşatma */
+    border-radius: 7px;
+    /* İmleci göster */
+    cursor: pointer;
+   
+  
+  }
+  
+  
+  button[type="submit2"] {
+    /* Buton boyutları */
+    width: 250px;
+    height: 50px;
+    /* İçerik ile kenar arasındaki boşluk */
+    padding: 10px;
+    margin: 10px;
+  
+    /* Alt boşluk */
+    margin-bottom: 10px;
+    /* Sol boşluk */
+    margin-left: 10px;
+    /* Sağ boşluk */
+    margin-right: 10px;
+    /* Üst boşluk */
+    margin-top: 10px;
+    /* Arka plan rengi */
+    background-color: #00437c;
+    /* Metin rengi */
+    color: #ffffff;
+    /* Kenarlık yok */
+    border: none;
+    /* Kenar yumuşatma */
+    border-radius: 7px;
+    /* İmleci göster */
+    cursor: pointer;
+   
+  
+  }
+  /* Radio butonlar ve yanındaki yazılar için stil tanımlamaları */
+  input[type="radio"] {
+    margin-right: 5px; /* Radio butonların yanındaki boşluk */
+    margin-left: 15px; /* Radio butonların yanındaki boşluk */
+  
+    transform: scale(1.2); /* Radio buton boyutunu büyütme */
+  }
+  
+  label[for^="asama"] {
+    font-size: 20px; /* Radio buton yanındaki yazıların font boyutu */
+    margin-right: 15px; /* Yazıların radio butonlardan sağdaki boşluğu */
+  }
+  
+  
+  button[type="submit3"] {
+    /* Buton boyutları */
+    width: 120px;
+    height: 40px;
+    /* İçerik ile kenar arasındaki boşluk */
+    padding: 10px;
+    margin: 10px;
+    font-size: 16px;
+  
+    /* Alt boşluk */
+    margin-bottom: 10px;
+    /* Sol boşluk */
+    margin-left: 10px;
+    /* Sağ boşluk */
+    margin-right: 10px;
+    /* Üst boşluk */
+    margin-top: 10px;
+    /* Arka plan rengi */
+    background-color: #00437c;
+    /* Metin rengi */
+    color: #ffffff;
+    /* Kenarlık yok */
+    border: none;
+    /* Kenar yumuşatma */
+    border-radius: 7px;
+    /* İmleci göster */
+    cursor: pointer;
+   
+  
+  }
+  
+  .inactive-button {
+    opacity: 0.5; /* Butonun opaklığını azaltarak soluk bir görünüm elde ediyoruz */
+    pointer-events: none; /* Butonun tıklanabilirliğini devre dışı bırakıyoruz */
+    cursor: not-allowed; /* Farenin üzerine gelince işaretçinin uygun olmayan (yani, tıklanamaz) bir işaretçiye dönüşmesini sağlıyoruz */
+  }
+  /* styles.css veya bileşenize özel CSS dosyasına ekleyin */
+  .disabled-component {
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.6; /* İsteğe bağlı: bileşenleri yarı saydam yaparak görsel olarak da fark ettirebilirsiniz */
+  }
+  
