@@ -801,3 +801,33 @@ app.delete('/api/deleteAllOptions/:questionId', async (req, res) => {
     res.status(500).send('Bir hata oluştu, seçenekler silinemedi.');
   }
 });
+
+// /api/watchVideo endpoint'i
+app.post('/api/watchVideo', async (req, res) => {
+  try {
+    const { user_id, action } = req.body;
+
+    let updateField;
+    if (action === 'watch_video1') {
+      updateField = 'video_1_watched';
+    } else if (action === 'watch_video2') {
+      updateField = 'video_2_watched';
+    }
+
+    // Veritabanında kullanıcı aktiviteyi kontrol et
+    const result = await pool.query('SELECT * FROM user_activity_logs WHERE user_id = $1 AND action = $2', [user_id, action]);
+
+    if (result.rows.length > 0) {
+      // Eğer kullanıcı aktivitesi bulunduysa, güncelleme yap
+      await pool.query('UPDATE user_activity_logs SET ${updateField} = true, created_at = CURRENT_TIMESTAMP WHERE user_id = $1 AND action = $2', [user_id, action]);
+      res.status(200).json({ message: 'Aktivite güncellendi' });
+    } else {
+      // Kullanıcı aktivitesi bulunamadı, yeni kayıt ekle
+      await pool.query('INSERT INTO user_activity_logs (user_id, action, created_at, $3) VALUES ($1, $2, CURRENT_TIMESTAMP, true)', [user_id, action, updateField]);
+      res.status(201).json({ message: 'Yeni aktivite eklendi' });
+    }
+  } catch (error) {
+    console.error('Hata:', error.message);
+    res.status(500).json({ message: 'Bir hata oluştu' });
+  }
+});

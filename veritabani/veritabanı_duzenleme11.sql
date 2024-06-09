@@ -412,11 +412,11 @@ VALUES (1, 'logout', 1);
 
 -- Kullanıcı 2. aşamadaki videoyu izleme aktivitesi kaydı ekleme
 INSERT INTO user_activity_logs (user_id, action, stage, video_1_watched)
-VALUES (1, 'watch_video', 2, TRUE);
+VALUES (1, 'watch_video1', 2, TRUE);
 
 -- Kullanıcı 3. aşamadaki videoyu izleme aktivitesi kaydı ekleme
 INSERT INTO user_activity_logs (user_id, action, stage, video_2_watched)
-VALUES (1, 'watch_video', 3, TRUE);
+VALUES (1, 'watch_video2', 3, TRUE);
 
 select*from user_activity_logs
 

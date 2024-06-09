@@ -1,26 +1,28 @@
 <div class="main-container">
   <div class="survey-title">
     <h2>3. AŞAMA</h2>
+    <div class="container">
+      <div *ngIf="ucuncuAsamaBilgilendirmeMetni">
+        <h3>3. Aşama Bilgilendirme Metni</h3>
+        <div class="bilgilendirme-metni">
+          <p>{{ ucuncuAsamaBilgilendirmeMetni }}</p>
+        </div>
+      </div>
 
-  
-  <div class="container">
-    <div *ngIf="ucuncuAsamaBilgilendirmeMetni">
-      <h3>3. Aşama Bilgilendirme Metni</h3>
-      <div class="bilgilendirme-metni">
-        <p>{{ ucuncuAsamaBilgilendirmeMetni }}</p>
+      <div *ngIf="ucuncuAsamaVideoUrls.length > 0">
+        <h3>3. Aşama Videolar</h3>
+        <button type="submit" class="btn btn-primary" (click)="ucuncuAsamaVideolariListele()">İzlenecek Videoları
+          Göster</button>
+        <button type="submit" class="btn btn-primary" (click)="basaAlucuncuAsamaVideolariListele()">İzlenecek Videoları
+          Başa Al</button>
+
+        <div *ngFor="let videoUrl of ucuncuAsamaVideoUrls; let i = index">
+          <div id="ucuncu-player-{{ i }}"></div>
+        </div>
       </div>
     </div>
-
-    <div *ngIf="ucuncuAsamaVideoUrls.length > 0">
-      <h3>3. Aşama Videolar</h3>
-      <button type="submit"   class="btn btn-primary" (click)="ucuncuAsamaVideolariListele()">İzlenecek Videoları Göster</button>
-
-      <div *ngFor="let videoUrl of ucuncuAsamaVideoUrls; let i = index">
-        <div id="ucuncu-player-{{ i }}"></div>
-      </div>
-    </div>
-</div>
-</div>
-<!-- ANKETİ TAMAMLA butonu -->
-<button type="submit"  (click)="sonrakiAsama()" class="complete-button"><mat-icon>arrow_forward</mat-icon>SONRAKİ AŞAMA</button>
+  </div>
+  <!-- ANKETİ TAMAMLA butonu -->
+  <button type="submit" (click)="sonrakiAsama()" class="complete-button"><mat-icon>arrow_forward</mat-icon>SONRAKİ
+    AŞAMA</button>
 </div>

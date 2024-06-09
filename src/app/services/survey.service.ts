@@ -52,6 +52,11 @@ private deleteAllQuestionsapiUrl = `${this._httpUrl}deleteAllQuestions`; // API 
 private deleteAllOptionsapiUrl = `${this._httpUrl}deleteAllOptions`; // API URL'si
 private getUserSurveyOpenAnswersapiUrl = `${this._httpUrl}getUserSurveyOpenAnswers`; // API URL'si
 
+private watchVideoapiUrl = `${this._httpUrl}watchVideo`; // API URL'si
+watchVideo(user_id: number, action: string): Observable<any> {
+  return this.http.post<any>(this.watchVideoapiUrl, { user_id, action });
+}
+
 getUserSurveyOpenAnswers(userId: number, surveyId: number): Observable<any> {
   const params = {
     user_id: userId.toString(),
@@ -83,21 +88,20 @@ getUserSurveyOpenAnswers(userId: number, surveyId: number): Observable<any> {
   }
 
 
-  getDorduncuAsamaVideoCurrentTime(videoId: string): number {
-    return Number(localStorage.getItem(`dorduncuAsamaVideoCurrentTime_${videoId}`)) || 0;
+  getDorduncuAsamaVideoCurrentTime(videoId: string, userId: string): number {
+    return Number(localStorage.getItem(`dorduncuAsamaVideoCurrentTime_${videoId}_${userId}`)) || 0;
+  }
+  getUcuncuAsamaVideoCurrentTime(videoId: string, userId: string): number {
+    return Number(localStorage.getItem(`ucuncuAsamaVideoCurrentTime_${videoId}_${userId}`)) || 0;
   }
 
-  setDorduncuAsamaVideoCurrentTime(videoId: string, time: number): void {
-    localStorage.setItem(`dorduncuAsamaVideoCurrentTime_${videoId}`, time.toString());
+  setDorduncuAsamaVideoCurrentTime(videoId: string, userId: string, time: number): void {
+    localStorage.setItem(`dorduncuAsamaVideoCurrentTime_${videoId}_${userId}`, time.toString());
+  }
+  setUcuncuAsamaVideoCurrentTime(videoId: string, userId: string, time: number): void {
+    localStorage.setItem(`ucuncuAsamaVideoCurrentTime_${videoId}_${userId}`, time.toString());
   }
   
-  getUcuncuAsamaVideoCurrentTime(videoId: string): number {
-    return Number(localStorage.getItem(`ucuncuAsamaVideoCurrentTime_${videoId}`)) || 0;
-  }
-
-  setUcuncuAsamaVideoCurrentTime(videoId: string, time: number): void {
-    localStorage.setItem(`ucuncuAsamaVideoCurrentTime_${videoId}`, time.toString());
-  }
   getUcuncuAsamaVideoUrls(): string[] {
     return JSON.parse(localStorage.getItem('ucuncuAsamaVideoUrls') || '[]');
   }

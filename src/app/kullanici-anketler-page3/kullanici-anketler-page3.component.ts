@@ -31,9 +31,10 @@ export class KullaniciAnketlerPage3Component implements OnInit {
   ucuncuAsamaBilgilendirmeMetni: any;
   players: any = {}; // players nesnesini başlatın
   interval: any;
-
+  videoCount: any;
   ucuncuAsamaVideoCurrentTime: any; // currentTime değişkeni
-
+  totalVideos: number = 0;
+  videosFinishedCount: number = 0;
 
   constructor(
     private surveyService: SurveyService,
@@ -55,25 +56,31 @@ export class KullaniciAnketlerPage3Component implements OnInit {
       clearInterval(this.interval);
     }
   }
+  basaAlucuncuAsamaVideolariListele() {
+    for (let playerId in this.players) {
+      this.players[playerId].stopVideo(); // Tüm videoları durdur
+      this.players[playerId].seekTo(0); // Tüm videoların başlangıç zamanını sıfırla
+    }
+  }
   ucuncuAsamaVideolariListele() {
     console.log('ucuncuAsamaVideolariListele() ÇAĞRILDIIII !');
 
     if (this.ucuncuAsamaVideoUrls.length === 0) {
-        alert('Önceden yüklenmiş bir video bulunamadı!');
+      alert('Önceden yüklenmiş bir video bulunamadı!');
     } else {
-        this.ucuncuAsamaVideoUrls.forEach((videoUrl, index) => {
-            const playerId = 'ucuncu-player-' + index; // Her video için benzersiz playerId oluşturuluyor
-            //this.initYouTubePlayer(videoUrl, playerId, this.ucuncuAsamaVideoCurrentTime);
-            const videoId = this.extractYoutubeId(videoUrl);
-            if (videoId) {
-              const startTime = Math.floor(this.surveyService.getUcuncuAsamaVideoCurrentTime(videoId)); // her video için ayrı startTime
-              this.initYouTubePlayer(videoUrl, playerId, startTime);
-            }
-        
-          });
+      this.totalVideos = this.ucuncuAsamaVideoUrls.length; // Toplam video sayısını alın
+
+      this.ucuncuAsamaVideoUrls.forEach((videoUrl, index) => {
+        this.videoCount = index + 1;
+        const playerId = 'ucuncu-player-' + index; // Her video için benzersiz playerId oluşturuluyor
+        const videoId = this.extractYoutubeId(videoUrl);
+        if (videoId) {
+          const startTime = Math.floor(this.surveyService.getUcuncuAsamaVideoCurrentTime(videoId, this.normalKullaniciData.id)); // her video için ayrı startTime
+          this.initYouTubePlayer(videoUrl, playerId, startTime);
+        }
+      });
     }
   }
-
   extractYoutubeId(url: string): string | null {
     const regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
     const match = url.match(regExp);
@@ -120,19 +127,43 @@ export class KullaniciAnketlerPage3Component implements OnInit {
     this.interval = setInterval(() => {
       const currentTime = this.players[playerId].getCurrentTime(); 
       const duration = this.players[playerId].getDuration(); 
-      console.log('Current Time: ', currentTime);
+      //console.log('playerId:  ',playerId, 'Current Time: ', currentTime);
+      //console.log('this.videoCount indexxx:  ',this.videoCount);
+
       //this.surveyService.setUcuncuAsamaVideoCurrentTime(currentTime); // currentTime değerini kaydet
 
-      this.surveyService.setUcuncuAsamaVideoCurrentTime(videoId, currentTime); // videoId parametresini ekleyin
+      this.surveyService.setUcuncuAsamaVideoCurrentTime(videoId, this.normalKullaniciData.id, currentTime); // videoId parametresini ve userID'yi ekleyin
 
       if (Math.abs(currentTime - duration) < 3) {
         console.log('VİDEO BİTTİ');
-        
         this.stopTracking(playerId); // Fonksiyonu değiştir
+
+        // Tüm videoların bitip bitmediğini kontrol et
+        this.videosFinishedCount++;
+        if (this.videosFinishedCount === this.totalVideos) {
+          console.log('YÜKLENEN TÜM VİDEOLAR İZLENMİŞTİR');
+          this.watchVideo1();
+          // İstenilen mesajı yazdırabilir veya işlem yapabilirsiniz.
+        }
       }
     }, 1000);
   }
+  watchVideo1() {
+      // Örnek kullanıcı kimliği ve eylem
+      const user_id = this.normalKullaniciData.id;
+      const action = 'watch_video1';
 
+      // Servisi kullanarak video izleme aktivitesini tetikle
+      this.surveyService.watchVideo(user_id, action).subscribe(
+        response => {
+          console.log(response.message); // API yanıtını konsola yazdır
+          // Burada başka işlemler yapılabilir
+        },
+        error => {
+          console.error('Hata:', error); // Hata durumunda konsola yazdır
+        }
+      );
+    }
   stopTracking(playerId: string) { // playerId parametresini ekleyin
     if (this.interval) {
       clearInterval(this.interval);
