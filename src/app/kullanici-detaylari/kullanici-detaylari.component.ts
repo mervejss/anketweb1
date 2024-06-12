@@ -36,10 +36,9 @@ export class KullaniciDetaylariComponent implements  OnInit,OnChanges {
   ngOnInit(): void {
     this.normalKullaniciData = this._auth.getUserData();
     this.userID = this.normalKullaniciData.id; // Kullanıcı ID'sini al
-    //this.getUserStage(this.userID);
-    //this.getWatchStatus('watch_video1');
-    //this.getWatchStatus('watch_video2');
 
+    this.getWatchVideo1();
+    this.getWatchVideo2();
     console.log("this.video1Watched :: ", this.video1Watched)
     console.log("this.video2Watched :: ", this.video2Watched)
 
@@ -51,10 +50,13 @@ export class KullaniciDetaylariComponent implements  OnInit,OnChanges {
         // Tıklanan kullanıcı ID'sine sahip işlemleri filtreleme
         this.activityLogs = data.filter(log => log.user_id === this.tiklananUserID);
         this.userStage = this.getUserStage(this.activityLogs);
-        this.video1Watched =  this.getWatchStatus('watch_video1');
-        this.video2Watched = this.getWatchStatus('watch_video2');
-        this.updateStages();
+        console.log("userStage :: ", this.userStage)
 
+        //this.video1Watched =  this.getWatchStatus('watch_video1');
+        //this.video2Watched = this.getWatchStatus('watch_video2');
+        this.updateStages();
+        this.getWatchVideo1();
+        this.getWatchVideo2();
        
       });
     }
@@ -96,37 +98,54 @@ toggleTableVisibility(index: number): void {
     return latestLog.stage;
 }
 
-getVideoWatchedStatus(logs: any[], stage: number): boolean | null {
-    const watchVideoLogs = logs.filter(log => log.action === 'watch_video' && log.stage === stage);
-    if (watchVideoLogs.length === 0) {
-      return null;
+getWatchVideo1() {
+  const user_id = this.tiklananUserID;
+  const action = 'watch_video1';
+
+  if (user_id === null) {
+    console.error('Kullanıcı ID boş.');
+    // Handle null case, maybe show an error message to the user
+    return;
+  }
+
+  this.surveyService.getWatchStatus(user_id, action).subscribe(
+    response => {
+      console.log("getWatchVideo1() response :: ", response);
+
+      this.video1Watched = response.video_1_watched;
+      console.log("this.video1Watched :: ", this.video1Watched);
+    },
+    error => {
+      console.error('Hata:', error);
     }
-    const latestLog = watchVideoLogs.reduce((prev, current) => {
-      return (new Date(prev.created_at) > new Date(current.created_at)) ? prev : current;
-    });
-    return stage === 3 ? latestLog.video_1_watched : latestLog.video_2_watched;
+  );
 }
 
-  getWatchStatus(action: string) {
-    const user_id = this.normalKullaniciData.id;
+getWatchVideo2() {
+  const user_id = this.tiklananUserID;
+  const action = 'watch_video2';
 
-    this.surveyService.getWatchStatus(user_id, action).subscribe(
-      response => {
-        if (action === 'watch_video1') {
-          console.log('response:', response);
-
-          this.video1Watched = response[0].watched;
-          console.log('Video 1 Watched:', this.video1Watched);
-        } else if (action === 'watch_video2') {
-          this.video2Watched = response.watched;
-          console.log('Video 2 Watched:', this.video2Watched);
-        }
-      },
-      error => {
-        console.error('Hata:', error);
-      }
-    );
+  if (user_id === null) {
+    console.error('Kullanıcı ID boş.');
+    // Handle null case, maybe show an error message to the user
+    return;
   }
+
+  this.surveyService.getWatchStatus(user_id, action).subscribe(
+    response => {
+      console.log("getWatchVideo2() response :: ", response);
+      this.video2Watched = response.video_2_watched;
+      console.log("this.video2Watched :: ", this.video2Watched);
+    },
+    error => {
+      console.error('Hata:', error);
+    }
+  );
+}
+
+
+
+
   updateStages(): void {
   
         if (this.userStage === null) {

@@ -22,7 +22,15 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{ userStage }}</td>
+          <td>
+            <ng-container *ngIf="userStage !== null">
+              {{ userStage }}
+            </ng-container>
+            <ng-container *ngIf="userStage === null">
+              ANKETE HENÜZ BAŞLAMADI
+            </ng-container>
+          </td>
+          
           <td>{{ video1Watched ? 'İzlendi' : 'İzlenmedi' }}</td>
           <td>{{ video2Watched ? 'İzlendi' : 'İzlenmedi' }}</td>
         </tr>

@@ -57,7 +57,7 @@ private getWatchStatusapiUrl= `${this._httpUrl}getWatchStatus`; // Yeni API URL'
 
 
 getWatchStatus(user_id: number, action: string): Observable<any> {
-  let params = new HttpParams().set('user_id', user_id.toString()).set('action', action);
+  const params = new HttpParams().set('user_id', user_id.toString()).set('action', action);
   return this.http.get<any>(this.getWatchStatusapiUrl, { params });
 }
 
