@@ -47,4 +47,9 @@ kullanicilaraAnketSec() {
 adminRehber() {
   this.aktifSayfa = 'admin-rehber'; // Başında / olmadan rotayı belirtin
   }
+  
+  adminBildirim() {
+    this.aktifSayfa = 'admin-bildirimleri'; // Başında / olmadan rotayı belirtin
+    }
+
 }
