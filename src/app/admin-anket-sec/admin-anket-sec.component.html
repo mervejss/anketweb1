@@ -1,7 +1,4 @@
-<!-- C:\angular\anketweb-main\src\app\admin-anket-sec\admin-anket-sec.component.html -->
-
 <div class="row">
-
   <div class="container">
     <h2>Kullanıcılara 1. Aşamada Gösterilecek (Çoktan Seçmeli) Anket</h2>
     <form>
@@ -13,13 +10,10 @@
 
       <button class="btn btn-primary" (click)="birinciAsamaAnketSorusuSec()">Anket Seçimi Yap</button>
     </form>
-
   </div>
-
 </div>
 
 <div class="row">
-
   <div class="container">
     <h2>Kullanıcılara 2. Aşamada Gösterilecek (Açık Uçlu) Anket</h2>
     <form>
@@ -31,9 +25,7 @@
 
       <button class="btn btn-primary" (click)="ikinciAsamaAnketSorusuSec()">Anket Seçimi Yap</button>
     </form>
-
   </div>
-
 </div>
 
 <div class="row">
@@ -48,51 +40,38 @@
           <span class="placeholder">Bilgilendirme Metnini buraya yazınız</span>
         </div>
       </div>
-      <button class="btn btn-primary" (click)="dorduncuAsamaAnketSorusuSec()">Bilgilendirme Metnini Tamamla</button>
+      <button class="btn btn-primary" (click)="ucuncuAsamaAnketSorusuSec()">Bilgilendirme Metnini Tamamla</button>
     </form>
+ 
 
-<div class="row">
-  <div class="container">
-    <h2>Kullanıcılara 3. Aşamada Gösterilecek Video</h2>
-    <div class="form-group">
-      <label for="ucuncuAsamaVideoLink">Video Linki: </label>
-      <input type="text" id="ucuncuAsamaVideoLink" name="ucuncuAsamaVideoLink" [(ngModel)]="ucuncuAsamaVideoLink"
-        placeholder="YouTube veya Google Drive video linkini buraya yapıştırın">
-    </div>
-    
-    <button class="btn btn-primary" (click)="ucuncuAsamaVideoYukle()">Video Yükle</button>
-    <button class="btn btn-primary" (click)="ucuncuAsamaVideolariListele()">Yüklenmiş Videoları Göster</button>
-    <button class="btn btn-primary" (click)="ucuncuAsamaVideolariSil()">Tüm Videoları Sil</button>
+  <div class="row">
+    <div class="container">
+      <h2>Kullanıcılara 3. Aşamada Gösterilecek Video</h2>
+      <div class="form-group">
+        <label for="ucuncuAsamaVideoLink">Video Linki: </label>
+        <input type="text" id="ucuncuAsamaVideoLink" name="ucuncuAsamaVideoLink" [(ngModel)]="ucuncuAsamaVideoLink"
+          placeholder="YouTube veya Google Drive video linkini buraya yapıştırın">
+      </div>
 
-    <!-- YÜKLENEN VİDEOYU GÖSTERMEK İÇİN -->
+      <button class="btn btn-primary" (click)="ucuncuAsamaVideoYukle()">Video Yükle</button>
+      <button class="btn btn-primary" (click)="ucuncuAsamaVideolariListele()">Yüklenmiş Videoları Göster</button>
+      <button class="btn btn-primary" (click)="ucuncuAsamaVideolariSil()">Tüm Videoları Sil</button>
 
-    <div>
-      <h3>Videolar</h3>
-      
-
-      <div *ngFor="let videoUrl of ucuncuAsamaVideoUrls; let i = index">
+      <!-- YÜKLENEN VİDEOYU GÖSTERMEK İÇİN -->
+      <div>
+        <h3>Videolar</h3>
+        <div *ngFor="let videoUrl of ucuncuAsamaVideoUrls; let i = index">
           <div id="ucuncu-player-{{i}}">
           </div>
           <div *ngIf="ucuncuAsamaVideoshowVideoButtons">
             <button (click)="ucuncuAsamaVideoKaldir(i)">Bu videoyu Kaldır</button> 
           </div>
+        </div>
       </div>
     </div>
- 
-        
-    <!-- YÜKLENEN VİDEOYU GÖSTERMEK İÇİN 
-
-    <ul>
-      <li *ngFor="let videoUrl of ucuncuAsamaVideoUrls; let i = index">
-        <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(videoUrl)" width="560" height="315"></iframe>
-        <button (click)="ucuncuAsamaVideoKaldir(i)">Bu videoyu Kaldır</button>
-
-      </li>
-    </ul>-->
-
   </div>
 </div>
-
+</div>
 
 <div class="row">
   <div class="container">
@@ -108,6 +87,7 @@
       </div>
       <button class="btn btn-primary" (click)="dorduncuAsamaAnketSorusuSec()">Bilgilendirme Metnini Tamamla</button>
     </form>
+
     <div class="row">
       <div class="container">
         <h2>Kullanıcılara 4. Aşamada Gösterilecek Video</h2>
@@ -120,27 +100,24 @@
         <button class="btn btn-primary" (click)="dorduncuAsamaVideolariListele()">Yüklenmiş Videoları Göster</button>
         <button class="btn btn-primary" (click)="dorduncuAsamaVideolariSil()">Tüm Videoları Sil</button>
 
-
         <!-- YÜKLENEN VİDEOYU GÖSTERMEK İÇİN -->
-       
         <div>
           <h3>Videolar</h3>
           <div *ngFor="let videoUrl of dorduncuAsamaVideoUrls; let i = index">
-              <div id="dorduncu-player-{{i}}">
-              </div>
-              <div *ngIf="dorduncuAsamaVideoshowVideoButtons">
+            <div id="dorduncu-player-{{i}}">
+            </div>
+            <div *ngIf="dorduncuAsamaVideoshowVideoButtons">
               <button (click)="dorduncuAsamaVideoKaldir(i)">Bu videoyu Kaldır</button>
             </div>
           </div>
-      </div>
+        </div>
       </div>
     </div>
+
   </div>
 </div>
 
-
 <div class="row">
-
   <div class="container">
     <h2>Kullanıcılara 5. Aşamada Gösterilecek (Açık Uçlu) Anket</h2>
     <form>
@@ -152,7 +129,5 @@
 
       <button class="btn btn-primary" (click)="besinciAsamaAnketSorusuSec()">Anket Seçimi Yap</button>
     </form>
-
   </div>
-
 </div>
