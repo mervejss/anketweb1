@@ -264,7 +264,7 @@ getVideoWatchedStatus(logs: any[], stage: number): boolean | null {
           this.dorduncuAsamayiTamamla();
           break;
       }
-      
+      this.updateStages();
 
     
       if (this.selectedStage===5)
@@ -299,6 +299,8 @@ getVideoWatchedStatus(logs: any[], stage: number): boolean | null {
         this.besinciAsamayiTamamla();
         break;
     }
+    this.updateStages();
+
     if (stageId===5)
       {
         this.showSuccessAlert('Başarılı', 'Tüm Anketler Başarıyla Tamamlandı !');
