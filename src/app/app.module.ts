@@ -41,7 +41,6 @@ import { UpdateDialogComponent } from './update-dialog/update-dialog.component';
 import { UpdateOptionDialogComponent } from './update-option-dialog/update-option-dialog.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NormalKullaniciCevaplarGoruntuleComponent } from './normal-kullanici-cevaplar-goruntule/normal-kullanici-cevaplar-goruntule.component';
-import { AdminBildirimleriComponent } from './admin-bildirimleri/admin-bildirimleri.component';
 
 
 
@@ -49,7 +48,7 @@ import { AdminBildirimleriComponent } from './admin-bildirimleri/admin-bildiriml
   declarations: [
     AppComponent,
     KayitOlComponent, 
-    GirisYapComponent, AdminGirisYapComponent, AdminKayitOlComponent,AdminAnaSayfaComponent, Page1Component, AnaSayfaComponent, AdminAnketlerPage1Component, NormalKullaniciAnaSayfaComponent, KullaniciAnketlerPage1Component, AdminAnketEkleDuzenleComponent, KullanicilariGoruntuleComponent, KullaniciDetaylariComponent, AdminAnketEkleComponent, AdminAnketSecComponent, KullaniciAnketlerPage2Component, KullaniciAnketlerPage3Component, KullaniciAnketlerPage4Component, KullaniciAnketlerPage5Component, AdminRehberComponent, SurveyDialogComponent, QuestionDialogComponent, OptionDialogComponent, UpdateDialogComponent, UpdateOptionDialogComponent, NormalKullaniciCevaplarGoruntuleComponent, AdminBildirimleriComponent,
+    GirisYapComponent, AdminGirisYapComponent, AdminKayitOlComponent,AdminAnaSayfaComponent, Page1Component, AnaSayfaComponent, AdminAnketlerPage1Component, NormalKullaniciAnaSayfaComponent, KullaniciAnketlerPage1Component, AdminAnketEkleDuzenleComponent, KullanicilariGoruntuleComponent, KullaniciDetaylariComponent, AdminAnketEkleComponent, AdminAnketSecComponent, KullaniciAnketlerPage2Component, KullaniciAnketlerPage3Component, KullaniciAnketlerPage4Component, KullaniciAnketlerPage5Component, AdminRehberComponent, SurveyDialogComponent, QuestionDialogComponent, OptionDialogComponent, UpdateDialogComponent, UpdateOptionDialogComponent, NormalKullaniciCevaplarGoruntuleComponent,
     
   ],
   imports: [

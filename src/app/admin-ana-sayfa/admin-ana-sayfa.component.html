@@ -15,8 +15,6 @@
       <button type="submit" (click)="anketleriGoruntule()">Anketleri Görüntüle</button>
       <button type="submit"  (click)="kullanicilariGoruntule()">Kullanıcıları Görüntüle</button>
       <button type="submit"  (click)="kullanicilaraAnketSec()">Anket Seç</button>
-      <button type="submit"  (click)="adminBildirim()">Bildirimler</button>
-
       <button type="submit"  (click)="adminRehber()">Admin REHBER</button>
 
     <router-outlet></router-outlet>
@@ -28,8 +26,6 @@
     <app-admin-anket-ekle *ngIf="aktifSayfa === 'admin-anket-ekle'"></app-admin-anket-ekle>
     <app-kullanicilari-goruntule *ngIf="aktifSayfa === 'kullanicilari-goruntule'"></app-kullanicilari-goruntule>
     <app-admin-anket-sec *ngIf="aktifSayfa === 'admin-anket-sec'"></app-admin-anket-sec>
-    <app-admin-bildirimleri *ngIf="aktifSayfa === 'admin-bildirimleri'"></app-admin-bildirimleri>
-
     <app-admin-rehber *ngIf="aktifSayfa === 'admin-rehber'"></app-admin-rehber>
 
 

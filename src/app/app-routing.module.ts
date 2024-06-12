@@ -30,7 +30,6 @@ import { UpdateDialogComponent } from './update-dialog/update-dialog.component';
 
 import { NormalKullaniciCevaplarGoruntuleComponent } from './normal-kullanici-cevaplar-goruntule/normal-kullanici-cevaplar-goruntule.component';
 
-import { AdminBildirimleriComponent } from './admin-bildirimleri/admin-bildirimleri.component';
 
 
 const routes: Routes = [
@@ -60,7 +59,6 @@ const routes: Routes = [
   { path: 'option-dialog', component: OptionDialogComponent },
   { path: 'update-dialog', component: UpdateDialogComponent },
   { path: 'normal-kullanici-cevaplar-goruntule', component: NormalKullaniciCevaplarGoruntuleComponent },
-  { path: 'admin-bildirimleri', component: AdminBildirimleriComponent },
 
   //{ path: 'special',   //canActivate: [AuthGuard], component: AdminAnaSayfaComponent },
 
