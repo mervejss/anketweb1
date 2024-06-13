@@ -13,15 +13,24 @@
   }
   .menu-bar {
     width: 500px;
-    height: 450px;
-    background-color: #ffffff;
-    color: #ff0000;
+    height: 620px;
+    background-color: #f3f3f3 ;
+    color: #00437c;
     padding: 10px;
+    margin: 10px;
+
+    border: 3px solid #070cff; /* Beyaz kenarlık ekledim */
+    border-radius: 10px; /* Yumuşak köşeler */
+    animation: frameAnimation 2s infinite alternate; /* Animasyon */
+
   }
   
   .admin-logo {
-    width: 100px; /* Resmin genişliğini panele göre ayarlayın */
-    margin-bottom: 20px; /* İstediğiniz boşluğu belirleyin */
+    width: 150px; /* Resmin genişliğini panele göre ayarlayın */
+    margin: 0 auto 20px; /* Üst ve alt boşluk 20px, sol ve sağ otomatik olarak ortalanmış */
+    display: block; /* Resmi bir blok element olarak gösterir, bu şekilde otomatik ortalama işlevi görür */
+    border: 1px solid #070cff; /* Beyaz kenarlık ekledim */
+    border-radius: 10px; /* Yumuşak köşeler */
   }
   
   .menu-item {
@@ -37,14 +46,7 @@
       height: 50px;
       /* İçerik ile kenar arasındaki boşluk */
       padding: 10px;
-      /* Alt boşluk */
-      margin-bottom: 10px;
-      /* Sol boşluk */
-      margin-left: 10px;
-      /* Sağ boşluk */
-      margin-right: 10px;
-      /* Üst boşluk */
-      margin-top: 10px;
+      margin: 10px;
       /* Arka plan rengi */
       background-color: #00437c;
       /* Metin rengi */
@@ -55,7 +57,8 @@
       border-radius: 7px;
       /* İmleci göster */
       cursor: pointer;
-     
+      transition: background-color 0.3s ease;
+
     
     }
 
@@ -66,4 +69,48 @@
 
   }
  
+  @keyframes frameAnimation {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.05);
+    }
+  }
   
+  .admin-info {
+    margin-bottom: 20px;
+    font-size: 1.2rem; /* Önerilen yazı boyutu */
+    font-family: 'Times New Roman', Times, serif; /* Times New Roman yazı tipi */
+    line-height: 1.5; /* Satır yüksekliği */
+    border: 1px solid #070cff; /* Beyaz kenarlık ekledim */
+    border-radius: 10px; /* Yumuşak köşeler */
+    margin: 10px;
+    padding: 10px;
+
+  }
+  
+ 
+  
+  .anket-sorulari-content {
+    margin-left: 100px; /* Menü çubuğundan daha az sağa boşluk bıraktım */
+  }
+
+
+  .myCssAnimation {
+    padding: 1rem;
+    text-align: center;
+    color:white;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+
+    background: linear-gradient(270deg, #4e79e3, #1f8fff, #5bc0eb, #00bfff, #00ced1);
+    background-size: 600% 600%;
+    animation: borderAnimation 4s ease infinite;
+}
+ 
+@keyframes borderAnimation {
+  0% { background-position: 0 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}

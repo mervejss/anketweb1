@@ -4,16 +4,20 @@
       
         <!-- Normal Kullanıcı bilgilerini yazdırma -->
         
-        <div>
-          <p>ID: {{ normalKullaniciData.id || " " }}</p>
-          <p>Ad: {{ normalKullaniciData.first_name || " " }}</p>
-          <p>Soyad: {{ normalKullaniciData.last_name|| " " }}</p>
-          <p>Telefon: {{ normalKullaniciData.phone_number   || " " }}</p>
-          <p>E-posta: {{ normalKullaniciData.email|| " " }}</p>
+        <div class="normal-kullanici-info">
+          <p><strong>ID : </strong>{{ normalKullaniciData.id || " " }}</p>
+          <p><strong>AD : </strong> {{ normalKullaniciData.first_name || " " }}</p>
+          <p><strong>SOYAD : </strong> {{ normalKullaniciData.last_name|| " " }}</p>
+          <p><strong>TELEFON : </strong>{{ normalKullaniciData.phone_number   || " " }}</p>
+          <p><strong>E-POSTA : </strong> {{ normalKullaniciData.email|| " " }}</p>
         </div>
-        <button type="submit" (click)="cevaplariGoruntule()">Cevaplarımı Görüntüle</button>
+        <div class="normal-kullanici-info">
 
-    
+          <button ngAnimatedBorder class="myCssAnimation" type="submit"
+
+       (click)="cevaplariGoruntule()">Cevaplarımı Görüntüle
+      </button>
+      </div>
       <router-outlet></router-outlet>
     </div>
   
