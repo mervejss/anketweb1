@@ -181,7 +181,7 @@ dorduncuAsamaVideolariListele() {
       width: '560',
       videoId: videoId,
       playerVars: {
-        'controls': 0,
+        'controls': 1,
         'disablekb': 1,
         'fs': 1,
         'modestbranding': 1,

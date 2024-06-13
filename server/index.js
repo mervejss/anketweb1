@@ -43,11 +43,6 @@ app.post('/api/users', (req, res) => {
       let payload = {subject: results.id}
       let token = jwt.sign(payload, 'secretKey')
       res.status(200).send({token})
-      // console.log('Normal Kullanici başarıyla kaydedildi');
-       //console.log(token);
-      
-
-      //return res.status(201).json({ status: 201, message: 'Kullanıcı başarıyla eklenmiştir', user });
     });
 });
 
